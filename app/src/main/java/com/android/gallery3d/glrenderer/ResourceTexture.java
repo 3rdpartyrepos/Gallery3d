@@ -19,8 +19,7 @@ package com.android.gallery3d.glrenderer;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-
-import junit.framework.Assert;
+import android.util.Assert;
 
 // ResourceTexture is a texture whose Bitmap is decoded from a resource.
 // By default ResourceTexture is not opaque.

@@ -17,8 +17,7 @@
 package com.android.gallery3d.glrenderer;
 
 import android.graphics.Bitmap;
-
-import junit.framework.Assert;
+import android.util.Assert;
 
 // BitmapTexture is a texture whose content is specified by a fixed Bitmap.
 //

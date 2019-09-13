@@ -22,12 +22,11 @@ import android.graphics.RectF;
 import android.opengl.GLU;
 import android.opengl.GLUtils;
 import android.opengl.Matrix;
+import android.util.Assert;
 import android.util.Log;
 
 import com.android.gallery3d.common.Utils;
 import com.android.gallery3d.util.IntArray;
-
-import junit.framework.Assert;
 
 import java.nio.Buffer;
 import java.nio.ByteBuffer;

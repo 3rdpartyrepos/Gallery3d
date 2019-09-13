@@ -19,8 +19,7 @@ package com.android.gallery3d.glrenderer;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.opengl.GLUtils;
-
-import junit.framework.Assert;
+import android.util.Assert;
 
 import java.util.HashMap;
 

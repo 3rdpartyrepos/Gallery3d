@@ -74,7 +74,7 @@ public class MasterImage implements RenderingRequestCaller {
     private Bitmap mTemporaryThumbnail = null;
     private int mOrientation;
     private Rect mOriginalBounds;
-    private final Vector<ImageShow> mLoadListeners = new Vector<ImageShow>();
+    private final Vector<ImageShow> mLoadListeners = new Vector<>();
     private Uri mUri = null;
     private int mZoomOrientation = ImageLoader.ORI_NORMAL;
 
@@ -102,7 +102,7 @@ public class MasterImage implements RenderingRequestCaller {
 
     private FilterShowActivity mActivity = null;
 
-    private Vector<ImageShow> mObservers = new Vector<ImageShow>();
+    private Vector<ImageShow> mObservers = new Vector<>();
     private FilterRepresentation mCurrentFilterRepresentation;
 
     private float mScaleFactor = 1.0f;
@@ -184,15 +184,12 @@ public class MasterImage implements RenderingRequestCaller {
         mActivity.runOnUiThread(mWarnListenersRunnable);
     }
 
-    private Runnable mWarnListenersRunnable = new Runnable() {
-        @Override
-        public void run() {
-            for (int i = 0; i < mLoadListeners.size(); i++) {
-                ImageShow imageShow = mLoadListeners.elementAt(i);
-                imageShow.imageLoaded();
-            }
-            invalidatePreview();
+    private Runnable mWarnListenersRunnable = () -> {
+        for (int i = 0; i < mLoadListeners.size(); i++) {
+            ImageShow imageShow = mLoadListeners.elementAt(i);
+            imageShow.imageLoaded();
         }
+        invalidatePreview();
     };
 
     public boolean loadBitmap(Uri uri, int size) {
@@ -436,16 +433,13 @@ public class MasterImage implements RenderingRequestCaller {
             mAnimator = ValueAnimator.ofFloat(1, 0, -1);
             mAnimator.setDuration(500);
         }
-        mAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                if (mCurrentLookAnimation == CIRCLE_ANIMATION) {
-                    setMaskScale((Float) animation.getAnimatedValue());
-                } else if (mCurrentLookAnimation == ROTATE_ANIMATION
-                        || mCurrentLookAnimation == MIRROR_ANIMATION) {
-                    setAnimRotation((Float) animation.getAnimatedValue());
-                    setAnimFraction(animation.getAnimatedFraction());
-                }
+        mAnimator.addUpdateListener(animation -> {
+            if (mCurrentLookAnimation == CIRCLE_ANIMATION) {
+                setMaskScale((Float) animation.getAnimatedValue());
+            } else if (mCurrentLookAnimation == ROTATE_ANIMATION
+                    || mCurrentLookAnimation == MIRROR_ANIMATION) {
+                setAnimRotation((Float) animation.getAnimatedValue());
+                setAnimFraction(animation.getAnimatedFraction());
             }
         });
         mAnimator.addListener(new Animator.AnimatorListener() {

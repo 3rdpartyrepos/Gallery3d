@@ -108,7 +108,7 @@ public class PhotoSetFragment extends MultiSelectGridFragment implements LoaderC
         return ((Cursor) item).getInt(PhotoSetLoader.INDEX_SUPPORTED_OPERATIONS);
     }
 
-    private ArrayList<Uri> mSubItemUriTemp = new ArrayList<Uri>(1);
+    private ArrayList<Uri> mSubItemUriTemp = new ArrayList<>(1);
     @Override
     public ArrayList<Uri> getSubItemUrisForItem(Object item) {
         mSubItemUriTemp.clear();

@@ -48,7 +48,7 @@ public class TrackRunBox extends AbstractFullBox {
     public static final String TYPE = "trun";
     private int dataOffset;
     private SampleFlags firstSampleFlags;
-    private List<Entry> entries = new ArrayList<Entry>();
+    private List<Entry> entries = new ArrayList<>();
 
 
     public List<Entry> getEntries() {

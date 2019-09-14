@@ -36,11 +36,11 @@ public class EC3TrackImpl extends AbstractTrack {
     int bitrate;
     int frameSize;
 
-    List<BitStreamInfo> entries = new LinkedList<BitStreamInfo>();
+    List<BitStreamInfo> entries = new LinkedList<>();
 
     private BufferedInputStream inputStream;
     private List<ByteBuffer> samples;
-    List<TimeToSampleBox.Entry> stts = new LinkedList<TimeToSampleBox.Entry>();
+    List<TimeToSampleBox.Entry> stts = new LinkedList<>();
     private String lang = "und";
 
     public EC3TrackImpl(InputStream fin, String lang) throws IOException {
@@ -124,7 +124,7 @@ public class EC3TrackImpl extends AbstractTrack {
         trackMetaData.setLanguage(lang);
         trackMetaData.setTimescale(samplerate); // Audio tracks always use samplerate as timescale
 
-        samples = new LinkedList<ByteBuffer>();
+        samples = new LinkedList<>();
         if (!readSamples()) {
             throw new IOException();
         }

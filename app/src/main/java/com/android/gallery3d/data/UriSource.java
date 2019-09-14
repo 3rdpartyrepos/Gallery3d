@@ -42,7 +42,7 @@ class UriSource extends MediaSource {
 
     @Override
     public MediaObject createMediaObject(Path path) {
-        String segment[] = path.split();
+        String[] segment = path.split();
         if (segment.length != 3) {
             throw new RuntimeException("bad path: " + path);
         }

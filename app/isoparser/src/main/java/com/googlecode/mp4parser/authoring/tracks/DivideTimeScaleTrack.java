@@ -95,7 +95,7 @@ public class DivideTimeScaleTrack implements Track {
     List<CompositionTimeToSample.Entry> adjustCtts() {
         List<CompositionTimeToSample.Entry> origCtts = this.source.getCompositionTimeEntries();
         if (origCtts != null) {
-            List<CompositionTimeToSample.Entry> entries2 = new ArrayList<CompositionTimeToSample.Entry>(origCtts.size());
+            List<CompositionTimeToSample.Entry> entries2 = new ArrayList<>(origCtts.size());
             for (CompositionTimeToSample.Entry entry : origCtts) {
                 entries2.add(new CompositionTimeToSample.Entry(entry.getCount(), entry.getOffset() / timeScaleDivisor));
             }
@@ -107,7 +107,7 @@ public class DivideTimeScaleTrack implements Track {
 
     List<TimeToSampleBox.Entry> adjustTts() {
         List<TimeToSampleBox.Entry> origTts = source.getDecodingTimeEntries();
-        LinkedList<TimeToSampleBox.Entry> entries2 = new LinkedList<TimeToSampleBox.Entry>();
+        LinkedList<TimeToSampleBox.Entry> entries2 = new LinkedList<>();
         for (TimeToSampleBox.Entry e : origTts) {
             entries2.add(new TimeToSampleBox.Entry(e.getCount(), e.getDelta() / timeScaleDivisor));
         }

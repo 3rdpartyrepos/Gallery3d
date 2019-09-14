@@ -20,7 +20,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.renderscript.Allocation;
 import android.renderscript.RenderScript;
-import android.util.Log;
+
 import com.android.gallery3d.filtershow.cache.BitmapCache;
 import com.android.gallery3d.filtershow.imageshow.MasterImage;
 
@@ -49,11 +49,8 @@ public class Buffer {
         if (mBitmap == null || bitmap == null) {
             return false;
         }
-        if (mBitmap.getWidth() == bitmap.getWidth()
-                && mBitmap.getHeight() == bitmap.getHeight()) {
-            return true;
-        }
-        return false;
+        return mBitmap.getWidth() == bitmap.getWidth()
+                && mBitmap.getHeight() == bitmap.getHeight();
     }
 
     public synchronized void useBitmap(Bitmap bitmap) {

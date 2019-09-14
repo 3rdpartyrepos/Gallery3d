@@ -16,13 +16,9 @@
 
 package com.android.gallery3d.filtershow.editors;
 
-import android.app.ActionBar;
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,22 +27,15 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.SeekBar;
 
 import com.android.gallery3d.R;
 import com.android.gallery3d.filtershow.FilterShowActivity;
-import com.android.gallery3d.filtershow.colorpicker.ColorHueView;
-import com.android.gallery3d.filtershow.colorpicker.ColorListener;
-import com.android.gallery3d.filtershow.colorpicker.ColorOpacityView;
-import com.android.gallery3d.filtershow.colorpicker.ColorSVRectView;
 import com.android.gallery3d.filtershow.controller.BitmapCaller;
 import com.android.gallery3d.filtershow.controller.ColorChooser;
 import com.android.gallery3d.filtershow.controller.FilterView;
-import com.android.gallery3d.filtershow.controller.ParameterColor;
 import com.android.gallery3d.filtershow.filters.FilterDrawRepresentation;
 import com.android.gallery3d.filtershow.filters.FilterRepresentation;
 import com.android.gallery3d.filtershow.filters.ImageFilterDraw;
@@ -139,16 +128,10 @@ public class EditorDraw extends ParametricEditor implements FilterView {
 
     @Override
     public void openUtilityPanel(final LinearLayout accessoryViewList) {
-        Button view = (Button) accessoryViewList.findViewById(R.id.applyEffect);
+        Button view = accessoryViewList.findViewById(R.id.applyEffect);
 
         view.setText(mContext.getString(R.string.draw_color));
-        view.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                showPopupMenu(accessoryViewList);
-            }
-        });
+        view.setOnClickListener(v -> showPopupMenu(accessoryViewList));
 
     }
 
@@ -158,7 +141,7 @@ public class EditorDraw extends ParametricEditor implements FilterView {
     }
 
     private void showPopupMenu(LinearLayout accessoryViewList) {
-        final Button button = (Button) accessoryViewList.findViewById(
+        final Button button = accessoryViewList.findViewById(
                 R.id.applyEffect);
         if (button == null) {
             return;
@@ -174,22 +157,14 @@ public class EditorDraw extends ParametricEditor implements FilterView {
                     item.setVisible(false);
                 }
             }
-            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    clearDrawing();
-                    return true;
-                }
+            popupMenu.setOnMenuItemClickListener(item -> {
+                clearDrawing();
+                return true;
             });
         } else {
-            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    selectMenuItem(item);
-                    return true;
-                }
+            popupMenu.setOnMenuItemClickListener(item -> {
+                selectMenuItem(item);
+                return true;
             });
         }
         popupMenu.show();
@@ -247,7 +222,7 @@ public class EditorDraw extends ParametricEditor implements FilterView {
             return;
         }
 
-        mSeekBar = (SeekBar) editControl.findViewById(R.id.primarySeekBar);
+        mSeekBar = editControl.findViewById(R.id.primarySeekBar);
         if (mSeekBar != null) {
             mSeekBar.setVisibility(View.GONE);
         }

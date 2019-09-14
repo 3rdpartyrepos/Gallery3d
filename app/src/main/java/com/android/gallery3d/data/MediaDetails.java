@@ -17,15 +17,11 @@
 package com.android.gallery3d.data;
 
 import com.android.gallery3d.R;
-import com.android.gallery3d.common.Utils;
 import com.android.gallery3d.exif.ExifInterface;
 import com.android.gallery3d.exif.ExifTag;
-import com.android.gallery3d.exif.Rational;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
@@ -35,8 +31,8 @@ public class MediaDetails implements Iterable<Entry<Integer, Object>> {
     @SuppressWarnings("unused")
     private static final String TAG = "MediaDetails";
 
-    private TreeMap<Integer, Object> mDetails = new TreeMap<Integer, Object>();
-    private HashMap<Integer, Integer> mUnits = new HashMap<Integer, Integer>();
+    private TreeMap<Integer, Object> mDetails = new TreeMap<>();
+    private HashMap<Integer, Integer> mUnits = new HashMap<>();
 
     public static final int INDEX_TITLE = 1;
     public static final int INDEX_DESCRIPTION = 2;
@@ -123,7 +119,7 @@ public class MediaDetails implements Iterable<Entry<Integer, Object>> {
             }
             if (key == MediaDetails.INDEX_FLASH) {
                 FlashState state = new FlashState(
-                        Integer.valueOf(value.toString()));
+                        Integer.valueOf(value));
                 details.addDetail(key, state);
             } else {
                 details.addDetail(key, value);

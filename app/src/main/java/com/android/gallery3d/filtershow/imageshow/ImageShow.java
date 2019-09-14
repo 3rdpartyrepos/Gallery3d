@@ -34,7 +34,6 @@ import android.graphics.Shader;
 import android.graphics.drawable.NinePatchDrawable;
 import android.support.v4.widget.EdgeEffectCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnDoubleTapListener;
 import android.view.GestureDetector.OnGestureListener;
@@ -698,23 +697,17 @@ public class ImageShow extends View implements OnGestureListener,
         mAnimatorTranslateY = ValueAnimator.ofInt(fromY, toY);
         mAnimatorTranslateX.setDuration(delay);
         mAnimatorTranslateY.setDuration(delay);
-        mAnimatorTranslateX.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                Point translation = MasterImage.getImage().getTranslation();
-                translation.x = (Integer) animation.getAnimatedValue();
-                MasterImage.getImage().setTranslation(translation);
-                invalidate();
-            }
+        mAnimatorTranslateX.addUpdateListener(animation -> {
+            Point translation = MasterImage.getImage().getTranslation();
+            translation.x = (Integer) animation.getAnimatedValue();
+            MasterImage.getImage().setTranslation(translation);
+            invalidate();
         });
-        mAnimatorTranslateY.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                Point translation = MasterImage.getImage().getTranslation();
-                translation.y = (Integer) animation.getAnimatedValue();
-                MasterImage.getImage().setTranslation(translation);
-                invalidate();
-            }
+        mAnimatorTranslateY.addUpdateListener(animation -> {
+            Point translation = MasterImage.getImage().getTranslation();
+            translation.y = (Integer) animation.getAnimatedValue();
+            MasterImage.getImage().setTranslation(translation);
+            invalidate();
         });
         mAnimatorTranslateX.start();
         mAnimatorTranslateY.start();
@@ -773,12 +766,9 @@ public class ImageShow extends View implements OnGestureListener,
                                  startTranslateY, translation.y,
                                  mAnimationZoomDelay);
             mAnimatorScale.setDuration(mAnimationZoomDelay);
-            mAnimatorScale.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator animation) {
-                    MasterImage.getImage().setScaleFactor((Float) animation.getAnimatedValue());
-                    invalidate();
-                }
+            mAnimatorScale.addUpdateListener(animation -> {
+                MasterImage.getImage().setScaleFactor((Float) animation.getAnimatedValue());
+                invalidate();
             });
             mAnimatorScale.addListener(new Animator.AnimatorListener() {
                 @Override
@@ -889,10 +879,7 @@ public class ImageShow extends View implements OnGestureListener,
         if (mActivity == null) {
             return false;
         }
-        if (endEvent.getPointerCount() == 2) {
-            return false;
-        }
-        return true;
+        return endEvent.getPointerCount() != 2;
     }
 
     @Override

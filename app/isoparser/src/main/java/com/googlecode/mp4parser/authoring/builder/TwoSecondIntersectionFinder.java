@@ -55,7 +55,7 @@ public class TwoSecondIntersectionFinder implements FragmentIntersectionFinder {
             fragmentCount = 1;
         }
 
-        long fragments[] = new long[fragmentCount];
+        long[] fragments = new long[fragmentCount];
         Arrays.fill(fragments, -1);
         fragments[0] = 1;
 

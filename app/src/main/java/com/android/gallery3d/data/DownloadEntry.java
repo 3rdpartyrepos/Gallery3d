@@ -23,14 +23,14 @@ import com.android.gallery3d.common.EntrySchema;
 public class DownloadEntry extends Entry {
     public static final EntrySchema SCHEMA = new EntrySchema(DownloadEntry.class);
 
-    public static interface Columns extends Entry.Columns {
-        public static final String HASH_CODE = "hash_code";
-        public static final String CONTENT_URL = "content_url";
-        public static final String CONTENT_SIZE = "_size";
-        public static final String ETAG = "etag";
-        public static final String LAST_ACCESS = "last_access";
-        public static final String LAST_UPDATED = "last_updated";
-        public static final String DATA = "_data";
+    public interface Columns extends Entry.Columns {
+        String HASH_CODE = "hash_code";
+        String CONTENT_URL = "content_url";
+        String CONTENT_SIZE = "_size";
+        String ETAG = "etag";
+        String LAST_ACCESS = "last_access";
+        String LAST_UPDATED = "last_updated";
+        String DATA = "_data";
     }
 
     @Column(value = "hash_code", indexed = true)

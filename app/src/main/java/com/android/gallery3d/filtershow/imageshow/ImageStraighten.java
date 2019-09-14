@@ -92,12 +92,9 @@ public class ImageStraighten extends ImageShow {
         mAnimator = ValueAnimator.ofFloat(1, 0);
         mAnimator.setStartDelay(delay);
         mAnimator.setDuration(mAnimDelay);
-        mAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                mGridAlpha = ((Float) animation.getAnimatedValue());
-                invalidate();
-            }
+        mAnimator.addUpdateListener(animation -> {
+            mGridAlpha = ((Float) animation.getAnimatedValue());
+            invalidate();
         });
         mAnimator.start();
     }
@@ -108,7 +105,7 @@ public class ImageStraighten extends ImageShow {
     }
 
     public Collection<FilterRepresentation> getFinalRepresentation() {
-        ArrayList<FilterRepresentation> reps = new ArrayList<FilterRepresentation>(2);
+        ArrayList<FilterRepresentation> reps = new ArrayList<>(2);
         reps.add(mLocalRep);
         if (mInitialAngle != mLocalRep.getStraighten()) {
             reps.add(new FilterCropRepresentation(mCrop));

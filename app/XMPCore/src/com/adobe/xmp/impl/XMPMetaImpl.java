@@ -398,7 +398,7 @@ public class XMPMetaImpl implements XMPMeta, XMPConst
 		}
 
 		Object[] result = XMPNodeUtils.chooseLocalizedText(arrayNode, genericLang, specificLang);
-		int match = ((Integer) result[0]).intValue();
+		int match = (Integer) result[0];
 		final XMPNode itemNode = (XMPNode) result[1];
 
 		if (match != XMPNodeUtils.CLT_NO_VALUES)
@@ -425,7 +425,7 @@ public class XMPMetaImpl implements XMPMeta, XMPConst
 
 				public String toString()
 				{
-					return itemNode.getValue().toString();
+					return itemNode.getValue();
 				}
 			};
 		}
@@ -505,7 +505,7 @@ public class XMPMetaImpl implements XMPMeta, XMPConst
 		// chooseLocalizedText will make sure the array is a language
 		// alternative.
 		Object[] result = XMPNodeUtils.chooseLocalizedText(arrayNode, genericLang, specificLang);
-		int match = ((Integer) result[0]).intValue();
+		int match = (Integer) result[0];
 		XMPNode itemNode = (XMPNode) result[1];
 
 		boolean specificXDefault = XMPConst.X_DEFAULT.equals(specificLang);
@@ -797,7 +797,7 @@ public class XMPMetaImpl implements XMPMeta, XMPConst
 	public void setPropertyInteger(String schemaNS, String propName, int propValue,
 			PropertyOptions options) throws XMPException
 	{
-		setProperty(schemaNS, propName, new Integer(propValue), options);
+		setProperty(schemaNS, propName, propValue, options);
 	}
 
 	
@@ -807,7 +807,7 @@ public class XMPMetaImpl implements XMPMeta, XMPConst
 	public void setPropertyInteger(String schemaNS, String propName, int propValue)
 			throws XMPException
 	{
-		setProperty(schemaNS, propName, new Integer(propValue), null);
+		setProperty(schemaNS, propName, propValue, null);
 	}
 	
 
@@ -826,7 +826,7 @@ public class XMPMetaImpl implements XMPMeta, XMPConst
 	public void setPropertyLong(String schemaNS, String propName, long propValue,
 			PropertyOptions options) throws XMPException
 	{
-		setProperty(schemaNS, propName, new Long(propValue), options);
+		setProperty(schemaNS, propName, propValue, options);
 	}
 
 
@@ -836,7 +836,7 @@ public class XMPMetaImpl implements XMPMeta, XMPConst
 	public void setPropertyLong(String schemaNS, String propName, long propValue)
 			throws XMPException
 	{
-		setProperty(schemaNS, propName, new Long(propValue), null);
+		setProperty(schemaNS, propName, propValue, null);
 	}
 	
 
@@ -855,7 +855,7 @@ public class XMPMetaImpl implements XMPMeta, XMPConst
 	public void setPropertyDouble(String schemaNS, String propName, double propValue,
 			PropertyOptions options) throws XMPException
 	{
-		setProperty(schemaNS, propName, new Double(propValue), options);
+		setProperty(schemaNS, propName, propValue, options);
 	}
 
 	
@@ -865,7 +865,7 @@ public class XMPMetaImpl implements XMPMeta, XMPConst
 	public void setPropertyDouble(String schemaNS, String propName, double propValue)
 			throws XMPException
 	{
-		setProperty(schemaNS, propName, new Double(propValue), null);
+		setProperty(schemaNS, propName, propValue, null);
 	}
 	
 
@@ -1389,16 +1389,16 @@ public class XMPMetaImpl implements XMPMeta, XMPConst
 		switch (valueType)
 		{
 		case VALUE_BOOLEAN:
-			value = new Boolean(XMPUtils.convertToBoolean(rawValue));
+			value = Boolean.valueOf(XMPUtils.convertToBoolean(rawValue));
 			break;
 		case VALUE_INTEGER:
-			value = new Integer(XMPUtils.convertToInteger(rawValue));
+			value = XMPUtils.convertToInteger(rawValue);
 			break;
 		case VALUE_LONG:
-			value = new Long(XMPUtils.convertToLong(rawValue));
+			value = XMPUtils.convertToLong(rawValue);
 			break;
 		case VALUE_DOUBLE:
-			value = new Double(XMPUtils.convertToDouble(rawValue));
+			value = XMPUtils.convertToDouble(rawValue);
 			break;
 		case VALUE_DATE:
 			value = XMPUtils.convertToDate(rawValue);

@@ -96,7 +96,7 @@ public class TileImageView extends GLView {
     private final RectF mSourceRect = new RectF();
     private final RectF mTargetRect = new RectF();
 
-    private final LongSparseArray<Tile> mActiveTiles = new LongSparseArray<Tile>();
+    private final LongSparseArray<Tile> mActiveTiles = new LongSparseArray<>();
 
     // The following three queue is guarded by TileImageView.this
     private final TileQueue mRecycledQueue = new TileQueue();
@@ -114,7 +114,7 @@ public class TileImageView extends GLView {
 
     // Temp variables to avoid memory allocation
     private final Rect mTileRange = new Rect();
-    private final Rect mActiveRange[] = {new Rect(), new Rect()};
+    private final Rect[] mActiveRange = {new Rect(), new Rect()};
 
     private final TileUploader mTileUploader = new TileUploader();
     private boolean mIsTextureFreed;
@@ -122,11 +122,11 @@ public class TileImageView extends GLView {
     private final ThreadPool mThreadPool;
     private boolean mBackgroundTileUploaded;
 
-    public static interface TileSource {
-        public int getLevelCount();
-        public ScreenNail getScreenNail();
-        public int getImageWidth();
-        public int getImageHeight();
+    public interface TileSource {
+        int getLevelCount();
+        ScreenNail getScreenNail();
+        int getImageWidth();
+        int getImageHeight();
 
         // The tile returned by this method can be specified this way: Assuming
         // the image size is (width, height), first take the intersection of (0,
@@ -139,7 +139,7 @@ public class TileImageView extends GLView {
         // still refers to the coordinate on the original image.
         //
         // The method would be called in another thread.
-        public Bitmap getTile(int level, int x, int y, int tileSize);
+        Bitmap getTile(int level, int x, int y, int tileSize);
     }
 
     public static boolean isHighResolution(Context context) {
@@ -234,7 +234,7 @@ public class TileImageView extends GLView {
         fromLevel = Math.max(0, Math.min(fromLevel, mLevelCount - 2));
         endLevel = Math.min(fromLevel + 2, mLevelCount);
 
-        Rect range[] = mActiveRange;
+        Rect[] range = mActiveRange;
         for (int i = fromLevel; i < endLevel; ++i) {
             getRange(range[i - fromLevel], centerX, centerY, i, rotation);
         }
@@ -755,12 +755,9 @@ public class TileImageView extends GLView {
 
     private class TileDecoder implements ThreadPool.Job<Void> {
 
-        private CancelListener mNotifier = new CancelListener() {
-            @Override
-            public void onCancel() {
-                synchronized (TileImageView.this) {
-                    TileImageView.this.notifyAll();
-                }
+        private CancelListener mNotifier = () -> {
+            synchronized (TileImageView.this) {
+                TileImageView.this.notifyAll();
             }
         };
 

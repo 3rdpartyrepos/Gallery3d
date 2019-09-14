@@ -4,7 +4,6 @@ import android.view.View;
 import android.view.ViewParent;
 import android.widget.FrameLayout;
 
-import com.android.gallery3d.filtershow.cache.ImageLoader;
 import com.android.gallery3d.filtershow.editors.Editor;
 import com.android.gallery3d.filtershow.imageshow.ImageShow;
 
@@ -16,8 +15,8 @@ public class EditorPlaceHolder {
 
     private FilterShowActivity mActivity = null;
     private FrameLayout mContainer = null;
-    private HashMap<Integer, Editor> mEditors = new HashMap<Integer, Editor>();
-    private Vector<ImageShow> mOldViews = new Vector<ImageShow>();
+    private HashMap<Integer, Editor> mEditors = new HashMap<>();
+    private Vector<ImageShow> mOldViews = new Vector<>();
 
     public EditorPlaceHolder(FilterShowActivity activity) {
         mActivity = activity;
@@ -32,10 +31,7 @@ public class EditorPlaceHolder {
     }
 
     public boolean contains(int type) {
-        if (mEditors.get(type) != null) {
-            return true;
-        }
-        return false;
+        return mEditors.get(type) != null;
     }
 
     public Editor showEditor(int type) {

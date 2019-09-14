@@ -56,12 +56,12 @@ public class SlideshowPage extends ActivityState {
     private static final int MSG_LOAD_NEXT_BITMAP = 1;
     private static final int MSG_SHOW_PENDING_BITMAP = 2;
 
-    public static interface Model {
-        public void pause();
+    public interface Model {
+        void pause();
 
-        public void resume();
+        void resume();
 
-        public Future<Slide> nextSlide(FutureListener<Slide> listener);
+        Future<Slide> nextSlide(FutureListener<Slide> listener);
     }
 
     public static class Slide {
@@ -140,12 +140,9 @@ public class SlideshowPage extends ActivityState {
     }
 
     private void loadNextBitmap() {
-        mModel.nextSlide(new FutureListener<Slide>() {
-            @Override
-            public void onFutureDone(Future<Slide> future) {
-                mPendingSlide = future.get();
-                mHandler.sendEmptyMessage(MSG_SHOW_PENDING_BITMAP);
-            }
+        mModel.nextSlide(future -> {
+            mPendingSlide = future.get();
+            mHandler.sendEmptyMessage(MSG_SHOW_PENDING_BITMAP);
         });
     }
 
@@ -240,7 +237,7 @@ public class SlideshowPage extends ActivityState {
         private static final int RETRY_COUNT = 5;
         private final MediaSet mMediaSet;
         private final Random mRandom = new Random();
-        private int mOrder[] = new int[0];
+        private int[] mOrder = new int[0];
         private final boolean mRepeat;
         private long mSourceVersion = MediaSet.INVALID_DATA_VERSION;
         private int mLastIndex = -1;
@@ -309,7 +306,7 @@ public class SlideshowPage extends ActivityState {
     private static class SequentialSource implements SlideshowDataAdapter.SlideshowSource {
         private static final int DATA_SIZE = 32;
 
-        private ArrayList<MediaItem> mData = new ArrayList<MediaItem>();
+        private ArrayList<MediaItem> mData = new ArrayList<>();
         private int mDataStart = 0;
         private long mDataVersion = MediaObject.INVALID_DATA_VERSION;
         private final MediaSet mMediaSet;

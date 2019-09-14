@@ -50,18 +50,18 @@ public class MtpClient {
 
   private final Context mContext;
   private final UsbManager mUsbManager;
-  private final ArrayList<Listener> mListeners = new ArrayList<Listener>();
+  private final ArrayList<Listener> mListeners = new ArrayList<>();
   // mDevices contains all MtpDevices that have been seen by our client,
   // so we can inform when the device has been detached.
   // mDevices is also used for synchronization in this class.
-  private final HashMap<String, MtpDevice> mDevices = new HashMap<String, MtpDevice>();
+  private final HashMap<String, MtpDevice> mDevices = new HashMap<>();
   // List of MTP devices we should not try to open for which we are currently
   // asking for permission to open.
-  private final ArrayList<String> mRequestPermissionDevices = new ArrayList<String>();
+  private final ArrayList<String> mRequestPermissionDevices = new ArrayList<>();
   // List of MTP devices we should not try to open.
   // We add devices to this list if the user canceled a permission request or we were
   // unable to open the device.
-  private final ArrayList<String> mIgnoredDevices = new ArrayList<String>();
+  private final ArrayList<String> mIgnoredDevices = new ArrayList<>();
 
   private final PendingIntent mPermissionIntent;
 
@@ -69,7 +69,7 @@ public class MtpClient {
     @Override
     public void onReceive(Context context, Intent intent) {
       String action = intent.getAction();
-      UsbDevice usbDevice = (UsbDevice) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+      UsbDevice usbDevice = intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
       String deviceName = usbDevice.getDeviceName();
 
       synchronized (mDevices) {
@@ -126,14 +126,14 @@ public class MtpClient {
      *
      * @param device the new device that was added
      */
-    public void deviceAdded(MtpDevice device);
+    void deviceAdded(MtpDevice device);
 
     /**
      * Called when a new device has been removed
      *
      * @param device the device that was removed
      */
-    public void deviceRemoved(MtpDevice device);
+    void deviceRemoved(MtpDevice device);
   }
 
   /**
@@ -258,7 +258,7 @@ public class MtpClient {
         }
       }
 
-      return new ArrayList<MtpDevice>(mDevices.values());
+      return new ArrayList<>(mDevices.values());
     }
   }
 

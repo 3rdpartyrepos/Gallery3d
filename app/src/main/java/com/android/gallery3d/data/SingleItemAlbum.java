@@ -37,7 +37,7 @@ public class SingleItemAlbum extends MediaSet {
 
     @Override
     public ArrayList<MediaItem> getMediaItem(int start, int count) {
-        ArrayList<MediaItem> result = new ArrayList<MediaItem>();
+        ArrayList<MediaItem> result = new ArrayList<>();
 
         // If [start, start+count) contains the index 0, return the item.
         if (start <= 0 && start + count > 0) {

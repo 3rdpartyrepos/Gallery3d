@@ -69,7 +69,7 @@ public class WidgetDatabaseHelper extends SQLiteOpenHelper {
         public int widgetId;
         public int type;
         public String imageUri;
-        public byte imageData[];
+        public byte[] imageData;
         public String albumPath;
         public String relativePath;
 
@@ -166,7 +166,7 @@ public class WidgetDatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if (oldVersion < 4) {
             // Table "photos" is renamed to "widget" in version 4
-            ArrayList<Entry> data = new ArrayList<Entry>();
+            ArrayList<Entry> data = new ArrayList<>();
             saveData(db, oldVersion, data);
 
             Log.w(TAG, "destroying all old data.");
@@ -262,7 +262,7 @@ public class WidgetDatabaseHelper extends SQLiteOpenHelper {
                 Log.e(TAG, "query fail: null cursor: " + cursor);
                 return null;
             }
-            ArrayList<Entry> result = new ArrayList<Entry>(cursor.getCount());
+            ArrayList<Entry> result = new ArrayList<>(cursor.getCount());
             while (cursor.moveToNext()) {
                 result.add(new Entry(cursor));
             }

@@ -12,8 +12,6 @@ import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 
 import com.android.gallery3d.R;
-import com.android.gallery3d.filtershow.pipeline.RenderingRequest;
-import com.android.gallery3d.filtershow.pipeline.RenderingRequestCaller;
 import com.android.gallery3d.filtershow.editors.Editor;
 
 import java.util.Vector;
@@ -24,7 +22,7 @@ public class StyleChooser implements Control {
     protected LinearLayout mLinearLayout;
     protected Editor mEditor;
     private View mTopView;
-    private Vector<ImageButton> mIconButton = new Vector<ImageButton>();
+    private Vector<ImageButton> mIconButton = new Vector<>();
     protected int mLayoutID = R.layout.filtershow_control_style_chooser;
 
     @Override
@@ -36,7 +34,7 @@ public class StyleChooser implements Control {
         LayoutInflater inflater =
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mTopView = inflater.inflate(mLayoutID, container, true);
-        mLinearLayout = (LinearLayout) mTopView.findViewById(R.id.listStyles);
+        mLinearLayout = mTopView.findViewById(R.id.listStyles);
         mTopView.setVisibility(View.VISIBLE);
         int n = mParameter.getNumberOfStyles();
         mIconButton.clear();
@@ -50,22 +48,14 @@ public class StyleChooser implements Control {
             button.setBackgroundResource(android.R.color.transparent);
             mIconButton.add(button);
             final int buttonNo = i;
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View arg0) {
-                    mParameter.setSelected(buttonNo);
-                }
-            });
+            button.setOnClickListener(arg0 -> mParameter.setSelected(buttonNo));
             mLinearLayout.addView(button);
-            mParameter.getIcon(i, new BitmapCaller() {
-                @Override
-                public void available(Bitmap bmap) {
+            mParameter.getIcon(i, bmap -> {
 
-                    if (bmap == null) {
-                        return;
-                    }
-                    button.setImageBitmap(bmap);
+                if (bmap == null) {
+                    return;
                 }
+                button.setImageBitmap(bmap);
             });
         }
     }

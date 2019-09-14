@@ -183,19 +183,14 @@ public class GalleryUtils {
     }
 
 
-    public static final double toMile(double meter) {
+    public static double toMile(double meter) {
         return meter / 1609;
     }
 
     // For debugging, it will block the caller for timeout millis.
     public static void fakeBusy(JobContext jc, int timeout) {
         final ConditionVariable cv = new ConditionVariable();
-        jc.setCancelListener(new CancelListener() {
-            @Override
-            public void onCancel() {
-                cv.open();
-            }
-        });
+        jc.setCancelListener(cv::open);
         cv.block(timeout);
         jc.setCancelListener(null);
     }
@@ -298,7 +293,7 @@ public class GalleryUtils {
     }
 
     public static void setViewPointMatrix(
-            float matrix[], float x, float y, float z) {
+            float[] matrix, float x, float y, float z) {
         // The matrix is
         // -z,  0,  x,  0
         //  0, -z,  y,  0

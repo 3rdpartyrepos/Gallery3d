@@ -63,11 +63,7 @@ public class RollRecoveryEntry extends GroupEntry {
 
         RollRecoveryEntry entry = (RollRecoveryEntry) o;
 
-        if (rollDistance != entry.rollDistance) {
-            return false;
-        }
-
-        return true;
+        return rollDistance == entry.rollDistance;
     }
 
     @Override

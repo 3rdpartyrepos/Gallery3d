@@ -10,8 +10,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
@@ -52,12 +50,7 @@ public class ImageDraw extends ImageShow {
     private int mBorderShadowSize;
     private NinePatchDrawable mShadow;
 
-    Runnable mUpdateRunnable = new Runnable() {
-        @Override
-        public void run() {
-           invalidate();
-        }
-    };
+    Runnable mUpdateRunnable = this::invalidate;
 
 
     public ImageDraw(Context context, AttributeSet attrs) {

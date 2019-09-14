@@ -298,42 +298,35 @@ public class XMPNormalizer
 		
 		boolean strictAliasing = options.getStrictAliasing();
 
-		for (Iterator schemaIt = tree.getUnmodifiableChildren().iterator(); schemaIt.hasNext();)
-		{
-			XMPNode currSchema = (XMPNode) schemaIt.next();
-			if (!currSchema.getHasAliases())
-			{
+		for (Object o : tree.getUnmodifiableChildren()) {
+			XMPNode currSchema = (XMPNode) o;
+			if (!currSchema.getHasAliases()) {
 				continue;
 			}
-			
-			for (Iterator propertyIt = currSchema.iterateChildren(); propertyIt.hasNext();)
-			{
+
+			for (Iterator propertyIt = currSchema.iterateChildren(); propertyIt.hasNext(); ) {
 				XMPNode currProp = (XMPNode) propertyIt.next();
-				
-				if (!currProp.isAlias())
-				{
+
+				if (!currProp.isAlias()) {
 					continue;
 				}
-				
+
 				currProp.setAlias(false);
-	
+
 				// Find the base path, look for the base schema and root node.
 				XMPAliasInfo info = XMPMetaFactory.getSchemaRegistry()
 						.findAlias(currProp.getName());
-				if (info != null)
-				{	
+				if (info != null) {
 					// find or create schema
 					XMPNode baseSchema = XMPNodeUtils.findSchemaNode(tree, info
 							.getNamespace(), null, true);
 					baseSchema.setImplicit(false);
-					
+
 					XMPNode baseNode = XMPNodeUtils
-							.findChildNode(baseSchema, 
-								info.getPrefix() + info.getPropName(), false);
-					if (baseNode == null)
-					{
-						if (info.getAliasForm().isSimple())
-						{
+							.findChildNode(baseSchema,
+									info.getPrefix() + info.getPropName(), false);
+					if (baseNode == null) {
+						if (info.getAliasForm().isSimple()) {
 							// A top-to-top alias, transplant the property.
 							// change the alias property name to the base name
 							String qname = info.getPrefix() + info.getPropName();
@@ -341,62 +334,47 @@ public class XMPNormalizer
 							baseSchema.addChild(currProp);
 							// remove the alias property
 							propertyIt.remove();
-						}
-						else
-						{
+						} else {
 							// An alias to an array item, 
 							// create the array and transplant the property.
 							baseNode = new XMPNode(info.getPrefix() + info.getPropName(), info
 									.getAliasForm().toPropertyOptions());
 							baseSchema.addChild(baseNode);
-							transplantArrayItemAlias (propertyIt, currProp, baseNode);
+							transplantArrayItemAlias(propertyIt, currProp, baseNode);
 						}
-					
-					} 
-					else if (info.getAliasForm().isSimple())
-					{
+
+					} else if (info.getAliasForm().isSimple()) {
 						// The base node does exist and this is a top-to-top alias.
 						// Check for conflicts if strict aliasing is on. 
 						// Remove and delete the alias subtree.
-						if (strictAliasing)
-						{
-							compareAliasedSubtrees (currProp, baseNode, true);
+						if (strictAliasing) {
+							compareAliasedSubtrees(currProp, baseNode, true);
 						}
-						
+
 						propertyIt.remove();
-					}
-					else
-					{
+					} else {
 						// This is an alias to an array item and the array exists.
 						// Look for the aliased item.
 						// Then transplant or check & delete as appropriate.
-						
-						XMPNode  itemNode = null;
-						if (info.getAliasForm().isArrayAltText())
-						{
+
+						XMPNode itemNode = null;
+						if (info.getAliasForm().isArrayAltText()) {
 							int xdIndex = XMPNodeUtils.lookupLanguageItem(baseNode,
-									XMPConst.X_DEFAULT); 
-							if (xdIndex != -1)
-							{
+									XMPConst.X_DEFAULT);
+							if (xdIndex != -1) {
 								itemNode = baseNode.getChild(xdIndex);
 							}
-						}
-						else if (baseNode.hasChildren())
-						{
+						} else if (baseNode.hasChildren()) {
 							itemNode = baseNode.getChild(1);
 						}
-						
-						if (itemNode == null)
-						{
-							transplantArrayItemAlias (propertyIt, currProp, baseNode);
-						}
-						else
-						{
-							if (strictAliasing)
-							{
-								compareAliasedSubtrees (currProp, itemNode, true);
+
+						if (itemNode == null) {
+							transplantArrayItemAlias(propertyIt, currProp, baseNode);
+						} else {
+							if (strictAliasing) {
+								compareAliasedSubtrees(currProp, itemNode, true);
 							}
-							
+
 							propertyIt.remove();
 						}
 					}

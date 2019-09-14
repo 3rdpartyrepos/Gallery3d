@@ -111,7 +111,7 @@ public class PhotoDataAdapter implements PhotoPage.Model {
     // smaller than DATA_CACHE_SIZE because we only update the window and reload
     // the MediaItems when there are significant changes to the window position
     // (>= MIN_LOAD_COUNT).
-    private final MediaItem mData[] = new MediaItem[DATA_CACHE_SIZE];
+    private final MediaItem[] mData = new MediaItem[DATA_CACHE_SIZE];
     private int mContentStart = 0;
     private int mContentEnd = 0;
 
@@ -121,7 +121,7 @@ public class PhotoDataAdapter implements PhotoPage.Model {
     // [mActiveStart, mActiveEnd) range must be contained within
     // the [mContentStart, mContentEnd) range.
     private HashMap<Path, ImageEntry> mImageCache =
-            new HashMap<Path, ImageEntry>();
+            new HashMap<>();
     private int mActiveStart = 0;
     private int mActiveEnd = 0;
 
@@ -132,10 +132,10 @@ public class PhotoDataAdapter implements PhotoPage.Model {
     // mChanges keeps the version number (of MediaItem) about the images. If any
     // of the version number changes, we notify the view. This is used after a
     // database reload or mCurrentIndex changes.
-    private final long mChanges[] = new long[IMAGE_CACHE_SIZE];
+    private final long[] mChanges = new long[IMAGE_CACHE_SIZE];
     // mPaths keeps the corresponding Path (of MediaItem) for the images. This
     // is used to determine the item movement.
-    private final Path mPaths[] = new Path[IMAGE_CACHE_SIZE];
+    private final Path[] mPaths = new Path[IMAGE_CACHE_SIZE];
 
     private final Handler mMainHandler;
     private final ThreadPool mThreadPool;
@@ -156,7 +156,7 @@ public class PhotoDataAdapter implements PhotoPage.Model {
     private Path mFocusHintPath = null;
 
     public interface DataListener extends LoadingListener {
-        public void onPhotoChanged(int index, Path item);
+        void onPhotoChanged(int index, Path item);
     }
 
     private DataListener mDataListener;
@@ -187,7 +187,6 @@ public class PhotoDataAdapter implements PhotoPage.Model {
         mUploader = new TiledTexture.Uploader(activity.getGLRoot());
 
         mMainHandler = new SynchronizedHandler(activity.getGLRoot()) {
-            @SuppressWarnings("unchecked")
             @Override
             public void handleMessage(Message message) {
                 switch (message.what) {
@@ -255,10 +254,10 @@ public class PhotoDataAdapter implements PhotoPage.Model {
         // movement. It records the index where the picture come from. The
         // special value Integer.MAX_VALUE means it's a new picture.
         final int N = IMAGE_CACHE_SIZE;
-        int fromIndex[] = new int[N];
+        int[] fromIndex = new int[N];
 
         // Remember the old path array.
-        Path oldPaths[] = new Path[N];
+        Path[] oldPaths = new Path[N];
         System.arraycopy(mPaths, 0, oldPaths, 0, N);
 
         // Update the mPaths array.
@@ -506,17 +505,13 @@ public class PhotoDataAdapter implements PhotoPage.Model {
     @Override
     public boolean isVideo(int offset) {
         MediaItem item = getItem(mCurrentIndex + offset);
-        return (item == null)
-                ? false
-                : item.getMediaType() == MediaItem.MEDIA_TYPE_VIDEO;
+        return (item != null) && item.getMediaType() == MediaItem.MEDIA_TYPE_VIDEO;
     }
 
     @Override
     public boolean isDeletable(int offset) {
         MediaItem item = getItem(mCurrentIndex + offset);
-        return (item == null)
-                ? false
-                : (item.getSupportedOperations() & MediaItem.SUPPORT_DELETE) != 0;
+        return (item != null) && (item.getSupportedOperations() & MediaItem.SUPPORT_DELETE) != 0;
     }
 
     @Override
@@ -665,9 +660,9 @@ public class PhotoDataAdapter implements PhotoPage.Model {
 
         // 1. Find the most wanted request and start it (if not already started).
         Future<?> task = null;
-        for (int i = 0; i < sImageFetchSeq.length; i++) {
-            int offset = sImageFetchSeq[i].indexOffset;
-            int bit = sImageFetchSeq[i].imageBit;
+        for (ImageFetch imageFetch : sImageFetchSeq) {
+            int offset = imageFetch.indexOffset;
+            int bit = imageFetch.imageBit;
             if (bit == BIT_FULL_IMAGE && !mNeedFullImage) continue;
             task = startTaskIfNeeded(currentIndex + offset, bit);
             if (task != null) break;
@@ -753,8 +748,7 @@ public class PhotoDataAdapter implements PhotoPage.Model {
         if (item.getWidth() == 0) return false;
         if (item.getHeight() == 0) return false;
         // Must be created in the last 10 seconds.
-        if (item.getDateInMs() - System.currentTimeMillis() > 10000) return false;
-        return true;
+        return item.getDateInMs() - System.currentTimeMillis() <= 10000;
     }
 
     // Create a default ScreenNail when a ScreenNail is needed, but we don't yet
@@ -806,7 +800,7 @@ public class PhotoDataAdapter implements PhotoPage.Model {
     }
 
     private void updateImageCache() {
-        HashSet<Path> toBeRemoved = new HashSet<Path>(mImageCache.keySet());
+        HashSet<Path> toBeRemoved = new HashSet<>(mImageCache.keySet());
         for (int i = mActiveStart; i < mActiveEnd; ++i) {
             MediaItem item = mData[i % DATA_CACHE_SIZE];
             if (item == null) continue;
@@ -910,7 +904,7 @@ public class PhotoDataAdapter implements PhotoPage.Model {
     }
 
     private <T> T executeAndWait(Callable<T> callable) {
-        FutureTask<T> task = new FutureTask<T>(callable);
+        FutureTask<T> task = new FutureTask<>(callable);
         mMainHandler.sendMessage(
                 mMainHandler.obtainMessage(MSG_RUN_OBJECT, task));
         try {

@@ -21,7 +21,6 @@ import android.util.JsonWriter;
 import android.util.Log;
 
 import com.android.gallery3d.R;
-import com.android.gallery3d.filtershow.editors.EditorRotate;
 import com.android.gallery3d.filtershow.editors.ImageOnlyEditor;
 
 import java.io.IOException;
@@ -37,7 +36,7 @@ public class FilterRotateRepresentation extends FilterRepresentation {
         ZERO(0), NINETY(90), ONE_EIGHTY(180), TWO_SEVENTY(270);
         private final int mValue;
 
-        private Rotation(int value) {
+        Rotation(int value) {
             mValue = value;
         }
 
@@ -163,10 +162,7 @@ public class FilterRotateRepresentation extends FilterRepresentation {
             return false;
         }
         FilterRotateRepresentation rotate = (FilterRotateRepresentation) rep;
-        if (rotate.mRotation.value() != mRotation.value()) {
-            return false;
-        }
-        return true;
+        return rotate.mRotation.value() == mRotation.value();
     }
 
     @Override

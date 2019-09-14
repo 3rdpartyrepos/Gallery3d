@@ -30,8 +30,8 @@ public class LruCache<K, V> {
 
     private final HashMap<K, V> mLruMap;
     private final HashMap<K, Entry<K, V>> mWeakMap =
-            new HashMap<K, Entry<K, V>>();
-    private ReferenceQueue<V> mQueue = new ReferenceQueue<V>();
+            new HashMap<>();
+    private ReferenceQueue<V> mQueue = new ReferenceQueue<>();
 
     @SuppressWarnings("serial")
     public LruCache(final int capacity) {
@@ -70,7 +70,7 @@ public class LruCache<K, V> {
         cleanUpWeakMap();
         mLruMap.put(key, value);
         Entry<K, V> entry = mWeakMap.put(
-                key, new Entry<K, V>(key, value, mQueue));
+                key, new Entry<>(key, value, mQueue));
         return entry == null ? null : entry.get();
     }
 
@@ -85,6 +85,6 @@ public class LruCache<K, V> {
     public synchronized void clear() {
         mLruMap.clear();
         mWeakMap.clear();
-        mQueue = new ReferenceQueue<V>();
+        mQueue = new ReferenceQueue<>();
     }
 }

@@ -29,7 +29,7 @@ public class IngestGridView extends GridView {
    * Listener for all checked choices being cleared.
    */
   public interface OnClearChoicesListener {
-    public void onClearChoices();
+    void onClearChoices();
   }
 
   private OnClearChoicesListener mOnClearChoicesListener = null;

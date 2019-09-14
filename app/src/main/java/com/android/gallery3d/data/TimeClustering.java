@@ -92,7 +92,7 @@ public class TimeClustering extends Clustering {
 
     public TimeClustering(Context context) {
         mContext = context;
-        mClusters = new ArrayList<Cluster>();
+        mClusters = new ArrayList<>();
         mCurrCluster = new Cluster();
     }
 
@@ -102,21 +102,18 @@ public class TimeClustering extends Clustering {
         final SmallItem[] buf = new SmallItem[total];
         final double[] latLng = new double[2];
 
-        baseSet.enumerateTotalMediaItems(new MediaSet.ItemConsumer() {
-            @Override
-            public void consume(int index, MediaItem item) {
-                if (index < 0 || index >= total) return;
-                SmallItem s = new SmallItem();
-                s.path = item.getPath();
-                s.dateInMs = item.getDateInMs();
-                item.getLatLong(latLng);
-                s.lat = latLng[0];
-                s.lng = latLng[1];
-                buf[index] = s;
-            }
+        baseSet.enumerateTotalMediaItems((index, item) -> {
+            if (index < 0 || index >= total) return;
+            SmallItem s = new SmallItem();
+            s.path = item.getPath();
+            s.dateInMs = item.getDateInMs();
+            item.getLatLong(latLng);
+            s.lat = latLng[0];
+            s.lng = latLng[1];
+            buf[index] = s;
         });
 
-        ArrayList<SmallItem> items = new ArrayList<SmallItem>(total);
+        ArrayList<SmallItem> items = new ArrayList<>(total);
         for (int i = 0; i < total; i++) {
             if (buf[i] != null) {
                 items.add(buf[i]);
@@ -162,7 +159,7 @@ public class TimeClustering extends Clustering {
     @Override
     public ArrayList<Path> getCluster(int index) {
         ArrayList<SmallItem> items = mClusters.get(index).getItems();
-        ArrayList<Path> result = new ArrayList<Path>(items.size());
+        ArrayList<Path> result = new ArrayList<>(items.size());
         for (int i = 0, n = items.size(); i < n; i++) {
             result.add(items.get(i).path);
         }
@@ -353,7 +350,7 @@ class Cluster {
     // This is for TimeClustering only.
     public boolean mGeographicallySeparatedFromPrevCluster = false;
 
-    private ArrayList<SmallItem> mItems = new ArrayList<SmallItem>();
+    private ArrayList<SmallItem> mItems = new ArrayList<>();
 
     public Cluster() {
     }

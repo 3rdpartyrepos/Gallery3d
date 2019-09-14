@@ -49,11 +49,11 @@ public class ProfileData {
     private int mNextId;
     private HashMap<String, Integer> mNameToId;
     private DataOutputStream mOut;
-    private byte mScratch[] = new byte[4];  // scratch space for writeInt()
+    private byte[] mScratch = new byte[4];  // scratch space for writeInt()
 
     public ProfileData() {
         mRoot = new Node(null, -1);  // The id of the root node is unused.
-        mNameToId = new HashMap<String, Integer>();
+        mNameToId = new HashMap<>();
     }
 
     public void reset() {
@@ -80,7 +80,7 @@ public class ProfileData {
         Node node = mRoot;
         for (int i = stack.length - 1; i >= 0; i--) {
             if (node.children == null) {
-                node.children = new ArrayList<Node>();
+                node.children = new ArrayList<>();
             }
 
             int id = ids[i];

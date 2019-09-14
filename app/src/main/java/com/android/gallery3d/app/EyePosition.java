@@ -34,7 +34,7 @@ public class EyePosition {
     private static final String TAG = "EyePosition";
 
     public interface EyePositionListener {
-        public void onEyePositionChanged(float x, float y, float z);
+        void onEyePositionChanged(float x, float y, float z);
     }
 
     private static final float GYROSCOPE_THRESHOLD = 0.15f;

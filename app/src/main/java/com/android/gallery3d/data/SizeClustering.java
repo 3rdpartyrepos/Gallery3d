@@ -30,7 +30,7 @@ public class SizeClustering extends Clustering {
     private Context mContext;
     private ArrayList<Path>[] mClusters;
     private String[] mNames;
-    private long mMinSizes[];
+    private long[] mMinSizes;
 
     private static final long MEGA_BYTES = 1024L*1024;
     private static final long GIGA_BYTES = 1024L*1024*1024;
@@ -54,30 +54,27 @@ public class SizeClustering extends Clustering {
     public void run(MediaSet baseSet) {
         @SuppressWarnings("unchecked")
         final ArrayList<Path>[] group = new ArrayList[SIZE_LEVELS.length];
-        baseSet.enumerateTotalMediaItems(new MediaSet.ItemConsumer() {
-            @Override
-            public void consume(int index, MediaItem item) {
-                // Find the cluster this item belongs to.
-                long size = item.getSize();
-                int i;
-                for (i = 0; i < SIZE_LEVELS.length - 1; i++) {
-                    if (size < SIZE_LEVELS[i + 1]) {
-                        break;
-                    }
+        baseSet.enumerateTotalMediaItems((index, item) -> {
+            // Find the cluster this item belongs to.
+            long size = item.getSize();
+            int i;
+            for (i = 0; i < SIZE_LEVELS.length - 1; i++) {
+                if (size < SIZE_LEVELS[i + 1]) {
+                    break;
                 }
-
-                ArrayList<Path> list = group[i];
-                if (list == null) {
-                    list = new ArrayList<Path>();
-                    group[i] = list;
-                }
-                list.add(item.getPath());
             }
+
+            ArrayList<Path> list = group[i];
+            if (list == null) {
+                list = new ArrayList<>();
+                group[i] = list;
+            }
+            list.add(item.getPath());
         });
 
         int count = 0;
-        for (int i = 0; i < group.length; i++) {
-            if (group[i] != null) {
+        for (ArrayList<Path> paths : group) {
+            if (paths != null) {
                 count++;
             }
         }

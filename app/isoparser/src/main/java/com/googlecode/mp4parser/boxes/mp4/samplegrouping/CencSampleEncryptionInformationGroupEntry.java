@@ -108,11 +108,7 @@ public class CencSampleEncryptionInformationGroupEntry extends GroupEntry {
         if (ivSize != that.ivSize) {
             return false;
         }
-        if (!Arrays.equals(kid, that.kid)) {
-            return false;
-        }
-
-        return true;
+        return Arrays.equals(kid, that.kid);
     }
 
     @Override

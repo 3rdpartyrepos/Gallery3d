@@ -48,7 +48,7 @@ aligned(8) class SampleAuxiliaryInformationOffsetsBox
 public class SampleAuxiliaryInformationOffsetsBox extends AbstractFullBox {
     public static final String TYPE = "saio";
 
-    private List<Long> offsets = new LinkedList<Long>();
+    private List<Long> offsets = new LinkedList<>();
     private long auxInfoType;
     private long auxInfoTypeParameter;
 

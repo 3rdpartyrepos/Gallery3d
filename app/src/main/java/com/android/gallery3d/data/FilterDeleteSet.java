@@ -59,10 +59,10 @@ public class FilterDeleteSet extends MediaSet implements ContentListener {
     private final MediaSet mBaseSet;
 
     // Pending Requests
-    private ArrayList<Request> mRequests = new ArrayList<Request>();
+    private ArrayList<Request> mRequests = new ArrayList<>();
 
     // Deletions currently in effect, ordered by index
-    private ArrayList<Deletion> mCurrent = new ArrayList<Deletion>();
+    private ArrayList<Deletion> mCurrent = new ArrayList<>();
 
     public FilterDeleteSet(Path path, MediaSet baseSet) {
         super(path, INVALID_DATA_VERSION);
@@ -111,7 +111,7 @@ public class FilterDeleteSet extends MediaSet implements ContentListener {
     //
     @Override
     public ArrayList<MediaItem> getMediaItem(int start, int count) {
-        if (count <= 0) return new ArrayList<MediaItem>();
+        if (count <= 0) return new ArrayList<>();
 
         int end = start + count - 1;
         int n = mCurrent.size();
@@ -200,7 +200,7 @@ public class FilterDeleteSet extends MediaSet implements ContentListener {
             int from = Math.max(minIndex - 5, 0);
             int to = Math.min(maxIndex + 5, n);
             ArrayList<MediaItem> items = mBaseSet.getMediaItem(from, to - from);
-            ArrayList<Deletion> result = new ArrayList<Deletion>();
+            ArrayList<Deletion> result = new ArrayList<>();
             for (int i = 0; i < items.size(); i++) {
                 MediaItem item = items.get(i);
                 if (item == null) continue;

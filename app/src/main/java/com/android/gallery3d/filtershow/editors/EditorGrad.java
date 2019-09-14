@@ -111,15 +111,10 @@ public class EditorGrad extends ParametricEditor
 
     @Override
     public void openUtilityPanel(final LinearLayout accessoryViewList) {
-        Button view = (Button) accessoryViewList.findViewById(R.id.applyEffect);
+        Button view = accessoryViewList.findViewById(R.id.applyEffect);
         if (useCompact(mContext)) {
             view.setText(mContext.getString(R.string.editor_grad_brightness));
-            view.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View arg0) {
-                    showPopupMenu(accessoryViewList);
-                }
-            });
+            view.setOnClickListener(arg0 -> showPopupMenu(accessoryViewList));
 
             setUpPopupMenu(view);
             setEffectName();
@@ -145,7 +140,7 @@ public class EditorGrad extends ParametricEditor
             super.setUtilityPanelUI(actionButton, editControl);
             return;
         }
-        mSeekBar = (SeekBar) editControl.findViewById(R.id.primarySeekBar);
+        mSeekBar = editControl.findViewById(R.id.primarySeekBar);
         if (mSeekBar != null) {
             mSeekBar.setVisibility(View.GONE);
         }
@@ -160,25 +155,15 @@ public class EditorGrad extends ParametricEditor
                 lp, MODE_BRIGHTNESS);
         mAdapters[2] = new ParamAdapter(R.id.gradSaturationSeekBar, R.id.gradSaturationValue,
                 lp, MODE_SATURATION);
-        lp.findViewById(R.id.gradAddButton).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                fireLeftAction();
-            }
-        });
-        lp.findViewById(R.id.gradDelButton).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                fireRightAction();
-            }
-        });
+        lp.findViewById(R.id.gradAddButton).setOnClickListener(view -> fireLeftAction());
+        lp.findViewById(R.id.gradDelButton).setOnClickListener(view -> fireRightAction());
         setMenuIcon(false);
     }
 
     public void updateParameters() {
         FilterGradRepresentation rep = getGradRepresentation();
-        for (int i = 0; i < mAdapters.length; i++) {
-            mAdapters[i].updateValues(rep);
+        for (ParamAdapter mAdapter : mAdapters) {
+            mAdapter.updateValues(rep);
         }
     }
 
@@ -190,8 +175,8 @@ public class EditorGrad extends ParametricEditor
         int mMode;
 
         public ParamAdapter(int seekId, int textId, LinearLayout layout, int mode) {
-            mSlider = (SeekBar) layout.findViewById(seekId);
-            mTextView = (TextView) layout.findViewById(textId);
+            mSlider = layout.findViewById(seekId);
+            mTextView = layout.findViewById(textId);
             mSlider.setMax(mMax - mMin);
             mMode = mode;
             FilterGradRepresentation rep = getGradRepresentation();
@@ -246,7 +231,7 @@ public class EditorGrad extends ParametricEditor
     }
 
     private void showPopupMenu(LinearLayout accessoryViewList) {
-        Button button = (Button) accessoryViewList.findViewById(R.id.applyEffect);
+        Button button = accessoryViewList.findViewById(R.id.applyEffect);
         if (button == null) {
             return;
         }
@@ -271,36 +256,33 @@ public class EditorGrad extends ParametricEditor
         setEffectName();
         updateText();
 
-        mPopupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                FilterRepresentation tmpRep = getLocalRepresentation();
+        mPopupMenu.setOnMenuItemClickListener(item -> {
+            FilterRepresentation tmpRep = getLocalRepresentation();
 
-                if (tmpRep instanceof FilterGradRepresentation) {
-                    FilterGradRepresentation rep = (FilterGradRepresentation) tmpRep;
-                    int cmdID = item.getItemId();
-                    switch (cmdID) {
-                        case R.id.editor_grad_brightness:
-                            mSliderMode = MODE_BRIGHTNESS;
-                            mEffectName = item.getTitle().toString();
-                            break;
-                        case R.id.editor_grad_contrast:
-                            mSliderMode = MODE_CONTRAST;
-                            mEffectName = item.getTitle().toString();
-                            break;
-                        case R.id.editor_grad_saturation:
-                            mSliderMode = MODE_SATURATION;
-                            mEffectName = item.getTitle().toString();
-                            break;
-                    }
-                    updateMenuItems(rep);
-                    updateSeekBar(rep);
-
-                    commitLocalRepresentation();
-                    mView.invalidate();
+            if (tmpRep instanceof FilterGradRepresentation) {
+                FilterGradRepresentation rep1 = (FilterGradRepresentation) tmpRep;
+                int cmdID = item.getItemId();
+                switch (cmdID) {
+                    case R.id.editor_grad_brightness:
+                        mSliderMode = MODE_BRIGHTNESS;
+                        mEffectName = item.getTitle().toString();
+                        break;
+                    case R.id.editor_grad_contrast:
+                        mSliderMode = MODE_CONTRAST;
+                        mEffectName = item.getTitle().toString();
+                        break;
+                    case R.id.editor_grad_saturation:
+                        mSliderMode = MODE_SATURATION;
+                        mEffectName = item.getTitle().toString();
+                        break;
                 }
-                return true;
+                updateMenuItems(rep1);
+                updateSeekBar(rep1);
+
+                commitLocalRepresentation();
+                mView.invalidate();
             }
+            return true;
         });
     }
 

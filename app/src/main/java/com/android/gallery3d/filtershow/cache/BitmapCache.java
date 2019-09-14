@@ -29,7 +29,7 @@ import java.util.HashMap;
 public class BitmapCache {
     private static final String LOGTAG = "BitmapCache";
     private HashMap<Long, ArrayList<WeakReference<Bitmap>>>
-            mBitmapCache = new HashMap<Long, ArrayList<WeakReference<Bitmap>>>();
+            mBitmapCache = new HashMap<>();
     private final int mMaxItemsPerKey = 4;
 
     private static final boolean DEBUG = false;
@@ -56,7 +56,7 @@ public class BitmapCache {
         int type;
     }
 
-    private ArrayList<BitmapTracking> mBitmapTracking = new ArrayList<BitmapTracking>();
+    private ArrayList<BitmapTracking> mBitmapTracking = new ArrayList<>();
 
     private void track(Bitmap bitmap, int type) {
         for (int i = 0; i < mBitmapTracking.size(); i++) {
@@ -144,7 +144,7 @@ public class BitmapCache {
         Long key = calcKey(bitmap.getWidth(), bitmap.getHeight());
         ArrayList<WeakReference<Bitmap>> list = mBitmapCache.get(key);
         if (list == null) {
-            list = new ArrayList<WeakReference<Bitmap>>();
+            list = new ArrayList<>();
             mBitmapCache.put(key, list);
         }
         int i = 0;
@@ -167,7 +167,7 @@ public class BitmapCache {
                     return true; // bitmap already in the cache
                 }
             }
-            list.add(new WeakReference<Bitmap>(bitmap));
+            list.add(new WeakReference<>(bitmap));
         }
         return true;
     }

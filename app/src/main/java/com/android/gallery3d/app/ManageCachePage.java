@@ -92,7 +92,7 @@ public class ManageCachePage extends ActivityState implements
     }
 
     private GLView mRootPane = new GLView() {
-        private float mMatrix[] = new float[16];
+        private float[] mMatrix = new float[16];
 
         @Override
         protected void renderBackground(GLCanvas view) {
@@ -117,7 +117,7 @@ public class ManageCachePage extends ActivityState implements
 
             View footer = mActivity.findViewById(R.id.footer);
             if (footer != null) {
-                int location[] = {0, 0};
+                int[] location = {0, 0};
                 footer.getLocationOnScreen(location);
                 slotViewBottom = location[1];
             }
@@ -219,7 +219,7 @@ public class ManageCachePage extends ActivityState implements
     public void onConfigurationChanged(Configuration config) {
         // We use different layout resources for different configs
         initializeFooterViews();
-        FrameLayout layout = (FrameLayout) ((Activity) mActivity).findViewById(R.id.footer);
+        FrameLayout layout = mActivity.findViewById(R.id.footer);
         if (layout.getVisibility() == View.VISIBLE) {
             layout.removeAllViews();
             layout.addView(mFooterContent);
@@ -239,7 +239,7 @@ public class ManageCachePage extends ActivityState implements
         }
         mHandler.removeMessages(MSG_REFRESH_STORAGE_INFO);
 
-        FrameLayout layout = (FrameLayout) ((Activity) mActivity).findViewById(R.id.footer);
+        FrameLayout layout = mActivity.findViewById(R.id.footer);
         layout.removeAllViews();
         layout.setVisibility(View.INVISIBLE);
     }
@@ -263,7 +263,7 @@ public class ManageCachePage extends ActivityState implements
         mSelectionDrawer.resume();
         mEyePosition.resume();
         mUpdateStorageInfo = mActivity.getThreadPool().submit(mUpdateStorageInfoJob);
-        FrameLayout layout = (FrameLayout) ((Activity) mActivity).findViewById(R.id.footer);
+        FrameLayout layout = mActivity.findViewById(R.id.footer);
         layout.addView(mFooterContent);
         layout.setVisibility(View.VISIBLE);
     }
@@ -362,8 +362,8 @@ public class ManageCachePage extends ActivityState implements
     }
 
     private void refreshCacheStorageInfo() {
-        ProgressBar progressBar = (ProgressBar) mFooterContent.findViewById(R.id.progress);
-        TextView status = (TextView) mFooterContent.findViewById(R.id.status);
+        ProgressBar progressBar = mFooterContent.findViewById(R.id.progress);
+        TextView status = mFooterContent.findViewById(R.id.status);
         progressBar.setMax(PROGRESS_BAR_MAX);
         long totalBytes = mCacheStorageInfo.getTotalBytes();
         long usedBytes = mCacheStorageInfo.getUsedBytes();

@@ -19,6 +19,7 @@ package com.googlecode.mp4parser.boxes.mp4.samplegrouping;
 import com.coremedia.iso.Hex;
 
 import java.nio.ByteBuffer;
+import java.util.Objects;
 
 /**
  *
@@ -69,11 +70,7 @@ public class UnknownEntry extends GroupEntry {
 
         UnknownEntry that = (UnknownEntry) o;
 
-        if (content != null ? !content.equals(that.content) : that.content != null) {
-            return false;
-        }
-
-        return true;
+        return Objects.equals(content, that.content);
     }
 
     @Override

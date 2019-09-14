@@ -55,22 +55,22 @@ public class GLES11Canvas implements GLCanvas {
 
     private GL11 mGL;
 
-    private final float mMatrixValues[] = new float[16];
-    private final float mTextureMatrixValues[] = new float[16];
+    private final float[] mMatrixValues = new float[16];
+    private final float[] mTextureMatrixValues = new float[16];
 
     // The results of mapPoints are stored in this buffer, and the order is
     // x1, y1, x2, y2.
-    private final float mMapPointsBuffer[] = new float[4];
+    private final float[] mMapPointsBuffer = new float[4];
 
-    private final float mTextureColor[] = new float[4];
+    private final float[] mTextureColor = new float[4];
 
     private int mBoxCoords;
 
     private GLState mGLState;
-    private final ArrayList<RawTexture> mTargetStack = new ArrayList<RawTexture>();
+    private final ArrayList<RawTexture> mTargetStack = new ArrayList<>();
 
     private float mAlpha;
-    private final ArrayList<ConfigState> mRestoreStack = new ArrayList<ConfigState>();
+    private final ArrayList<ConfigState> mRestoreStack = new ArrayList<>();
     private ConfigState mRecycledRestoreAction;
 
     private final RectF mDrawTextureSourceRect = new RectF();
@@ -81,7 +81,7 @@ public class GLES11Canvas implements GLCanvas {
     private int mScreenWidth;
     private int mScreenHeight;
     private boolean mBlendEnabled = true;
-    private int mFrameBuffer[] = new int[1];
+    private int[] mFrameBuffer = new int[1];
     private static float[] sCropRect = new float[4];
 
     private RawTexture mTargetTexture;
@@ -142,7 +142,7 @@ public class GLES11Canvas implements GLCanvas {
         gl.glMatrixMode(GL11.GL_MODELVIEW);
         gl.glLoadIdentity();
 
-        float matrix[] = mMatrixValues;
+        float[] matrix = mMatrixValues;
         Matrix.setIdentityM(matrix, 0);
         // to match the graphic coordinate system in android, we flip it vertically.
         if (mTargetTexture == null) {
@@ -256,7 +256,7 @@ public class GLES11Canvas implements GLCanvas {
     }
 
     @Override
-    public void multiplyMatrix(float matrix[], int offset) {
+    public void multiplyMatrix(float[] matrix, int offset) {
         float[] temp = mTempMatrix;
         Matrix.multiplyMM(temp, 0, mMatrixValues, 0, matrix, offset);
         System.arraycopy(temp, 0, mMatrixValues, 0, 16);
@@ -315,7 +315,7 @@ public class GLES11Canvas implements GLCanvas {
 
     // Transforms two points by the given matrix m. The result
     // {x1', y1', x2', y2'} are stored in mMapPointsBuffer and also returned.
-    private float[] mapPoints(float m[], int x1, int y1, int x2, int y2) {
+    private float[] mapPoints(float[] m, int x1, int y1, int x2, int y2) {
         float[] r = mMapPointsBuffer;
 
         // Multiply m and (x1 y1 0 1) to produce (x3 y3 z3 w3). z3 is unused.
@@ -354,7 +354,7 @@ public class GLES11Canvas implements GLCanvas {
             textureRect(x, y, width, height);
         } else {
             // draw the rect from bottom-left to top-right
-            float points[] = mapPoints(
+            float[] points = mapPoints(
                     mMatrixValues, x, y + height, x + width, y);
             x = (int) (points[0] + 0.5f);
             y = (int) (points[1] + 0.5f);
@@ -574,7 +574,7 @@ public class GLES11Canvas implements GLCanvas {
     private static final int MSCALE_X = 0;
     private static final int MSCALE_Y = 5;
 
-    private static boolean isMatrixRotatedOrFlipped(float matrix[]) {
+    private static boolean isMatrixRotatedOrFlipped(float[] matrix) {
         final float eps = 1e-5f;
         return Math.abs(matrix[MSKEW_X]) > eps
                 || Math.abs(matrix[MSKEW_Y]) > eps
@@ -805,7 +805,7 @@ public class GLES11Canvas implements GLCanvas {
 
     private static class ConfigState {
         float mAlpha;
-        float mMatrix[] = new float[16];
+        float[] mMatrix = new float[16];
         ConfigState mNextFree;
 
         public void restore(GLES11Canvas canvas) {

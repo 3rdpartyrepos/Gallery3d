@@ -83,10 +83,7 @@ public class SimpleDate implements Comparable<SimpleDate> {
     if (month != other.month) {
       return false;
     }
-    if (day != other.day) {
-      return false;
-    }
-    return true;
+      return day == other.day;
   }
 
   @Override

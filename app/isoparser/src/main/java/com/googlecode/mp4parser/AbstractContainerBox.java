@@ -38,7 +38,7 @@ import java.util.logging.Logger;
 public abstract class AbstractContainerBox extends AbstractBox implements ContainerBox {
     private static Logger LOG = Logger.getLogger(AbstractContainerBox.class.getName());
 
-    protected List<Box> boxes = new LinkedList<Box>();
+    protected List<Box> boxes = new LinkedList<>();
     protected BoxParser boxParser;
 
     @Override
@@ -59,17 +59,16 @@ public abstract class AbstractContainerBox extends AbstractBox implements Contai
     }
 
     public void setBoxes(List<Box> boxes) {
-        this.boxes = new LinkedList<Box>(boxes);
+        this.boxes = new LinkedList<>(boxes);
     }
 
-    @SuppressWarnings("unchecked")
     public <T extends Box> List<T> getBoxes(Class<T> clazz) {
         return getBoxes(clazz, false);
     }
 
     @SuppressWarnings("unchecked")
     public <T extends Box> List<T> getBoxes(Class<T> clazz, boolean recursive) {
-        List<T> boxesToBeReturned = new ArrayList<T>(2);
+        List<T> boxesToBeReturned = new ArrayList<>(2);
         for (Box boxe : boxes) {
             //clazz.isInstance(boxe) / clazz == boxe.getClass()?
             // I hereby finally decide to use isInstance

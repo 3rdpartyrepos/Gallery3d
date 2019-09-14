@@ -27,7 +27,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.media.audiofx.AudioEffect;
 import android.media.audiofx.Virtualizer;
 import android.net.Uri;
 import android.os.Build;
@@ -120,7 +119,7 @@ public class MoviePlayer implements
             Uri videoUri, Bundle savedInstance, boolean canReplay) {
         mContext = movieActivity.getApplicationContext();
         mRootView = rootView;
-        mVideoView = (VideoView) rootView.findViewById(R.id.surface_view);
+        mVideoView = rootView.findViewById(R.id.surface_view);
         mBookmarker = new Bookmarker(movieActivity);
         mUri = videoUri;
 
@@ -144,23 +143,17 @@ public class MoviePlayer implements
                 Log.w(TAG, "no audio session to virtualize");
             }
         }
-        mVideoView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                mController.show();
-                return true;
-            }
+        mVideoView.setOnTouchListener((v, event) -> {
+            mController.show();
+            return true;
         });
-        mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer player) {
-                if (!mVideoView.canSeekForward() || !mVideoView.canSeekBackward()) {
-                    mController.setSeekable(false);
-                } else {
-                    mController.setSeekable(true);
-                }
-                setProgress();
+        mVideoView.setOnPreparedListener(player -> {
+            if (!mVideoView.canSeekForward() || !mVideoView.canSeekBackward()) {
+                mController.setSeekable(false);
+            } else {
+                mController.setSeekable(true);
             }
+            setProgress();
         });
 
         // The SurfaceView is transparent before drawing the first frame.
@@ -168,12 +161,7 @@ public class MoviePlayer implements
         // -> video) However, we have no way to know the timing of the first
         // frame. So, we hide the VideoView for a while to make sure the
         // video has been drawn on it.
-        mVideoView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mVideoView.setVisibility(View.VISIBLE);
-            }
-        }, BLACK_TIMEOUT);
+        mVideoView.postDelayed(() -> mVideoView.setVisibility(View.VISIBLE), BLACK_TIMEOUT);
 
         setOnSystemUiVisibilityChangeListener();
         // Hide system UI by default
@@ -210,17 +198,14 @@ public class MoviePlayer implements
         // will change system ui visibility from invisible to visible. We show
         // the media control and enable system UI (e.g. ActionBar) to be visible at this point
         mVideoView.setOnSystemUiVisibilityChangeListener(
-                new View.OnSystemUiVisibilityChangeListener() {
-            @Override
-            public void onSystemUiVisibilityChange(int visibility) {
-                int diff = mLastSystemUiVis ^ visibility;
-                mLastSystemUiVis = visibility;
-                if ((diff & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) != 0
-                        && (visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0) {
-                    mController.show();
-                }
-            }
-        });
+                visibility -> {
+                    int diff = mLastSystemUiVis ^ visibility;
+                    mLastSystemUiVis = visibility;
+                    if ((diff & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) != 0
+                            && (visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0) {
+                        mController.show();
+                    }
+                });
     }
 
     @SuppressWarnings("deprecation")
@@ -250,27 +235,14 @@ public class MoviePlayer implements
         builder.setMessage(String.format(
                 context.getString(R.string.resume_playing_message),
                 GalleryUtils.formatDuration(context, bookmark / 1000)));
-        builder.setOnCancelListener(new OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                onCompletion();
-            }
-        });
+        builder.setOnCancelListener(dialog -> onCompletion());
         builder.setPositiveButton(
-                R.string.resume_playing_resume, new OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                mVideoView.seekTo(bookmark);
-                startVideo();
-            }
-        });
+                R.string.resume_playing_resume, (dialog, which) -> {
+                    mVideoView.seekTo(bookmark);
+                    startVideo();
+                });
         builder.setNegativeButton(
-                R.string.resume_playing_restart, new OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                startVideo();
-            }
-        });
+                R.string.resume_playing_restart, (dialog, which) -> startVideo());
         builder.show();
     }
 
@@ -537,7 +509,7 @@ class Bookmarker {
                     || (bookmark > (duration - HALF_MINUTE))) {
                 return null;
             }
-            return Integer.valueOf(bookmark);
+            return bookmark;
         } catch (Throwable t) {
             Log.w(TAG, "getBookmark failed", t);
         }

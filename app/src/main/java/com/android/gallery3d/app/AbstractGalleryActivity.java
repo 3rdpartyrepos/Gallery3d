@@ -140,7 +140,7 @@ public class AbstractGalleryActivity extends Activity implements GalleryContext 
     @Override
     public void setContentView(int resId) {
         super.setContentView(resId);
-        mGLRootView = (GLRootView) findViewById(R.id.gl_root_view);
+        mGLRootView = findViewById(R.id.gl_root_view);
     }
 
     protected void onStorageReady() {
@@ -155,18 +155,8 @@ public class AbstractGalleryActivity extends Activity implements GalleryContext 
     protected void onStart() {
         super.onStart();
         if (getExternalCacheDir() == null) {
-            OnCancelListener onCancel = new OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialog) {
-                    finish();
-                }
-            };
-            OnClickListener onClick = new OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            };
+            OnCancelListener onCancel = dialog -> finish();
+            OnClickListener onClick = (dialog, which) -> dialog.cancel();
             AlertDialog.Builder builder = new AlertDialog.Builder(this)
                     .setTitle(R.string.no_external_storage_title)
                     .setMessage(R.string.no_external_storage)

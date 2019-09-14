@@ -31,7 +31,7 @@ public class SampleAuxiliaryInformationSizesBox extends AbstractFullBox {
     public static final String TYPE = "saiz";
 
     private int defaultSampleInfoSize;
-    private List<Short> sampleInfoSizes = new LinkedList<Short>();
+    private List<Short> sampleInfoSizes = new LinkedList<>();
     private int sampleCount;
     private String auxInfoType;
     private String auxInfoTypeParameter;

@@ -50,9 +50,9 @@ public class AlbumDataLoader {
     private final long[] mItemVersion;
     private final long[] mSetVersion;
 
-    public static interface DataListener {
-        public void onContentChanged(int index);
-        public void onSizeChanged(int size);
+    public interface DataListener {
+        void onContentChanged(int index);
+        void onSizeChanged(int size);
     }
 
     private int mActiveStart = 0;
@@ -220,7 +220,7 @@ public class AlbumDataLoader {
     }
 
     private <T> T executeAndWait(Callable<T> callable) {
-        FutureTask<T> task = new FutureTask<T>(callable);
+        FutureTask<T> task = new FutureTask<>(callable);
         mMainHandler.sendMessage(
                 mMainHandler.obtainMessage(MSG_RUN_OBJECT, task));
         try {
@@ -258,7 +258,7 @@ public class AlbumDataLoader {
             long version = mVersion;
             info.version = mSourceVersion;
             info.size = mSize;
-            long setVersion[] = mSetVersion;
+            long[] setVersion = mSetVersion;
             for (int i = mContentStart, n = mContentEnd; i < n; ++i) {
                 int index = i % DATA_CACHE_SIZE;
                 if (setVersion[index] != version) {

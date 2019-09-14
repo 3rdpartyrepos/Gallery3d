@@ -16,7 +16,6 @@
 
 package com.android.gallery3d.anim;
 
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 
@@ -89,7 +88,7 @@ public class StateTransitionAnimation extends Animation {
         }
     }
 
-    public static enum Transition { None, Outgoing, Incoming, PhotoIncoming }
+    public enum Transition { None, Outgoing, Incoming, PhotoIncoming }
 
     private final Spec mTransitionSpec;
     private float mCurrentContentScale;

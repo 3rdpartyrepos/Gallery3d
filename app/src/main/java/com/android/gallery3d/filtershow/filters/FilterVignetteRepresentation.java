@@ -21,7 +21,6 @@ import android.util.JsonWriter;
 
 import com.android.gallery3d.R;
 import com.android.gallery3d.filtershow.controller.BasicParameterInt;
-import com.android.gallery3d.filtershow.controller.Parameter;
 import com.android.gallery3d.filtershow.editors.EditorVignette;
 import com.android.gallery3d.filtershow.imageshow.Oval;
 
@@ -151,7 +150,7 @@ public class FilterVignetteRepresentation extends FilterRepresentation implement
     }
 
     public boolean isCenterSet() {
-        return mCenterX != Float.NaN;
+        return !Float.isNaN(mCenterX);
     }
 
     @Override
@@ -170,12 +169,10 @@ public class FilterVignetteRepresentation extends FilterRepresentation implement
                 if (mAllParam[i].getValue() != rep.mAllParam[i].getValue())
                     return false;
             }
-            if (rep.getCenterX() == getCenterX()
+            return rep.getCenterX() == getCenterX()
                     && rep.getCenterY() == getCenterY()
                     && rep.getRadiusX() == getRadiusX()
-                    && rep.getRadiusY() == getRadiusY()) {
-                return true;
-            }
+                    && rep.getRadiusY() == getRadiusY();
         }
         return false;
     }

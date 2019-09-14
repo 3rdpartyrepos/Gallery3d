@@ -87,9 +87,9 @@ public class AlbumFragment extends MultiSelectGridFragment implements LoaderCall
             // TODO remove this when the data model stabilizes
             mHeaderView.setMinimumHeight(200);
         }
-        ImageView iv = (ImageView) mHeaderView.findViewById(R.id.album_header_image);
-        TextView title = (TextView) mHeaderView.findViewById(R.id.album_header_title);
-        TextView subtitle = (TextView) mHeaderView.findViewById(R.id.album_header_subtitle);
+        ImageView iv = mHeaderView.findViewById(R.id.album_header_image);
+        TextView title = mHeaderView.findViewById(R.id.album_header_title);
+        TextView subtitle = mHeaderView.findViewById(R.id.album_header_subtitle);
         title.setText(mAlbumTitle);
         int count = mAdapter.getCount();
         subtitle.setText(getActivity().getResources().getQuantityString(
@@ -143,7 +143,7 @@ public class AlbumFragment extends MultiSelectGridFragment implements LoaderCall
         return ((Cursor) item).getInt(PhotoSetLoader.INDEX_SUPPORTED_OPERATIONS);
     }
 
-    private ArrayList<Uri> mSubItemUriTemp = new ArrayList<Uri>(1);
+    private ArrayList<Uri> mSubItemUriTemp = new ArrayList<>(1);
     @Override
     public ArrayList<Uri> getSubItemUrisForItem(Object item) {
         mSubItemUriTemp.clear();

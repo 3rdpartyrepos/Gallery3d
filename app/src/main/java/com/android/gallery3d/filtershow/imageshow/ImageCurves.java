@@ -89,13 +89,13 @@ public class ImageCurves extends ImageShow {
     }
 
     private void showPopupMenu(LinearLayout accessoryViewList) {
-        final Button button = (Button) accessoryViewList.findViewById(
+        final Button button = accessoryViewList.findViewById(
                 R.id.applyEffect);
         if (button == null) {
             return;
         }
         if (mIdStrLut == null){
-            mIdStrLut = new HashMap<Integer, String>();
+            mIdStrLut = new HashMap<>();
             mIdStrLut.put(R.id.curve_menu_rgb,
                     getContext().getString(R.string.curves_channel_rgb));
             mIdStrLut.put(R.id.curve_menu_red,
@@ -107,13 +107,10 @@ public class ImageCurves extends ImageShow {
         }
         PopupMenu popupMenu = new PopupMenu(getActivity(), button);
         popupMenu.getMenuInflater().inflate(R.menu.filtershow_menu_curves, popupMenu.getMenu());
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                setChannel(item.getItemId());
-                button.setText(mIdStrLut.get(item.getItemId()));
-                return true;
-            }
+        popupMenu.setOnMenuItemClickListener(item -> {
+            setChannel(item.getItemId());
+            button.setText(mIdStrLut.get(item.getItemId()));
+            return true;
         });
         Editor.hackFixStrings(popupMenu.getMenu());
         popupMenu.show();
@@ -123,16 +120,11 @@ public class ImageCurves extends ImageShow {
     @Override
     public void openUtilityPanel(final LinearLayout accessoryViewList) {
         Context context = accessoryViewList.getContext();
-        Button view = (Button) accessoryViewList.findViewById(R.id.applyEffect);
+        Button view = accessoryViewList.findViewById(R.id.applyEffect);
         view.setText(context.getString(R.string.curves_channel_rgb));
         view.setVisibility(View.VISIBLE);
 
-        view.setOnClickListener(new OnClickListener() {
-                @Override
-            public void onClick(View arg0) {
-                showPopupMenu(accessoryViewList);
-            }
-        });
+        view.setOnClickListener(arg0 -> showPopupMenu(accessoryViewList));
 
         if (view != null) {
             view.setVisibility(View.VISIBLE);
@@ -366,9 +358,9 @@ public class ImageCurves extends ImageShow {
 
     private void drawHistogram(Canvas canvas, int[] histogram, int color, PorterDuff.Mode mode) {
         int max = 0;
-        for (int i = 0; i < histogram.length; i++) {
-            if (histogram[i] > max) {
-                max = histogram[i];
+        for (int value : histogram) {
+            if (value > max) {
+                max = value;
             }
         }
         float w = getWidth() - Spline.curveHandleSize();

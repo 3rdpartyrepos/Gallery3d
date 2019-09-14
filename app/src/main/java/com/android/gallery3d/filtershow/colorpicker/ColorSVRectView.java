@@ -20,13 +20,11 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.RadialGradient;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
-import android.graphics.SweepGradient;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
@@ -126,7 +124,7 @@ public class ColorSVRectView extends View implements ColorListener {
         mRect.right -= mBorder;
         canvas.drawBitmap(mBitmap, null, mRect, mPaint1);
 
-        if (mDotX != Float.NaN) {
+        if (!Float.isNaN(mDotX)) {
 
             canvas.drawCircle(mDotX, mDotY, mDotRadus, mDotPaint);
         }
@@ -215,7 +213,7 @@ public class ColorSVRectView extends View implements ColorListener {
 
     }
 
-    ArrayList<ColorListener> mColorListeners = new ArrayList<ColorListener>();
+    ArrayList<ColorListener> mColorListeners = new ArrayList<>();
 
     public void notifyColorListeners(float[] hsv) {
         for (ColorListener l : mColorListeners) {

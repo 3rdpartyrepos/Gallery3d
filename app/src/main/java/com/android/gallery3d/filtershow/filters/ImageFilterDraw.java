@@ -29,8 +29,6 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 
 import com.android.gallery3d.R;
-import com.android.gallery3d.app.Log;
-import com.android.gallery3d.filtershow.cache.ImageLoader;
 import com.android.gallery3d.filtershow.filters.FilterDrawRepresentation.StrokeData;
 import com.android.gallery3d.filtershow.imageshow.MasterImage;
 import com.android.gallery3d.filtershow.pipeline.FilterEnvironment;
@@ -86,10 +84,10 @@ public class ImageFilterDraw extends ImageFilter {
         return mCurrentStyle;
     }
 
-    public static interface DrawStyle {
-        public void setType(byte type);
-        public void paint(FilterDrawRepresentation.StrokeData sd, Canvas canvas, Matrix toScrMatrix,
-                          int quality);
+    public interface DrawStyle {
+        void setType(byte type);
+        void paint(FilterDrawRepresentation.StrokeData sd, Canvas canvas, Matrix toScrMatrix,
+                   int quality);
     }
 
     class SimpleDraw implements DrawStyle {

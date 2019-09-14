@@ -26,8 +26,8 @@ public class FilterTypeSet extends MediaSet implements ContentListener {
     private final DataManager mDataManager;
     private final MediaSet mBaseSet;
     private final int mMediaType;
-    private final ArrayList<Path> mPaths = new ArrayList<Path>();
-    private final ArrayList<MediaSet> mAlbums = new ArrayList<MediaSet>();
+    private final ArrayList<Path> mPaths = new ArrayList<>();
+    private final ArrayList<MediaSet> mAlbums = new ArrayList<>();
 
     public FilterTypeSet(Path path, DataManager dataManager, MediaSet baseSet,
             int mediaType) {
@@ -99,14 +99,11 @@ public class FilterTypeSet extends MediaSet implements ContentListener {
         final int total = mBaseSet.getMediaItemCount();
         final Path[] buf = new Path[total];
 
-        mBaseSet.enumerateMediaItems(new ItemConsumer() {
-            @Override
-            public void consume(int index, MediaItem item) {
-                if (item.getMediaType() == mMediaType) {
-                    if (index < 0 || index >= total) return;
-                    Path path = item.getPath();
-                    buf[index] = path;
-                }
+        mBaseSet.enumerateMediaItems((index, item) -> {
+            if (item.getMediaType() == mMediaType) {
+                if (index < 0 || index >= total) return;
+                Path path = item.getPath();
+                buf[index] = path;
             }
         });
 
@@ -124,12 +121,9 @@ public class FilterTypeSet extends MediaSet implements ContentListener {
 
     @Override
     public void delete() {
-        ItemConsumer consumer = new ItemConsumer() {
-            @Override
-            public void consume(int index, MediaItem item) {
-                if ((item.getSupportedOperations() & SUPPORT_DELETE) != 0) {
-                    item.delete();
-                }
+        ItemConsumer consumer = (index, item) -> {
+            if ((item.getSupportedOperations() & SUPPORT_DELETE) != 0) {
+                item.delete();
             }
         };
         mDataManager.mapMediaItems(mPaths, consumer, 0);

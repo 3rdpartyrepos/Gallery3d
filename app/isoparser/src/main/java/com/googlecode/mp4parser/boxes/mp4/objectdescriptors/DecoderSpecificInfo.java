@@ -71,11 +71,7 @@ public class DecoderSpecificInfo extends BaseDescriptor {
 
         DecoderSpecificInfo that = (DecoderSpecificInfo) o;
 
-        if (!Arrays.equals(bytes, that.bytes)) {
-            return false;
-        }
-
-        return true;
+        return Arrays.equals(bytes, that.bytes);
     }
 
     @Override

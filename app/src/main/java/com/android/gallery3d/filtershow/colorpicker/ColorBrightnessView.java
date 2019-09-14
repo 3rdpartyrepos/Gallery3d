@@ -56,9 +56,9 @@ public class ColorBrightnessView extends View implements ColorListener {
     private float mDotX = mBorder;
     private float mDotY = mBorder;
     private final static float DOT_SIZE = ColorRectView.DOT_SIZE;
-    public final static float BORDER_SIZE = 20;;
+    public final static float BORDER_SIZE = 20;
 
-    private ArrayList<ColorListener> mColorListeners = new ArrayList<ColorListener>();
+    private ArrayList<ColorListener> mColorListeners = new ArrayList<>();
 
     public ColorBrightnessView(Context ctx, AttributeSet attrs) {
         super(ctx, attrs);
@@ -171,7 +171,7 @@ public class ColorBrightnessView extends View implements ColorListener {
         canvas.drawRect(mBorder, mBorder, mWidth - mBorder, mHeight - mBorder, mBarPaint1);
         canvas.drawLine(mDotX, mDotY, mWidth - mBorder, mDotY, mLinePaint1);
         canvas.drawLine(mBorder, mDotY, mDotX, mDotY, mLinePaint2);
-        if (mDotX != Float.NaN) {
+        if (!Float.isNaN(mDotX)) {
             canvas.drawCircle(mDotX, mDotY, mDotRadius, mDotPaint);
         }
     }

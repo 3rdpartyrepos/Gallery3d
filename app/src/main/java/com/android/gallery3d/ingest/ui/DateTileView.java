@@ -79,9 +79,9 @@ public class DateTileView extends FrameLayout {
   @Override
   protected void onFinishInflate() {
     super.onFinishInflate();
-    mDateTextView = (TextView) findViewById(R.id.date_tile_day);
-    mMonthTextView = (TextView) findViewById(R.id.date_tile_month);
-    mYearTextView = (TextView) findViewById(R.id.date_tile_year);
+    mDateTextView = findViewById(R.id.date_tile_day);
+    mMonthTextView = findViewById(R.id.date_tile_month);
+    mYearTextView = findViewById(R.id.date_tile_year);
   }
 
   public void setDate(SimpleDate date) {

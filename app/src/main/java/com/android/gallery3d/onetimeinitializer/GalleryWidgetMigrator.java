@@ -86,7 +86,7 @@ public class GalleryWidgetMigrator {
         // path combined with external storage path. Otherwise, iterate through old external
         // storage paths to find the relative path that matches the old bucket id, and then update
         // bucket id and relative path
-        HashMap<Integer, Entry> localEntries = new HashMap<Integer, Entry>(entries.size());
+        HashMap<Integer, Entry> localEntries = new HashMap<>(entries.size());
         for (Entry entry : entries) {
             Path path = Path.fromString(entry.albumPath);
             MediaSet mediaSet = (MediaSet) manager.getMediaObject(path);

@@ -24,7 +24,6 @@ import android.renderscript.RenderScript;
 import android.renderscript.Script.LaunchOptions;
 import android.renderscript.Type;
 
-import com.android.gallery3d.R;
 import com.android.gallery3d.filtershow.pipeline.FilterEnvironment;
 
 public class ImageFilterChanSat extends ImageFilterRS {
@@ -152,10 +151,7 @@ public class ImageFilterChanSat extends ImageFilterRS {
     private boolean checkStop() {
         RenderScript rsCtx = getRenderScriptContext();
         rsCtx.finish();
-        if (getEnvironment().needsStop()) {
-            return true;
-        }
-        return false;
+        return getEnvironment().needsStop();
     }
 }
 

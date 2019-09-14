@@ -185,7 +185,7 @@ abstract public class ActivityState {
 
     protected void onPause() {
         if (0 != (mFlags & FLAG_SCREEN_ON_WHEN_PLUGGED)) {
-            ((Activity) mActivity).unregisterReceiver(mPowerIntentReceiver);
+            mActivity.unregisterReceiver(mPowerIntentReceiver);
         }
         if (mNextTransition != StateTransitionAnimation.Transition.None) {
             mActivity.getTransitionStore().put(KEY_TRANSITION_IN, mNextTransition);

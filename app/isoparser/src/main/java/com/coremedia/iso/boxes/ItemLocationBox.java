@@ -26,6 +26,7 @@ import com.googlecode.mp4parser.AbstractFullBox;
 import java.nio.ByteBuffer;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * aligned(8) class ItemLocationBox extends FullBox(‘iloc’, version, 0) {
@@ -61,7 +62,7 @@ public class ItemLocationBox extends AbstractFullBox {
     public int lengthSize = 8;
     public int baseOffsetSize = 8;
     public int indexSize = 0;
-    public List<Item> items = new LinkedList<Item>();
+    public List<Item> items = new LinkedList<>();
 
     public static final String TYPE = "iloc";
 
@@ -167,7 +168,7 @@ public class ItemLocationBox extends AbstractFullBox {
         public int constructionMethod;
         public int dataReferenceIndex;
         public long baseOffset;
-        public List<Extent> extents = new LinkedList<Extent>();
+        public List<Extent> extents = new LinkedList<>();
 
         public Item(ByteBuffer in) {
             itemId = IsoTypeReader.readUInt16(in);
@@ -251,9 +252,7 @@ public class ItemLocationBox extends AbstractFullBox {
             if (constructionMethod != item.constructionMethod) return false;
             if (dataReferenceIndex != item.dataReferenceIndex) return false;
             if (itemId != item.itemId) return false;
-            if (extents != null ? !extents.equals(item.extents) : item.extents != null) return false;
-
-            return true;
+            return Objects.equals(extents, item.extents);
         }
 
         @Override
@@ -330,9 +329,7 @@ public class ItemLocationBox extends AbstractFullBox {
 
             if (extentIndex != extent.extentIndex) return false;
             if (extentLength != extent.extentLength) return false;
-            if (extentOffset != extent.extentOffset) return false;
-
-            return true;
+            return extentOffset == extent.extentOffset;
         }
 
         @Override

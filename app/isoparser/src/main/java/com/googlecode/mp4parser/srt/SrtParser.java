@@ -21,13 +21,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Parses a .srt file and creates a Track for it.
  */
 public class SrtParser {
     public static TextTrackImpl parse(InputStream is) throws IOException {
-        LineNumberReader r = new LineNumberReader(new InputStreamReader(is, "UTF-8"));
+        LineNumberReader r = new LineNumberReader(new InputStreamReader(is, StandardCharsets.UTF_8));
         TextTrackImpl track = new TextTrackImpl();
         String numberString;
         while ((numberString = r.readLine()) != null) {

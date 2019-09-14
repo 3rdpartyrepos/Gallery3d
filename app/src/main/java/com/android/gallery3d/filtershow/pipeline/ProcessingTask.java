@@ -27,9 +27,9 @@ public abstract class ProcessingTask {
     private int mType;
     private static final int DELAY = 300;
 
-    static interface Request {}
-    static interface Update {}
-    static interface Result {}
+    interface Request {}
+    interface Update {}
+    interface Result {}
 
     public boolean postRequest(Request message) {
         Message msg = mProcessingHandler.obtainMessage(mType);

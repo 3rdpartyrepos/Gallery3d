@@ -45,12 +45,12 @@ public class ScalingList {
 
         int lastScale = 8;
         int nextScale = 8;
-        for (int j = 0; j < scalingList.length; j++) {
+        for (int i : scalingList) {
             if (nextScale != 0) {
-                int deltaScale = scalingList[j] - lastScale - 256;
+                int deltaScale = i - lastScale - 256;
                 out.writeSE(deltaScale, "SPS: ");
             }
-            lastScale = scalingList[j];
+            lastScale = i;
         }
     }
 

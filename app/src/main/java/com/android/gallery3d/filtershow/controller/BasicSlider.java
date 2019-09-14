@@ -42,7 +42,7 @@ public class BasicSlider implements Control {
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         LinearLayout lp = (LinearLayout) inflater.inflate(
                 R.layout.filtershow_seekbar, container, true);
-        mSeekBar = (SeekBar) lp.findViewById(R.id.primarySeekBar);
+        mSeekBar = lp.findViewById(R.id.primarySeekBar);
         mSeekBar.setVisibility(View.VISIBLE);
         updateUI();
         mSeekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {

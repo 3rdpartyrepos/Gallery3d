@@ -40,7 +40,7 @@ public class SubSampleInformationBox extends AbstractFullBox {
     public static final String TYPE = "subs";
 
     private long entryCount;
-    private List<SampleEntry> entries = new ArrayList<SampleEntry>();
+    private List<SampleEntry> entries = new ArrayList<>();
 
     public SubSampleInformationBox() {
         super(TYPE);
@@ -120,7 +120,7 @@ public class SubSampleInformationBox extends AbstractFullBox {
     public static class SampleEntry {
         private long sampleDelta;
         private int subsampleCount;
-        private List<SubsampleEntry> subsampleEntries = new ArrayList<SubsampleEntry>();
+        private List<SubsampleEntry> subsampleEntries = new ArrayList<>();
 
         public long getSampleDelta() {
             return sampleDelta;

@@ -60,16 +60,12 @@ public class MatrixFit {
 
         double[][] q = new double[from.length][mDimension];
         for (int i = 0; i < from.length; i++) {
-            for (int j = 0; j < mDimension; j++) {
-                q[i][j] = from[i][j];
-            }
+            if (mDimension >= 0) System.arraycopy(from[i], 0, q[i], 0, mDimension);
         }
 
         double[][] p = new double[to.length][mDimension];
         for (int i = 0; i < to.length; i++) {
-            for (int j = 0; j < mDimension; j++) {
-                p[i][j] = to[i][j];
-            }
+            if (mDimension >= 0) System.arraycopy(to[i], 0, p[i], 0, mDimension);
         }
 
         // Make an empty (dim) x (dim + 1) matrix and fill it
@@ -88,11 +84,9 @@ public class MatrixFit {
 
         // Make an empty (dim+1) x (dim+1) matrix and fill it
         double[][] Q = new double[mDimension+1][mDimension+1];
-        for (int qi = 0; qi < q.length; qi++) {
+        for (double[] doubles : q) {
             double[] qt = new double[mDimension + 1];
-            for (int i = 0; i < mDimension; i++) {
-                qt[i] = q[qi][i];
-            }
+            System.arraycopy(doubles, 0, qt, 0, mDimension);
             qt[mDimension] = 1;
             for (int i = 0; i < mDimension + 1; i++) {
                 for (int j = 0; j < mDimension + 1; j++) {
@@ -103,17 +97,12 @@ public class MatrixFit {
 
         // Use a gaussian elimination to solve the linear system
         for (int i = 0; i < mDimension + 1; i++) {
-            for (int j = 0; j < mDimension + 1; j++) {
-                mMatrix[i][j] = Q[i][j];
-            }
+            System.arraycopy(Q[i], 0, mMatrix[i], 0, mDimension + 1);
             for (int j = 0; j < mDimension; j++) {
                 mMatrix[i][mDimension + 1 + j] = c[i][j];
             }
         }
-        if (!gaussianElimination(mMatrix)) {
-            return false;
-        }
-        return true;
+        return gaussianElimination(mMatrix);
     }
 
     public double[] apply(double[] point) {
@@ -143,10 +132,10 @@ public class MatrixFit {
 
     private void printMatrix(String name, double[][] matrix) {
         Log.v(LOGTAG, "name: " + name);
-        for (int i = 0; i < matrix.length; i++) {
+        for (double[] doubles : matrix) {
             String str = "";
             for (int j = 0; j < matrix[0].length; j++) {
-                str += "" + matrix[i][j] + " ";
+                str += "" + doubles[j] + " ";
             }
             Log.v(LOGTAG, str);
         }

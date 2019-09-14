@@ -24,9 +24,7 @@ import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapRegionDecoder;
-import android.graphics.Canvas;
 import android.graphics.Matrix;
-import android.graphics.Paint;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -39,8 +37,6 @@ import com.android.gallery3d.common.Utils;
 import com.android.gallery3d.exif.ExifInterface;
 import com.android.gallery3d.exif.ExifTag;
 import com.android.gallery3d.filtershow.imageshow.MasterImage;
-import com.android.gallery3d.filtershow.pipeline.FilterEnvironment;
-import com.android.gallery3d.filtershow.tools.XmpPresets;
 import com.android.gallery3d.util.XmpUtilHelper;
 
 import java.io.FileNotFoundException;
@@ -381,7 +377,7 @@ public final class ImageLoader {
 
         // Make sure sample size is reasonable
         if (sampleSize <= 0 ||
-                0 >= (int) (Math.min(w, h) / sampleSize)) {
+                0 >= (Math.min(w, h) / sampleSize)) {
             return null;
         }
         return loadDownsampledBitmap(context, uri, sampleSize);

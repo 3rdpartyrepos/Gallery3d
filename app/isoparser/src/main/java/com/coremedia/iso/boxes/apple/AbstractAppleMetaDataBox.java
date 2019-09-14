@@ -23,7 +23,7 @@ public abstract class AbstractAppleMetaDataBox extends AbstractBox implements Co
     AppleDataBox appleDataBox = new AppleDataBox();
 
     public List<Box> getBoxes() {
-        return Collections.singletonList((Box) appleDataBox);
+        return Collections.singletonList(appleDataBox);
     }
 
     public void setBoxes(List<Box> boxes) {

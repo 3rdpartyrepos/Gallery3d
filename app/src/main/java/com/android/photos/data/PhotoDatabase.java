@@ -25,6 +25,7 @@ import com.android.photos.data.PhotoProvider.Metadata;
 import com.android.photos.data.PhotoProvider.Photos;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -163,10 +164,8 @@ public class PhotoDatabase extends SQLiteOpenHelper {
     }
 
     protected static List<String[]> tableCreationStrings(String[][] createTable) {
-        ArrayList<String[]> create = new ArrayList<String[]>(createTable.length);
-        for (String[] line: createTable) {
-            create.add(line);
-        }
+        ArrayList<String[]> create = new ArrayList<>(createTable.length);
+        create.addAll(Arrays.asList(createTable));
         return create;
     }
 
@@ -177,9 +176,7 @@ public class PhotoDatabase extends SQLiteOpenHelper {
             }
         }
         if (constraints != null) {
-            for (String[] constraint: constraints) {
-                createTable.add(constraint);
-            }
+            createTable.addAll(Arrays.asList(constraints));
         }
     }
 

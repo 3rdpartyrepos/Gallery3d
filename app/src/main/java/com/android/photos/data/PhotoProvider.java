@@ -59,154 +59,154 @@ public class PhotoProvider extends SQLiteContentProvider {
 
     // Used to allow mocking out the change notification because
     // MockContextResolver disallows system-wide notification.
-    public static interface ChangeNotification {
+    public interface ChangeNotification {
         void notifyChange(Uri uri, boolean syncToNetwork);
     }
 
     /**
      * Contains columns that can be accessed via Accounts.CONTENT_URI
      */
-    public static interface Accounts extends BaseColumns {
+    public interface Accounts extends BaseColumns {
         /**
          * Internal database table used for account information
          */
-        public static final String TABLE = "accounts";
+        String TABLE = "accounts";
         /**
          * Content URI for account information
          */
-        public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, TABLE);
+        Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, TABLE);
         /**
          * User name for this account.
          */
-        public static final String ACCOUNT_NAME = "name";
+        String ACCOUNT_NAME = "name";
     }
 
     /**
      * Contains columns that can be accessed via Photos.CONTENT_URI.
      */
-    public static interface Photos extends BaseColumns {
+    public interface Photos extends BaseColumns {
         /**
          * The image_type query parameter required for requesting a specific
          * size of image.
          */
-        public static final String MEDIA_SIZE_QUERY_PARAMETER = "media_size";
+        String MEDIA_SIZE_QUERY_PARAMETER = "media_size";
 
         /** Internal database table used for basic photo information. */
-        public static final String TABLE = "photos";
+        String TABLE = "photos";
         /** Content URI for basic photo and video information. */
-        public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, TABLE);
+        Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, TABLE);
 
         /** Long foreign key to Accounts._ID */
-        public static final String ACCOUNT_ID = "account_id";
+        String ACCOUNT_ID = "account_id";
         /** Column name for the width of the original image. Integer value. */
-        public static final String WIDTH = "width";
+        String WIDTH = "width";
         /** Column name for the height of the original image. Integer value. */
-        public static final String HEIGHT = "height";
+        String HEIGHT = "height";
         /**
          * Column name for the date that the original image was taken. Long
          * value indicating the milliseconds since epoch in the GMT time zone.
          */
-        public static final String DATE_TAKEN = "date_taken";
+        String DATE_TAKEN = "date_taken";
         /**
          * Column name indicating the long value of the album id that this image
          * resides in. Will be NULL if it it has not been uploaded to the
          * server.
          */
-        public static final String ALBUM_ID = "album_id";
+        String ALBUM_ID = "album_id";
         /** The column name for the mime-type String. */
-        public static final String MIME_TYPE = "mime_type";
+        String MIME_TYPE = "mime_type";
         /** The title of the photo. String value. */
-        public static final String TITLE = "title";
+        String TITLE = "title";
         /** The date the photo entry was last updated. Long value. */
-        public static final String DATE_MODIFIED = "date_modified";
+        String DATE_MODIFIED = "date_modified";
         /**
          * The rotation of the photo in degrees, if rotation has not already
          * been applied. Integer value.
          */
-        public static final String ROTATION = "rotation";
+        String ROTATION = "rotation";
     }
 
     /**
      * Contains columns and Uri for accessing album information.
      */
-    public static interface Albums extends BaseColumns {
+    public interface Albums extends BaseColumns {
         /** Internal database table used album information. */
-        public static final String TABLE = "albums";
+        String TABLE = "albums";
         /** Content URI for album information. */
-        public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, TABLE);
+        Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, TABLE);
 
         /** Long foreign key to Accounts._ID */
-        public static final String ACCOUNT_ID = "account_id";
+        String ACCOUNT_ID = "account_id";
         /** Parent directory or null if this is in the root. */
-        public static final String PARENT_ID = "parent_id";
+        String PARENT_ID = "parent_id";
         /** The type of album. Non-null, if album is auto-generated. String value. */
-        public static final String ALBUM_TYPE = "album_type";
+        String ALBUM_TYPE = "album_type";
         /**
          * Column name for the visibility level of the album. Can be any of the
          * VISIBILITY_* values.
          */
-        public static final String VISIBILITY = "visibility";
+        String VISIBILITY = "visibility";
         /** The user-specified location associated with the album. String value. */
-        public static final String LOCATION_STRING = "location_string";
+        String LOCATION_STRING = "location_string";
         /** The title of the album. String value. */
-        public static final String TITLE = "title";
+        String TITLE = "title";
         /** A short summary of the contents of the album. String value. */
-        public static final String SUMMARY = "summary";
+        String SUMMARY = "summary";
         /** The date the album was created. Long value */
-        public static final String DATE_PUBLISHED = "date_published";
+        String DATE_PUBLISHED = "date_published";
         /** The date the album entry was last updated. Long value. */
-        public static final String DATE_MODIFIED = "date_modified";
+        String DATE_MODIFIED = "date_modified";
 
         // Privacy values for Albums.VISIBILITY
-        public static final int VISIBILITY_PRIVATE = 1;
-        public static final int VISIBILITY_SHARED = 2;
-        public static final int VISIBILITY_PUBLIC = 3;
+        int VISIBILITY_PRIVATE = 1;
+        int VISIBILITY_SHARED = 2;
+        int VISIBILITY_PUBLIC = 3;
     }
 
     /**
      * Contains columns and Uri for accessing photo and video metadata
      */
-    public static interface Metadata extends BaseColumns {
+    public interface Metadata extends BaseColumns {
         /** Internal database table used metadata information. */
-        public static final String TABLE = "metadata";
+        String TABLE = "metadata";
         /** Content URI for photo and video metadata. */
-        public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, TABLE);
+        Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, TABLE);
         /** Foreign key to photo_id. Long value. */
-        public static final String PHOTO_ID = "photo_id";
+        String PHOTO_ID = "photo_id";
         /** Metadata key. String value */
-        public static final String KEY = "key";
+        String KEY = "key";
         /**
          * Metadata value. Type is based on key.
          */
-        public static final String VALUE = "value";
+        String VALUE = "value";
 
         /** A short summary of the photo. String value. */
-        public static final String KEY_SUMMARY = "summary";
+        String KEY_SUMMARY = "summary";
         /** The date the photo was added. Long value. */
-        public static final String KEY_PUBLISHED = "date_published";
+        String KEY_PUBLISHED = "date_published";
         /** The date the photo was last updated. Long value. */
-        public static final String KEY_DATE_UPDATED = "date_updated";
+        String KEY_DATE_UPDATED = "date_updated";
         /** The size of the photo is bytes. Integer value. */
-        public static final String KEY_SIZE_IN_BTYES = "size";
+        String KEY_SIZE_IN_BTYES = "size";
         /** The latitude associated with the photo. Double value. */
-        public static final String KEY_LATITUDE = "latitude";
+        String KEY_LATITUDE = "latitude";
         /** The longitude associated with the photo. Double value. */
-        public static final String KEY_LONGITUDE = "longitude";
+        String KEY_LONGITUDE = "longitude";
 
         /** The make of the camera used. String value. */
-        public static final String KEY_EXIF_MAKE = ExifInterface.TAG_MAKE;
+        String KEY_EXIF_MAKE = ExifInterface.TAG_MAKE;
         /** The model of the camera used. String value. */
-        public static final String KEY_EXIF_MODEL = ExifInterface.TAG_MODEL;;
+        String KEY_EXIF_MODEL = ExifInterface.TAG_MODEL;
         /** The exposure time used. Float value. */
-        public static final String KEY_EXIF_EXPOSURE = ExifInterface.TAG_EXPOSURE_TIME;
+        String KEY_EXIF_EXPOSURE = ExifInterface.TAG_EXPOSURE_TIME;
         /** Whether the flash was used. Boolean value. */
-        public static final String KEY_EXIF_FLASH = ExifInterface.TAG_FLASH;
+        String KEY_EXIF_FLASH = ExifInterface.TAG_FLASH;
         /** The focal length used. Float value. */
-        public static final String KEY_EXIF_FOCAL_LENGTH = ExifInterface.TAG_FOCAL_LENGTH;
+        String KEY_EXIF_FOCAL_LENGTH = ExifInterface.TAG_FOCAL_LENGTH;
         /** The fstop value used. Float value. */
-        public static final String KEY_EXIF_FSTOP = ExifInterface.TAG_APERTURE;
+        String KEY_EXIF_FSTOP = ExifInterface.TAG_APERTURE;
         /** The ISO equivalent value used. Integer value. */
-        public static final String KEY_EXIF_ISO = ExifInterface.TAG_ISO;
+        String KEY_EXIF_ISO = ExifInterface.TAG_ISO;
     }
 
     // SQL used within this class.

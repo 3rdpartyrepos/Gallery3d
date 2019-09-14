@@ -46,7 +46,7 @@ public class MtpImageView extends ImageView {
   private int mObjectHandle;
   private int mGeneration;
 
-  private WeakReference<MtpImageView> mWeakReference = new WeakReference<MtpImageView>(this);
+  private WeakReference<MtpImageView> mWeakReference = new WeakReference<>(this);
   private Object mFetchLock = new Object();
   private boolean mFetchPending = false;
   private IngestObjectInfo mFetchObjectInfo;

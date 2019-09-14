@@ -23,6 +23,7 @@ import com.googlecode.mp4parser.AbstractFullBox;
 import java.nio.ByteBuffer;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import static com.googlecode.mp4parser.util.CastUtils.l2i;
 
@@ -44,7 +45,7 @@ public class SampleGroupDescriptionBox extends AbstractFullBox {
 
     private String groupingType;
     private int defaultLength;
-    private List<GroupEntry> groupEntries = new LinkedList<GroupEntry>();
+    private List<GroupEntry> groupEntries = new LinkedList<>();
     private int descriptionLength;
 
     public SampleGroupDescriptionBox() {
@@ -171,14 +172,10 @@ public class SampleGroupDescriptionBox extends AbstractFullBox {
         if (defaultLength != that.defaultLength) {
             return false;
         }
-        if (groupEntries != null ? !groupEntries.equals(that.groupEntries) : that.groupEntries != null) {
+        if (!Objects.equals(groupEntries, that.groupEntries)) {
             return false;
         }
-        if (groupingType != null ? !groupingType.equals(that.groupingType) : that.groupingType != null) {
-            return false;
-        }
-
-        return true;
+        return Objects.equals(groupingType, that.groupingType);
     }
 
     @Override

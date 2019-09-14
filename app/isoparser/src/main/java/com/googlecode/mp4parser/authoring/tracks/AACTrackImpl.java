@@ -45,7 +45,7 @@ import java.util.Map;
 /**
  */
 public class AACTrackImpl extends AbstractTrack {
-    public static Map<Integer, Integer> samplingFrequencyIndexMap = new HashMap<Integer, Integer>();
+    public static Map<Integer, Integer> samplingFrequencyIndexMap = new HashMap<>();
 
     static {
         samplingFrequencyIndexMap.put(96000, 0);
@@ -104,13 +104,13 @@ public class AACTrackImpl extends AbstractTrack {
 
     private void parse(InputStream inputStream) throws IOException {
         this.inputStream = new BufferedInputStream(inputStream);
-        stts = new LinkedList<TimeToSampleBox.Entry>();
+        stts = new LinkedList<>();
 
         if (!readVariables()) {
             throw new IOException();
         }
 
-        samples = new LinkedList<ByteBuffer>();
+        samples = new LinkedList<>();
         if (!readSamples()) {
             throw new IOException();
         }
@@ -119,7 +119,7 @@ public class AACTrackImpl extends AbstractTrack {
         double duration = samples.size() / packetsPerSecond;
 
         long dataSize = 0;
-        LinkedList<Integer> queue = new LinkedList<Integer>();
+        LinkedList<Integer> queue = new LinkedList<>();
         for (int i = 0; i < samples.size(); i++) {
             int size = samples.get(i).capacity();
             dataSize += size;

@@ -21,7 +21,6 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Images.ImageColumns;
 import android.provider.MediaStore.Video;
@@ -116,7 +115,7 @@ public class LocalAlbum extends MediaSet {
         DataManager dataManager = mApplication.getDataManager();
         Uri uri = mBaseUri.buildUpon()
                 .appendQueryParameter("limit", start + "," + count).build();
-        ArrayList<MediaItem> list = new ArrayList<MediaItem>();
+        ArrayList<MediaItem> list = new ArrayList<>();
         GalleryUtils.assertNotInRenderThread();
         Cursor cursor = mResolver.query(
                 uri, mProjection, mWhereClause,

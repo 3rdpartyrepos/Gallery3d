@@ -178,12 +178,7 @@ public class SaveImage {
         String[] queryProjection = new String[] { ImageColumns.DATA };
         querySourceFromContentResolver(contentResolver,
                 srcContentUri, queryProjection,
-                new ContentResolverQueryCallback() {
-                    @Override
-                    public void onCursorResult(Cursor cursor) {
-                        fullPath[0] = cursor.getString(0);
-                    }
-                }
+                cursor -> fullPath[0] = cursor.getString(0)
         );
         if (fullPath[0] != null) {
             // Construct the auxiliary directory given the source file's path.
@@ -197,16 +192,7 @@ public class SaveImage {
                 filename.substring(0, firstDotPos);
             File auxDir = getLocalAuxDirectory(currentFile);
             if (auxDir.exists()) {
-                FilenameFilter filter = new FilenameFilter() {
-                    @Override
-                    public boolean accept(File dir, String name) {
-                        if (name.startsWith(filenameNoExt + ".")) {
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    }
-                };
+                FilenameFilter filter = (dir, name) -> name.startsWith(filenameNoExt + ".");
 
                 // Delete all auxiliary files whose name is matching the
                 // current local image.
@@ -613,13 +599,7 @@ public class SaveImage {
                 querySource(context, srcUri, new String[] {
                         ImageColumns.DATA
                 },
-                        new ContentResolverQueryCallback() {
-
-                            @Override
-                            public void onCursorResult(Cursor cursor) {
-                                file[0] = new File(cursor.getString(0));
-                            }
-                        });
+                        cursor -> file[0] = new File(cursor.getString(0)));
             }
         } else if (scheme.equals(ContentResolver.SCHEME_FILE)) {
             file[0] = new File(srcUri.getPath());
@@ -637,12 +617,7 @@ public class SaveImage {
         final String[] trueName = new String[1];
         querySource(context, src, new String[] {
                 ImageColumns.DATA
-        }, new ContentResolverQueryCallback() {
-            @Override
-            public void onCursorResult(Cursor cursor) {
-                trueName[0] = new File(cursor.getString(0)).getName();
-            }
-        });
+        }, cursor -> trueName[0] = new File(cursor.getString(0)).getName());
         return trueName[0];
     }
 
@@ -716,20 +691,16 @@ public class SaveImage {
         };
 
         SaveImage.querySource(context, sourceUri, projection,
-                new ContentResolverQueryCallback() {
+                cursor -> {
+                    values.put(Images.Media.DATE_TAKEN, cursor.getLong(0));
 
-                    @Override
-                    public void onCursorResult(Cursor cursor) {
-                        values.put(Images.Media.DATE_TAKEN, cursor.getLong(0));
-
-                        double latitude = cursor.getDouble(1);
-                        double longitude = cursor.getDouble(2);
-                        // TODO: Change || to && after the default location
-                        // issue is fixed.
-                        if ((latitude != 0f) || (longitude != 0f)) {
-                            values.put(Images.Media.LATITUDE, latitude);
-                            values.put(Images.Media.LONGITUDE, longitude);
-                        }
+                    double latitude = cursor.getDouble(1);
+                    double longitude = cursor.getDouble(2);
+                    // TODO: Change || to && after the default location
+                    // issue is fixed.
+                    if ((latitude != 0f) || (longitude != 0f)) {
+                        values.put(Images.Media.LATITUDE, latitude);
+                        values.put(Images.Media.LONGITUDE, longitude);
                     }
                 });
         return values;
@@ -741,10 +712,7 @@ public class SaveImage {
      */
     private static boolean isFileUri(Uri sourceUri) {
         String scheme = sourceUri.getScheme();
-        if (scheme != null && scheme.equals(ContentResolver.SCHEME_FILE)) {
-            return true;
-        }
-        return false;
+        return scheme != null && scheme.equals(ContentResolver.SCHEME_FILE);
     }
 
 }

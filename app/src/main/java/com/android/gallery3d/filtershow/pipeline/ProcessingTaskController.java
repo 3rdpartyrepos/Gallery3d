@@ -31,7 +31,7 @@ public class ProcessingTaskController implements Handler.Callback {
     private HandlerThread mHandlerThread = null;
     private Handler mProcessingHandler = null;
     private int mCurrentType;
-    private HashMap<Integer, ProcessingTask> mTasks = new HashMap<Integer, ProcessingTask>();
+    private HashMap<Integer, ProcessingTask> mTasks = new HashMap<>();
 
     public final static int RESULT = 1;
     public final static int UPDATE = 2;

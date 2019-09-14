@@ -41,10 +41,7 @@ public class UpdatePreviewTask extends ProcessingTask {
         if (!mPipelineIsOn) {
             return;
         }
-        mHasUnhandledPreviewRequest = true;
-        if (postRequest(null)) {
-            mHasUnhandledPreviewRequest = false;
-        }
+        mHasUnhandledPreviewRequest = !postRequest(null);
     }
 
     @Override

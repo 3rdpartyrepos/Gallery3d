@@ -96,20 +96,12 @@ public class DialogDetailsView implements DetailsViewContainer {
         mDialog = new AlertDialog.Builder(mActivity)
             .setView(detailsList)
             .setTitle(title)
-            .setPositiveButton(R.string.close, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int whichButton) {
-                    mDialog.dismiss();
-                }
-            })
+            .setPositiveButton(R.string.close, (dialog, whichButton) -> mDialog.dismiss())
             .create();
 
-        mDialog.setOnDismissListener(new OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                if (mListener != null) {
-                    mListener.onClose();
-                }
+        mDialog.setOnDismissListener(dialog -> {
+            if (mListener != null) {
+                mListener.onClose();
             }
         });
     }
@@ -126,7 +118,7 @@ public class DialogDetailsView implements DetailsViewContainer {
 
         public DetailsAdapter(MediaDetails details) {
             Context context = mActivity.getAndroidContext();
-            mItems = new ArrayList<String>(details.size());
+            mItems = new ArrayList<>(details.size());
             mLocationIndex = -1;
             setDetails(context, details);
         }
@@ -175,7 +167,7 @@ public class DialogDetailsView implements DetailsViewContainer {
                         } else {
                             int integer = (int) time;
                             time -= integer;
-                            value = String.valueOf(integer) + "''";
+                            value = integer + "''";
                             if (time > 0.0001) {
                                 value += String.format(mDefaultLocale, " %d/%d", 1,
                                         (int) (0.5f + 1 / time));
@@ -301,8 +293,8 @@ public class DialogDetailsView implements DetailsViewContainer {
             String heightString = String.format(mDefaultLocale, "%s: %d",
                     DetailsHelper.getDetailsName(
                             context, MediaDetails.INDEX_HEIGHT), height);
-            mItems.set(mWidthIndex, String.valueOf(widthString));
-            mItems.set(mHeightIndex, String.valueOf(heightString));
+            mItems.set(mWidthIndex, widthString);
+            mItems.set(mHeightIndex, heightString);
             notifyDataSetChanged();
         }
 

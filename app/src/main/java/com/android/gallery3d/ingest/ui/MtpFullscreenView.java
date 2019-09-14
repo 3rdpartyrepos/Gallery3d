@@ -52,8 +52,8 @@ public class MtpFullscreenView extends RelativeLayout implements Checkable,
   @Override
   protected void onFinishInflate() {
     super.onFinishInflate();
-    mImageView = (MtpImageView) findViewById(R.id.ingest_fullsize_image);
-    mCheckbox = (CheckBox) findViewById(R.id.ingest_fullsize_image_checkbox);
+    mImageView = findViewById(R.id.ingest_fullsize_image);
+    mCheckbox = findViewById(R.id.ingest_fullsize_image_checkbox);
     mCheckbox.setOnCheckedChangeListener(this);
   }
 

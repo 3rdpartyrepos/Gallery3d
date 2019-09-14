@@ -189,20 +189,12 @@ public class Utils implements XMPConst
 		}
 		else if (NS_TIFF.equals(schema))
 		{
-			isInternal = true;
-			if ("tiff:ImageDescription".equals(prop) || "tiff:Artist".equals(prop)
-					|| "tiff:Copyright".equals(prop))
-			{
-				isInternal = false;
-			}
+            isInternal = !"tiff:ImageDescription".equals(prop) && !"tiff:Artist".equals(prop)
+                    && !"tiff:Copyright".equals(prop);
 		}
 		else if (NS_EXIF.equals(schema))
 		{
-			isInternal = true;
-			if ("exif:UserComment".equals(prop))
-			{
-				isInternal = false;
-			}
+            isInternal = !"exif:UserComment".equals(prop);
 		}
 		else if (NS_EXIF_AUX.equals(schema))
 		{

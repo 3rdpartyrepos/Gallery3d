@@ -117,7 +117,7 @@ public abstract class AbstractManifestWriter implements ManifestWriter {
 
     protected String getFormat(SampleEntry se) {
         String type = se.getType();
-        if (type.equals("encv") || type.equals("enca") || type.equals("encv")) {
+        if (type.equals("encv") || type.equals("enca")) {
             OriginalFormatBox frma = se.getBoxes(OriginalFormatBox.class, true).get(0);
             type = frma.getDataFormat();
         }

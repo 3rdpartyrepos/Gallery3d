@@ -22,11 +22,11 @@ import android.view.ViewGroup;
 import com.android.gallery3d.filtershow.editors.Editor;
 
 public interface Control {
-    public void setUp(ViewGroup container, Parameter parameter, Editor editor);
+    void setUp(ViewGroup container, Parameter parameter, Editor editor);
 
-    public View getTopView();
+    View getTopView();
 
-    public void setPrameter(Parameter parameter);
+    void setPrameter(Parameter parameter);
 
-    public void updateUI();
+    void updateUI();
 }

@@ -46,7 +46,7 @@ public class PhotoThumbnailAdapter extends CursorAdapter implements GalleryThumb
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        ImageView iv = (ImageView) view.findViewById(R.id.thumbnail);
+        ImageView iv = view.findViewById(R.id.thumbnail);
         Drawable recycle = iv.getDrawable();
         Drawable drawable = mDrawableFactory.drawableForItem(cursor, recycle);
         if (recycle != drawable) {

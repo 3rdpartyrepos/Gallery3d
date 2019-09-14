@@ -26,7 +26,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -69,16 +68,16 @@ public class InfoPanel extends DialogFragment {
         mMainView = (LinearLayout) inflater.inflate(
                 R.layout.filtershow_info_panel, null, false);
 
-        mImageThumbnail = (ImageView) mMainView.findViewById(R.id.imageThumbnail);
+        mImageThumbnail = mMainView.findViewById(R.id.imageThumbnail);
         Bitmap bitmap = MasterImage.getImage().getFilteredImage();
         mImageThumbnail.setImageBitmap(bitmap);
 
-        mImageName = (TextView) mMainView.findViewById(R.id.imageName);
-        mImageSize = (TextView) mMainView.findViewById(R.id.imageSize);
-        mExifData = (TextView) mMainView.findViewById(R.id.exifData);
-        TextView exifLabel = (TextView) mMainView.findViewById(R.id.exifLabel);
+        mImageName = mMainView.findViewById(R.id.imageName);
+        mImageSize = mMainView.findViewById(R.id.imageSize);
+        mExifData = mMainView.findViewById(R.id.exifData);
+        TextView exifLabel = mMainView.findViewById(R.id.exifLabel);
 
-        HistogramView histogramView = (HistogramView) mMainView.findViewById(R.id.histogramView);
+        HistogramView histogramView = mMainView.findViewById(R.id.histogramView);
         histogramView.setBitmap(bitmap);
 
         Uri uri = MasterImage.getImage().getUri();

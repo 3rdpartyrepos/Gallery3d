@@ -17,25 +17,14 @@
 package com.android.gallery3d.filtershow.controller;
 
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.ColorFilter;
-import android.graphics.LinearGradient;
-import android.graphics.Paint;
-import android.graphics.RectF;
-import android.graphics.Shader;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.SeekBar;
-import android.widget.SeekBar.OnSeekBarChangeListener;
 
 import com.android.gallery3d.R;
-import com.android.gallery3d.app.Log;
 import com.android.gallery3d.filtershow.colorpicker.ColorHueView;
 import com.android.gallery3d.filtershow.colorpicker.ColorListener;
-import com.android.gallery3d.filtershow.colorpicker.ColorOpacityView;
 import com.android.gallery3d.filtershow.editors.Editor;
 
 public class SliderHue implements Control {
@@ -55,7 +44,7 @@ public class SliderHue implements Control {
         LinearLayout lp = (LinearLayout) inflater.inflate(
                 R.layout.filtershow_hue, container, true);
 
-        mColorOpacityView =   (ColorHueView) lp.findViewById(R.id.hueView);
+        mColorOpacityView = lp.findViewById(R.id.hueView);
         updateUI();
         mColorOpacityView.addColorListener(new ColorListener() {
             @Override

@@ -280,17 +280,15 @@ public final class XMPSchemaRegistryImpl implements XMPSchemaRegistry, XMPConst
 		List result = new ArrayList(); 
 		if (prefix != null)
 		{
-			for (Iterator it = aliasMap.keySet().iterator(); it.hasNext();)
-			{
-				String qname = (String) it.next();
-				if (qname.startsWith(prefix))
-				{
+			for (Object o : aliasMap.keySet()) {
+				String qname = (String) o;
+				if (qname.startsWith(prefix)) {
 					result.add(findAlias(qname));
 				}
 			}
 			
 		}
-		return (XMPAliasInfo[]) result.toArray(new XMPAliasInfo[result.size()]);
+		return (XMPAliasInfo[]) result.toArray(new XMPAliasInfo[0]);
 	}	
 	
 	

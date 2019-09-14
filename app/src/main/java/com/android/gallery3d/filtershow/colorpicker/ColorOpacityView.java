@@ -56,7 +56,7 @@ public class ColorOpacityView extends View implements ColorListener {
     private float mDotX = mBorder;
     private float mDotY = mBorder;
     private final static float DOT_SIZE = ColorHueView.DOT_SIZE;
-    public final static float BORDER_SIZE = 20;;
+    public final static float BORDER_SIZE = 20;
     private  int mCheckDim = 8;
     public ColorOpacityView(Context ctx, AttributeSet attrs) {
         super(ctx, attrs);
@@ -171,7 +171,7 @@ public class ColorOpacityView extends View implements ColorListener {
         canvas.drawRect(mBorder, 0, mWidth - mBorder, mHeight, mBarPaint1);
         canvas.drawLine(mDotX, mDotY, mWidth - mBorder, mDotY, mLinePaint1);
         canvas.drawLine(mBorder, mDotY, mDotX, mDotY, mLinePaint2);
-        if (mDotX != Float.NaN) {
+        if (!Float.isNaN(mDotX)) {
             canvas.drawCircle(mDotX, mDotY, mDotRadius, mDotPaint);
         }
     }
@@ -185,7 +185,7 @@ public class ColorOpacityView extends View implements ColorListener {
         invalidate();
     }
 
-    ArrayList<ColorListener> mColorListeners = new ArrayList<ColorListener>();
+    ArrayList<ColorListener> mColorListeners = new ArrayList<>();
 
     public void notifyColorListeners(float[] hsvo) {
         for (ColorListener l : mColorListeners) {

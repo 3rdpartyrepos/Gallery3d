@@ -58,7 +58,7 @@ public class FilterGradRepresentation extends FilterRepresentation
         }
     }
 
-    Vector<Band> mBands = new Vector<Band>();
+    Vector<Band> mBands = new Vector<>();
     Band mCurrentBand;
 
     static class Band {
@@ -125,7 +125,7 @@ public class FilterGradRepresentation extends FilterRepresentation
     @Override
     public void useParametersFrom(FilterRepresentation a) {
             FilterGradRepresentation rep = (FilterGradRepresentation) a;
-            Vector<Band> tmpBands = new Vector<Band>();
+            Vector<Band> tmpBands = new Vector<>();
             int n = (rep.mCurrentBand == null) ? 0 : rep.mBands.indexOf(rep.mCurrentBand);
             for (Band band : rep.mBands) {
                 tmpBands.add(new Band(band));
@@ -261,7 +261,7 @@ public class FilterGradRepresentation extends FilterRepresentation
                 break;
             }
         }
-        while (point.mask == true);
+        while (point.mask);
         mCurrentBand = mBands.get(index);
     }
 
@@ -458,7 +458,7 @@ public class FilterGradRepresentation extends FilterRepresentation
     @Override
     public void deSerializeRepresentation(JsonReader sreader) throws IOException {
         sreader.beginObject();
-        Vector<Band> points = new Vector<Band>();
+        Vector<Band> points = new Vector<>();
 
         while (sreader.hasNext()) {
             String name = sreader.nextName();

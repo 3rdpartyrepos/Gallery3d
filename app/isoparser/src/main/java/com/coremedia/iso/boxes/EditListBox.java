@@ -53,7 +53,7 @@ import static com.googlecode.mp4parser.util.CastUtils.l2i;
  * <li>Media-Rate = 1</li>
  */
 public class EditListBox extends AbstractFullBox {
-    private List<Entry> entries = new LinkedList<Entry>();
+    private List<Entry> entries = new LinkedList<>();
     public static final String TYPE = "elst";
 
     public EditListBox() {
@@ -84,7 +84,7 @@ public class EditListBox extends AbstractFullBox {
     public void _parseDetails(ByteBuffer content) {
         parseVersionAndFlags(content);
         int entryCount = l2i(IsoTypeReader.readUInt32(content));
-        entries = new LinkedList<Entry>();
+        entries = new LinkedList<>();
         for (int i = 0; i < entryCount; i++) {
             entries.add(new Entry(this, content));
 
@@ -212,9 +212,7 @@ public class EditListBox extends AbstractFullBox {
             Entry entry = (Entry) o;
 
             if (mediaTime != entry.mediaTime) return false;
-            if (segmentDuration != entry.segmentDuration) return false;
-
-            return true;
+            return segmentDuration == entry.segmentDuration;
         }
 
         @Override

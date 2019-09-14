@@ -92,18 +92,13 @@ public class EditorDrawTabletUI {
         mBrushIcons = editorDraw.brushIcons;
         Resources res = context.getResources();
         sIconDim = res.getDimensionPixelSize(R.dimen.draw_style_icon_dim);
-        LinearLayout buttonContainer = (LinearLayout) lp.findViewById(R.id.listStyles);
+        LinearLayout buttonContainer = lp.findViewById(R.id.listStyles);
 
-        mdrawSizeSeekBar = (SeekBar) lp.findViewById(R.id.drawSizeSeekBar);
-        mDrawSizeValue = (TextView) lp.findViewById(R.id.drawSizeValue);
+        mdrawSizeSeekBar = lp.findViewById(R.id.drawSizeSeekBar);
+        mDrawSizeValue = lp.findViewById(R.id.drawSizeValue);
 
-        Button clearButton = (Button) lp.findViewById(R.id.clearButton);
-        clearButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mEditorDraw.clearDrawing();
-            }
-        });
+        Button clearButton = lp.findViewById(R.id.clearButton);
+        clearButton.setOnClickListener(view -> mEditorDraw.clearDrawing());
 
         mdrawSizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
@@ -138,32 +133,26 @@ public class EditorDrawTabletUI {
             button.setBackgroundResource(android.R.color.transparent);
             buttonContainer.addView(button);
             final int current = i;
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mSelectedStyleButton = current;
-                    if (mRep == null) {
-                        return;
-                    }
-                    BasicParameterStyle style = (BasicParameterStyle)
-                            mRep.getParam(FilterDrawRepresentation.PARAM_STYLE);
-                    style.setSelected(current);
-                    resetStyle();
-                    mEditorDraw.commitLocalRepresentation();
+            button.setOnClickListener(view -> {
+                mSelectedStyleButton = current;
+                if (mRep == null) {
+                    return;
                 }
+                BasicParameterStyle style = (BasicParameterStyle)
+                        mRep.getParam(FilterDrawRepresentation.PARAM_STYLE);
+                style.setSelected(current);
+                resetStyle();
+                mEditorDraw.commitLocalRepresentation();
             });
         }
 
-        final LinearLayout ctls = (LinearLayout) lp.findViewById(R.id.controls);
-        final LinearLayout pick = (LinearLayout) lp.findViewById(R.id.colorPicker);
-        Button b = (Button) lp.findViewById(R.id.draw_color_popupbutton);
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                boolean b = ctls.getVisibility() == View.VISIBLE;
-                ctls.setVisibility((b) ? View.GONE : View.VISIBLE);
-                pick.setVisibility((!b) ? View.GONE : View.VISIBLE);
-            }
+        final LinearLayout ctls = lp.findViewById(R.id.controls);
+        final LinearLayout pick = lp.findViewById(R.id.colorPicker);
+        Button b = lp.findViewById(R.id.draw_color_popupbutton);
+        b.setOnClickListener(view -> {
+            boolean b1 = ctls.getVisibility() == View.VISIBLE;
+            ctls.setVisibility((b1) ? View.GONE : View.VISIBLE);
+            pick.setVisibility((!b1) ? View.GONE : View.VISIBLE);
         }
         );
 
@@ -172,7 +161,7 @@ public class EditorDrawTabletUI {
 
         mColorButton = new Button[ids.length];
         for (int i = 0; i < ids.length; i++) {
-            mColorButton[i] = (Button) lp.findViewById(ids[i]);
+            mColorButton[i] = lp.findViewById(ids[i]);
 
             float[] hsvo = new float[4];
             Color.colorToHSV(mBasColors[i], hsvo);
@@ -184,33 +173,30 @@ public class EditorDrawTabletUI {
             sd.setStroke(3, (0 == i) ? mSelected : mTransparent);
 
             final int buttonNo = i;
-            mColorButton[i].setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View arg0) {
+            mColorButton[i].setOnClickListener(arg0 -> {
 
-                    mSelectedColorButton = buttonNo;
-                    float[] hsvo = Arrays.copyOf((float[]) mColorButton[buttonNo].getTag(), 4);
-                    resetBorders();
-                    if (mRep == null) {
-                        return;
-                    }
-                    ParameterColor pram;
-                    pram = (ParameterColor) mRep.getParam(FilterDrawRepresentation.PARAM_COLOR);
-                    pram.setValue(mBasColors[mSelectedColorButton]);
-                    mEditorDraw.commitLocalRepresentation();
-                    mHueView.setColor(hsvo);
-                    mSatValView.setColor(hsvo);
-                    mOpacityView.setColor(hsvo);
-                    mColorCompareView.setColor(hsvo);
-                    mColorCompareView.setOrigColor(hsvo);
+                mSelectedColorButton = buttonNo;
+                float[] hsvo1 = Arrays.copyOf((float[]) mColorButton[buttonNo].getTag(), 4);
+                resetBorders();
+                if (mRep == null) {
+                    return;
                 }
+                ParameterColor pram;
+                pram = (ParameterColor) mRep.getParam(FilterDrawRepresentation.PARAM_COLOR);
+                pram.setValue(mBasColors[mSelectedColorButton]);
+                mEditorDraw.commitLocalRepresentation();
+                mHueView.setColor(hsvo1);
+                mSatValView.setColor(hsvo1);
+                mOpacityView.setColor(hsvo1);
+                mColorCompareView.setColor(hsvo1);
+                mColorCompareView.setOrigColor(hsvo1);
             });
         }
 
-        mHueView = (ColorHueView) lp.findViewById(R.id.ColorHueView);
-        mSatValView = (ColorSVRectView) lp.findViewById(R.id.colorRectView);
-        mOpacityView = (ColorOpacityView) lp.findViewById(R.id.colorOpacityView);
-        mColorCompareView = (ColorCompareView) lp.findViewById(R.id.btnSelect);
+        mHueView = lp.findViewById(R.id.ColorHueView);
+        mSatValView = lp.findViewById(R.id.colorRectView);
+        mOpacityView = lp.findViewById(R.id.colorOpacityView);
+        mColorCompareView = lp.findViewById(R.id.btnSelect);
 
         float[] hsvo = new float[4];
         Color.colorToHSV(mBasColors[0], hsvo);
@@ -251,8 +237,8 @@ public class EditorDrawTabletUI {
             }
         };
 
-        for (int i = 0; i < colorViews.length; i++) {
-            colorViews[i].addColorListener(colorListener);
+        for (ColorListener colorView : colorViews) {
+            colorView.addColorListener(colorListener);
         }
 
     }

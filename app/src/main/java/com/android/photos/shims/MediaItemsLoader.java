@@ -44,21 +44,13 @@ import java.util.ArrayList;
  */
 public class MediaItemsLoader extends AsyncTaskLoader<Cursor> implements LoaderCompatShim<Cursor> {
 
-    private static final SyncListener sNullListener = new SyncListener() {
-        @Override
-        public void onSyncDone(MediaSet mediaSet, int resultCode) {
-        }
+    private static final SyncListener sNullListener = (mediaSet, resultCode) -> {
     };
 
     private final MediaSet mMediaSet;
     private final DataManager mDataManager;
     private Future<Integer> mSyncTask = null;
-    private ContentListener mObserver = new ContentListener() {
-        @Override
-        public void onContentDirty() {
-            onContentChanged();
-        }
-    };
+    private ContentListener mObserver = this::onContentChanged;
     private SparseArray<MediaItem> mMediaItems;
 
     public MediaItemsLoader(Context context) {
@@ -110,29 +102,26 @@ public class MediaItemsLoader extends AsyncTaskLoader<Cursor> implements LoaderC
         mMediaSet.reload();
         final MatrixCursor cursor = new MatrixCursor(PhotoSetLoader.PROJECTION);
         final Object[] row = new Object[PhotoSetLoader.PROJECTION.length];
-        final SparseArray<MediaItem> mediaItems = new SparseArray<MediaItem>();
-        mMediaSet.enumerateTotalMediaItems(new ItemConsumer() {
-            @Override
-            public void consume(int index, MediaItem item) {
-                row[PhotoSetLoader.INDEX_ID] = index;
-                row[PhotoSetLoader.INDEX_DATA] = item.getContentUri().toString();
-                row[PhotoSetLoader.INDEX_DATE_ADDED] = item.getDateInMs();
-                row[PhotoSetLoader.INDEX_HEIGHT] = item.getHeight();
-                row[PhotoSetLoader.INDEX_WIDTH] = item.getWidth();
-                row[PhotoSetLoader.INDEX_WIDTH] = item.getWidth();
-                int rawMediaType = item.getMediaType();
-                int mappedMediaType = FileColumns.MEDIA_TYPE_NONE;
-                if (rawMediaType == MediaItem.MEDIA_TYPE_IMAGE) {
-                    mappedMediaType = FileColumns.MEDIA_TYPE_IMAGE;
-                } else if (rawMediaType == MediaItem.MEDIA_TYPE_VIDEO) {
-                    mappedMediaType = FileColumns.MEDIA_TYPE_VIDEO;
-                }
-                row[PhotoSetLoader.INDEX_MEDIA_TYPE] = mappedMediaType;
-                row[PhotoSetLoader.INDEX_SUPPORTED_OPERATIONS] =
-                        item.getSupportedOperations();
-                cursor.addRow(row);
-                mediaItems.append(index, item);
+        final SparseArray<MediaItem> mediaItems = new SparseArray<>();
+        mMediaSet.enumerateTotalMediaItems((index, item) -> {
+            row[PhotoSetLoader.INDEX_ID] = index;
+            row[PhotoSetLoader.INDEX_DATA] = item.getContentUri().toString();
+            row[PhotoSetLoader.INDEX_DATE_ADDED] = item.getDateInMs();
+            row[PhotoSetLoader.INDEX_HEIGHT] = item.getHeight();
+            row[PhotoSetLoader.INDEX_WIDTH] = item.getWidth();
+            row[PhotoSetLoader.INDEX_WIDTH] = item.getWidth();
+            int rawMediaType = item.getMediaType();
+            int mappedMediaType = FileColumns.MEDIA_TYPE_NONE;
+            if (rawMediaType == MediaItem.MEDIA_TYPE_IMAGE) {
+                mappedMediaType = FileColumns.MEDIA_TYPE_IMAGE;
+            } else if (rawMediaType == MediaItem.MEDIA_TYPE_VIDEO) {
+                mappedMediaType = FileColumns.MEDIA_TYPE_VIDEO;
             }
+            row[PhotoSetLoader.INDEX_MEDIA_TYPE] = mappedMediaType;
+            row[PhotoSetLoader.INDEX_SUPPORTED_OPERATIONS] =
+                    item.getSupportedOperations();
+            cursor.addRow(row);
+            mediaItems.append(index, item);
         });
         synchronized (mMediaSet) {
             mMediaItems = mediaItems;

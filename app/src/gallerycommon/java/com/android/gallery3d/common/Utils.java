@@ -28,6 +28,7 @@ import android.util.Log;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InterruptedIOException;
+import java.util.Objects;
 
 public class Utils {
     private static final String TAG = "Utils";
@@ -69,7 +70,7 @@ public class Utils {
     // Returns true if two input Object are both null or equal
     // to each other.
     public static boolean equals(Object a, Object b) {
-        return (a == b) || (a == null ? false : a.equals(b));
+        return Objects.equals(a, b);
     }
 
     // Returns the next power of two.
@@ -132,7 +133,7 @@ public class Utils {
      * @param in input string
      * @return a 64-bit crc value
      */
-    public static final long crc64Long(String in) {
+    public static long crc64Long(String in) {
         if (in == null || in.length() == 0) {
             return 0;
         }
@@ -152,10 +153,10 @@ public class Utils {
         }
     }
 
-    public static final long crc64Long(byte[] buffer) {
+    public static long crc64Long(byte[] buffer) {
         long crc = INITIALCRC;
-        for (int k = 0, n = buffer.length; k < n; ++k) {
-            crc = sCrcTable[(((int) crc) ^ buffer[k]) & 0xff] ^ (crc >> 8);
+        for (byte b : buffer) {
+            crc = sCrcTable[(((int) crc) ^ b) & 0xff] ^ (crc >> 8);
         }
         return crc;
     }
@@ -180,7 +181,7 @@ public class Utils {
     }
 
     public static int compare(long a, long b) {
-        return a < b ? -1 : a == b ? 0 : 1;
+        return Long.compare(a, b);
     }
 
     public static int ceilLog2(float value) {

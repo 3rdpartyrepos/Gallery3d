@@ -158,7 +158,7 @@ public class ColorCompareView extends View implements ColorListener {
         invalidate();
     }
 
-    ArrayList<ColorListener> mColorListeners = new ArrayList<ColorListener>();
+    ArrayList<ColorListener> mColorListeners = new ArrayList<>();
 
     public void notifyColorListeners(float[] hsvo) {
         for (ColorListener l : mColorListeners) {

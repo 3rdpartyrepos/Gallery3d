@@ -66,6 +66,6 @@ public class LinkedNode {
     }
 
     public static <T extends LinkedNode> List<T> newList() {
-        return new List<T>();
+        return new List<>();
     }
 }

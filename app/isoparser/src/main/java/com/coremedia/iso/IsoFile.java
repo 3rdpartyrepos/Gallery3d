@@ -26,11 +26,11 @@ import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
+import java.nio.charset.StandardCharsets;
 
 /**
  * The most upper container for ISO Boxes. It is a container box that is a file.
@@ -135,11 +135,7 @@ public class IsoFile extends AbstractContainerBox implements Closeable {
         if (type != null) {
             System.arraycopy(type, 0, result, 0, Math.min(type.length, 4));
         }
-        try {
-            return new String(result, "ISO-8859-1");
-        } catch (UnsupportedEncodingException e) {
-            throw new Error("Required character encoding is missing", e);
-        }
+        return new String(result, StandardCharsets.ISO_8859_1);
     }
 
 

@@ -63,11 +63,11 @@ public class GalleryActionBar implements OnNavigationListener {
     public static final int ALBUM_GRID_MODE_SELECTED = 1;
 
     public interface ClusterRunner {
-        public void doCluster(int id);
+        void doCluster(int id);
     }
 
     public interface OnAlbumModeSelectedListener {
-        public void onAlbumModeSelected(int mode);
+        void onAlbumModeSelected(int mode);
     }
 
     private static class ActionItem {
@@ -189,13 +189,13 @@ public class GalleryActionBar implements OnNavigationListener {
         mActionBar = activity.getActionBar();
         mContext = activity.getAndroidContext();
         mActivity = activity;
-        mInflater = ((Activity) mActivity).getLayoutInflater();
+        mInflater = mActivity.getLayoutInflater();
         mCurrentIndex = 0;
     }
 
     private void createDialogData() {
-        ArrayList<CharSequence> titles = new ArrayList<CharSequence>();
-        mActions = new ArrayList<Integer>();
+        ArrayList<CharSequence> titles = new ArrayList<>();
+        mActions = new ArrayList<>();
         for (ActionItem item : sClusterItems) {
             if (item.enabled && item.visible) {
                 titles.add(mContext.getString(item.dialogTitle));
@@ -294,19 +294,16 @@ public class GalleryActionBar implements OnNavigationListener {
         createDialogData();
         final ArrayList<Integer> actions = mActions;
         new AlertDialog.Builder(mContext).setTitle(R.string.group_by).setItems(
-                mTitles, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // Need to lock rendering when operations invoked by system UI (main thread) are
-                // modifying slot data used in GL thread for rendering.
-                mActivity.getGLRoot().lockRenderThread();
-                try {
-                    clusterRunner.doCluster(actions.get(which).intValue());
-                } finally {
-                    mActivity.getGLRoot().unlockRenderThread();
-                }
-            }
-        }).create().show();
+                mTitles, (dialog, which) -> {
+                    // Need to lock rendering when operations invoked by system UI (main thread) are
+                    // modifying slot data used in GL thread for rendering.
+                    mActivity.getGLRoot().lockRenderThread();
+                    try {
+                        clusterRunner.doCluster(actions.get(which));
+                    } finally {
+                        mActivity.getGLRoot().unlockRenderThread();
+                    }
+                }).create().show();
     }
 
     @TargetApi(ApiHelper.VERSION_CODES.ICE_CREAM_SANDWICH)

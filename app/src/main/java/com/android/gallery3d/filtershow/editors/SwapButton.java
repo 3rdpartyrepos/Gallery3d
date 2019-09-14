@@ -29,8 +29,8 @@ public class SwapButton extends Button implements GestureDetector.OnGestureListe
     public static int ANIM_DURATION = 200;
 
     public interface SwapButtonListener {
-        public void swapLeft(MenuItem item);
-        public void swapRight(MenuItem item);
+        void swapLeft(MenuItem item);
+        void swapRight(MenuItem item);
     }
 
     private GestureDetector mDetector;

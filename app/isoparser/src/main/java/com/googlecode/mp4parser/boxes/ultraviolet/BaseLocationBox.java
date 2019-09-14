@@ -21,6 +21,7 @@ import com.coremedia.iso.Utf8;
 import com.googlecode.mp4parser.AbstractFullBox;
 
 import java.nio.ByteBuffer;
+import java.util.Objects;
 
 /**
  *
@@ -87,11 +88,8 @@ public class BaseLocationBox extends AbstractFullBox {
 
         BaseLocationBox that = (BaseLocationBox) o;
 
-        if (baseLocation != null ? !baseLocation.equals(that.baseLocation) : that.baseLocation != null) return false;
-        if (purchaseLocation != null ? !purchaseLocation.equals(that.purchaseLocation) : that.purchaseLocation != null)
-            return false;
-
-        return true;
+        if (!Objects.equals(baseLocation, that.baseLocation)) return false;
+        return Objects.equals(purchaseLocation, that.purchaseLocation);
     }
 
     @Override

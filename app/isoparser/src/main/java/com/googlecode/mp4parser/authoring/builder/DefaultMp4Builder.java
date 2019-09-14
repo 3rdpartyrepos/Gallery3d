@@ -69,11 +69,11 @@ import static com.googlecode.mp4parser.util.CastUtils.l2i;
 public class DefaultMp4Builder implements Mp4Builder {
 
     public int STEPSIZE = 64;
-    Set<StaticChunkOffsetBox> chunkOffsetBoxes = new HashSet<StaticChunkOffsetBox>();
+    Set<StaticChunkOffsetBox> chunkOffsetBoxes = new HashSet<>();
     private static Logger LOG = Logger.getLogger(DefaultMp4Builder.class.getName());
 
-    HashMap<Track, List<ByteBuffer>> track2Sample = new HashMap<Track, List<ByteBuffer>>();
-    HashMap<Track, long[]> track2SampleSizes = new HashMap<Track, long[]>();
+    HashMap<Track, List<ByteBuffer>> track2Sample = new HashMap<>();
+    HashMap<Track, long[]> track2SampleSizes = new HashMap<>();
     private FragmentIntersectionFinder intersectionFinder = new TwoSecondIntersectionFinder();
 
     public void setIntersectionFinder(FragmentIntersectionFinder intersectionFinder) {
@@ -98,7 +98,7 @@ public class DefaultMp4Builder implements Mp4Builder {
 
         IsoFile isoFile = new IsoFile();
         // ouch that is ugly but I don't know how to do it else
-        List<String> minorBrands = new LinkedList<String>();
+        List<String> minorBrands = new LinkedList<>();
         minorBrands.add("isom");
         minorBrands.add("iso2");
         minorBrands.add("avc1");
@@ -163,9 +163,9 @@ public class DefaultMp4Builder implements Mp4Builder {
             nextTrackId = nextTrackId < track.getTrackMetaData().getTrackId() ? track.getTrackMetaData().getTrackId() : nextTrackId;
         }
         mvhd.setNextTrackId(++nextTrackId);
-        if (mvhd.getCreationTime() >= 1l << 32 ||
-                mvhd.getModificationTime() >= 1l << 32 ||
-                mvhd.getDuration() >= 1l << 32) {
+        if (mvhd.getCreationTime() >= 1L << 32 ||
+                mvhd.getModificationTime() >= 1L << 32 ||
+                mvhd.getDuration() >= 1L << 32) {
             mvhd.setVersion(1);
         }
 
@@ -227,9 +227,9 @@ public class DefaultMp4Builder implements Mp4Builder {
         tkhd.setTrackId(track.getTrackMetaData().getTrackId());
         tkhd.setVolume(track.getTrackMetaData().getVolume());
         tkhd.setMatrix(track.getTrackMetaData().getMatrix());
-        if (tkhd.getCreationTime() >= 1l << 32 ||
-                tkhd.getModificationTime() >= 1l << 32 ||
-                tkhd.getDuration() >= 1l << 32) {
+        if (tkhd.getCreationTime() >= 1L << 32 ||
+                tkhd.getModificationTime() >= 1L << 32 ||
+                tkhd.getDuration() >= 1L << 32) {
             tkhd.setVersion(1);
         }
 
@@ -301,14 +301,14 @@ public class DefaultMp4Builder implements Mp4Builder {
             sdtp.setEntries(track.getSampleDependencies());
             stbl.addBox(sdtp);
         }
-        HashMap<Track, int[]> track2ChunkSizes = new HashMap<Track, int[]>();
+        HashMap<Track, int[]> track2ChunkSizes = new HashMap<>();
         for (Track current : movie.getTracks()) {
             track2ChunkSizes.put(current, getChunkSizes(current, movie));
         }
         int[] tracksChunkSizes = track2ChunkSizes.get(track);
 
         SampleToChunkBox stsc = new SampleToChunkBox();
-        stsc.setEntries(new LinkedList<SampleToChunkBox.Entry>());
+        stsc.setEntries(new LinkedList<>());
         long lastChunkSize = Integer.MIN_VALUE; // to be sure the first chunks hasn't got the same size
         for (int i = 0; i < tracksChunkSizes.length; i++) {
             // The sample description index references the sample description box
@@ -374,7 +374,7 @@ public class DefaultMp4Builder implements Mp4Builder {
 
     private class InterleaveChunkMdat implements Box {
         List<Track> tracks;
-        List<ByteBuffer> samples = new ArrayList<ByteBuffer>();
+        List<ByteBuffer> samples = new ArrayList<>();
         ContainerBox parent;
 
         long contentSize = 0;
@@ -393,7 +393,7 @@ public class DefaultMp4Builder implements Mp4Builder {
         private InterleaveChunkMdat(Movie movie) {
 
             tracks = movie.getTracks();
-            Map<Track, int[]> chunks = new HashMap<Track, int[]>();
+            Map<Track, int[]> chunks = new HashMap<>();
             for (Track track : movie.getTracks()) {
                 chunks.put(track, getChunkSizes(track, movie));
             }
@@ -473,7 +473,7 @@ public class DefaultMp4Builder implements Mp4Builder {
                     List<ByteBuffer> sublist = nuSamples.subList(
                             i * STEPSIZE, // start
                             (i + 1) * STEPSIZE < nuSamples.size() ? (i + 1) * STEPSIZE : nuSamples.size()); // end
-                    ByteBuffer sampleArray[] = sublist.toArray(new ByteBuffer[sublist.size()]);
+                    ByteBuffer[] sampleArray = sublist.toArray(new ByteBuffer[0]);
                     do {
                         ((GatheringByteChannel) writableByteChannel).write(sampleArray);
                     } while (sampleArray[sampleArray.length - 1].remaining() > 0);
@@ -553,7 +553,7 @@ public class DefaultMp4Builder implements Mp4Builder {
     }
 
     public List<ByteBuffer> unifyAdjacentBuffers(List<ByteBuffer> samples) {
-        ArrayList<ByteBuffer> nuSamples = new ArrayList<ByteBuffer>(samples.size());
+        ArrayList<ByteBuffer> nuSamples = new ArrayList<>(samples.size());
         for (ByteBuffer buffer : samples) {
             int lastIndex = nuSamples.size() - 1;
             if (lastIndex >= 0 && buffer.hasArray() && nuSamples.get(lastIndex).hasArray() && buffer.array() == nuSamples.get(lastIndex).array() &&

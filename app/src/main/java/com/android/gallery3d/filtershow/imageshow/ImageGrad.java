@@ -175,12 +175,12 @@ public class ImageGrad extends ImageShow {
     }
 
     public void computCenterLocations() {
-        int x1[] = mGradRep.getXPos1();
-        int y1[] = mGradRep.getYPos1();
-        int x2[] = mGradRep.getXPos2();
-        int y2[] = mGradRep.getYPos2();
+        int[] x1 = mGradRep.getXPos1();
+        int[] y1 = mGradRep.getYPos1();
+        int[] x2 = mGradRep.getXPos2();
+        int[] y2 = mGradRep.getYPos2();
         int selected = mGradRep.getSelectedPoint();
-        boolean m[] = mGradRep.getMask();
+        boolean[] m = mGradRep.getMask();
         float[] c = new float[2];
         for (int i = 0; i < m.length; i++) {
             if (selected == i || !m[i]) {

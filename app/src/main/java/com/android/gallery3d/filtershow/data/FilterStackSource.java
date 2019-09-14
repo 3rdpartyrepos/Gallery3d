@@ -128,7 +128,7 @@ public class FilterStackSource {
 
     public ArrayList<FilterUserPresetRepresentation> getAllUserPresets() {
         ArrayList<FilterUserPresetRepresentation> ret =
-                new ArrayList<FilterUserPresetRepresentation>();
+                new ArrayList<>();
 
         Cursor c = null;
         database.beginTransaction();
@@ -166,7 +166,7 @@ public class FilterStackSource {
     }
 
     public List<Pair<String, byte[]>> getAllStacks() {
-        List<Pair<String, byte[]>> ret = new ArrayList<Pair<String, byte[]>>();
+        List<Pair<String, byte[]>> ret = new ArrayList<>();
         Cursor c = null;
         database.beginTransaction();
         try {
@@ -178,7 +178,7 @@ public class FilterStackSource {
                 while (loopCheck) {
                     String name = (c.isNull(0)) ?  null : c.getString(0);
                     byte[] b = (c.isNull(1)) ? null : c.getBlob(1);
-                    ret.add(new Pair<String, byte[]>(name, b));
+                    ret.add(new Pair<>(name, b));
                     loopCheck = c.moveToNext();
                 }
             }

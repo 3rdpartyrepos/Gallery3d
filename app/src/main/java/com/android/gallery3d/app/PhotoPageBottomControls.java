@@ -32,10 +32,10 @@ import java.util.Map;
 
 public class PhotoPageBottomControls implements OnClickListener {
     public interface Delegate {
-        public boolean canDisplayBottomControls();
-        public boolean canDisplayBottomControl(int control);
-        public void onBottomControlClicked(int control);
-        public void refreshBottomControlsWhenReady();
+        boolean canDisplayBottomControls();
+        boolean canDisplayBottomControl(int control);
+        void onBottomControlClicked(int control);
+        void refreshBottomControlsWhenReady();
     }
 
     private Delegate mDelegate;
@@ -43,7 +43,7 @@ public class PhotoPageBottomControls implements OnClickListener {
     private ViewGroup mContainer;
 
     private boolean mContainerVisible = false;
-    private Map<View, Boolean> mControlsVisible = new HashMap<View, Boolean>();
+    private Map<View, Boolean> mControlsVisible = new HashMap<>();
 
     private Animation mContainerAnimIn = new AlphaAnimation(0f, 1f);
     private Animation mContainerAnimOut = new AlphaAnimation(1f, 0f);
@@ -110,7 +110,7 @@ public class PhotoPageBottomControls implements OnClickListener {
         for (View control : mControlsVisible.keySet()) {
             Boolean prevVisibility = mControlsVisible.get(control);
             boolean curVisibility = mDelegate.canDisplayBottomControl(control.getId());
-            if (prevVisibility.booleanValue() != curVisibility) {
+            if (prevVisibility != curVisibility) {
                 if (!containerVisibilityChanged) {
                     control.clearAnimation();
                     control.startAnimation(getControlAnimForVisibility(curVisibility));
@@ -131,7 +131,7 @@ public class PhotoPageBottomControls implements OnClickListener {
     @Override
     public void onClick(View view) {
         Boolean controlVisible = mControlsVisible.get(view);
-        if (mContainerVisible && controlVisible != null && controlVisible.booleanValue()) {
+        if (mContainerVisible && controlVisible != null && controlVisible) {
             mDelegate.onBottomControlClicked(view.getId());
         }
     }

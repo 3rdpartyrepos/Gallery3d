@@ -60,7 +60,7 @@ public class FileTypeBox extends AbstractBox {
         majorBrand = IsoTypeReader.read4cc(content);
         minorVersion = IsoTypeReader.readUInt32(content);
         int compatibleBrandsCount = content.remaining() / 4;
-        compatibleBrands = new LinkedList<String>();
+        compatibleBrands = new LinkedList<>();
         for (int i = 0; i < compatibleBrandsCount; i++) {
             compatibleBrands.add(IsoTypeReader.read4cc(content));
         }

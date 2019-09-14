@@ -365,8 +365,7 @@ public class SeqParameterSet extends BitstreamElement {
             writer.writeSE(offset_for_top_to_bottom_field,
                     "SPS: offset_for_top_to_bottom_field");
             writer.writeUE(offsetForRefFrame.length, "SPS: ");
-            for (int i = 0; i < offsetForRefFrame.length; i++)
-                writer.writeSE(offsetForRefFrame[i], "SPS: ");
+            for (int value : offsetForRefFrame) writer.writeSE(value, "SPS: ");
         }
         writer.writeUE(num_ref_frames, "SPS: num_ref_frames");
         writer.writeBool(gaps_in_frame_num_value_allowed_flag,

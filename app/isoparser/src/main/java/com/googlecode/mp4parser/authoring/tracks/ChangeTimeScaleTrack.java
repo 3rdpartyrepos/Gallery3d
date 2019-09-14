@@ -61,7 +61,7 @@ public class ChangeTimeScaleTrack implements Track {
 
     private static long[] getTimes(Track track, long[] syncSamples, long targetTimeScale) {
         long[] syncSampleTimes = new long[syncSamples.length];
-        Queue<TimeToSampleBox.Entry> timeQueue = new LinkedList<TimeToSampleBox.Entry>(track.getDecodingTimeEntries());
+        Queue<TimeToSampleBox.Entry> timeQueue = new LinkedList<>(track.getDecodingTimeEntries());
 
         int currentSample = 1;  // first syncsample is 1
         long currentDuration = 0;
@@ -146,7 +146,7 @@ public class ChangeTimeScaleTrack implements Track {
      */
     static List<CompositionTimeToSample.Entry> adjustCtts(List<CompositionTimeToSample.Entry> source, double timeScaleFactor) {
         if (source != null) {
-            List<CompositionTimeToSample.Entry> entries2 = new ArrayList<CompositionTimeToSample.Entry>(source.size());
+            List<CompositionTimeToSample.Entry> entries2 = new ArrayList<>(source.size());
             for (CompositionTimeToSample.Entry entry : source) {
                 entries2.add(new CompositionTimeToSample.Entry(entry.getCount(), (int) Math.round(timeScaleFactor * entry.getOffset())));
             }
@@ -161,7 +161,7 @@ public class ChangeTimeScaleTrack implements Track {
         long[] sourceArray = TimeToSampleBox.blowupTimeToSamples(source);
         long summedDurations = 0;
 
-        LinkedList<TimeToSampleBox.Entry> entries2 = new LinkedList<TimeToSampleBox.Entry>();
+        LinkedList<TimeToSampleBox.Entry> entries2 = new LinkedList<>();
         for (int i = 1; i <= sourceArray.length; i++) {
             long duration = sourceArray[i - 1];
 

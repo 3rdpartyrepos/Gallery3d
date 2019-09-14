@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class ByteBufferHelper {
     public static List<ByteBuffer> mergeAdjacentBuffers(List<ByteBuffer> samples) {
-        ArrayList<ByteBuffer> nuSamples = new ArrayList<ByteBuffer>(samples.size());
+        ArrayList<ByteBuffer> nuSamples = new ArrayList<>(samples.size());
         for (ByteBuffer buffer : samples) {
             int lastIndex = nuSamples.size() - 1;
             if (lastIndex >= 0 && buffer.hasArray() && nuSamples.get(lastIndex).hasArray() && buffer.array() == nuSamples.get(lastIndex).array() &&

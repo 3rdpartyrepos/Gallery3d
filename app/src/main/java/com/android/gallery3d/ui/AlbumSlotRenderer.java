@@ -31,7 +31,7 @@ public class AlbumSlotRenderer extends AbstractSlotRenderer {
     private static final String TAG = "AlbumView";
 
     public interface SlotFilter {
-        public boolean acceptSlot(int index);
+        boolean acceptSlot(int index);
     }
 
     private final int mPlaceholderColor;

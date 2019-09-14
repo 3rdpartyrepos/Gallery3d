@@ -65,10 +65,7 @@ public class FilterStraightenRepresentation extends FilterRepresentation {
             return false;
         }
         FilterStraightenRepresentation straighten = (FilterStraightenRepresentation) rep;
-        if (straighten.mStraighten != mStraighten) {
-            return false;
-        }
-        return true;
+        return straighten.mStraighten == mStraighten;
     }
 
     public float getStraighten() {
@@ -148,9 +145,6 @@ public class FilterStraightenRepresentation extends FilterRepresentation {
     }
 
     private boolean rangeCheck(double s) {
-        if (s < -45 || s > 45) {
-            return false;
-        }
-        return true;
+        return !(s < -45) && !(s > 45);
     }
 }

@@ -77,7 +77,7 @@ public class  Base64
 	 * @param src the source string.
 	 * @return the base64-encoded data.
 	 */
-    public static final byte[] encode(byte[] src)
+    public static byte[] encode(byte[] src)
 	{
     	return encode(src, 0);
 	}
@@ -91,7 +91,7 @@ public class  Base64
 	 *            must be dividable by four; 0 means no linefeeds
 	 * @return the base64-encoded data.
 	 */
-    public static final byte[] encode(byte[] src, int lineFeed)
+    public static byte[] encode(byte[] src, int lineFeed)
 	{
     	// linefeed must be dividable by 4
     	lineFeed = lineFeed / 4 * 4;
@@ -167,7 +167,7 @@ public class  Base64
      * @param src the source string.
      * @return the base64-encoded string.
      */
-    public static final String encode(String src)
+    public static String encode(String src)
 	{
 		return new String(encode(src.getBytes()));
 	}
@@ -182,7 +182,7 @@ public class  Base64
      * @throws IllegalArgumentException Thrown if the base 64 strings contains non-valid characters,
      * 		beside the bas64 chars, LF, CR, tab and space are accepted.
 	 */
-    public static final byte[] decode(byte[] src) throws IllegalArgumentException
+    public static byte[] decode(byte[] src) throws IllegalArgumentException
 	{
         //
         // Do ascii printable to 0-63 conversion.
@@ -244,7 +244,7 @@ public class  Base64
 	 * @param src the base64-encoded string.
 	 * @return the decoded string.
 	 */
-	public static final String decode(String src)
+	public static String decode(String src)
 	{
 		return new String(decode(src.getBytes()));
 	}

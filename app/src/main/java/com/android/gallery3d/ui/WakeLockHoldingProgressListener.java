@@ -34,7 +34,7 @@ public class WakeLockHoldingProgressListener implements MenuExecutor.ProgressLis
     public WakeLockHoldingProgressListener(AbstractGalleryActivity galleryActivity, String label) {
         mActivity = galleryActivity;
         PowerManager pm =
-                (PowerManager) ((Activity) mActivity).getSystemService(Context.POWER_SERVICE);
+                (PowerManager) mActivity.getSystemService(Context.POWER_SERVICE);
         mWakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, label);
     }
 

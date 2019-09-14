@@ -35,7 +35,7 @@ import java.util.List;
  * TfrfBoxChildren = *( VendorExtensionUUIDBox )
  */
 public class TfrfBox extends AbstractFullBox {
-    public List<Entry> entries = new ArrayList<Entry>();
+    public List<Entry> entries = new ArrayList<>();
 
     public TfrfBox() {
         super("uuid");

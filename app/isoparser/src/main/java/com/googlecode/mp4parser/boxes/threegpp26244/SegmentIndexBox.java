@@ -41,7 +41,7 @@ import java.util.List;
  */
 public class SegmentIndexBox extends AbstractFullBox {
     public static final String TYPE = "sidx";
-    List<Entry> entries = new ArrayList<Entry>();
+    List<Entry> entries = new ArrayList<>();
 
     long referenceId;
     long timeScale;
@@ -264,9 +264,7 @@ public class SegmentIndexBox extends AbstractFullBox {
             if (sapDeltaTime != entry.sapDeltaTime) return false;
             if (sapType != entry.sapType) return false;
             if (startsWithSap != entry.startsWithSap) return false;
-            if (subsegmentDuration != entry.subsegmentDuration) return false;
-
-            return true;
+            return subsegmentDuration == entry.subsegmentDuration;
         }
 
         @Override

@@ -21,7 +21,6 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Rect;
-import android.os.Build;
 import android.os.Message;
 import android.view.MotionEvent;
 import android.view.View.MeasureSpec;
@@ -29,7 +28,6 @@ import android.view.animation.AccelerateInterpolator;
 
 import com.android.gallery3d.R;
 import com.android.gallery3d.app.AbstractGalleryActivity;
-import com.android.gallery3d.common.ApiHelper;
 import com.android.gallery3d.common.Utils;
 import com.android.gallery3d.data.MediaItem;
 import com.android.gallery3d.data.MediaObject;
@@ -58,48 +56,48 @@ public class PhotoView extends GLView {
     }
 
     public interface Model extends TileImageView.TileSource {
-        public int getCurrentIndex();
-        public void moveTo(int index);
+        int getCurrentIndex();
+        void moveTo(int index);
 
         // Returns the size for the specified picture. If the size information is
         // not avaiable, width = height = 0.
-        public void getImageSize(int offset, Size size);
+        void getImageSize(int offset, Size size);
 
         // Returns the media item for the specified picture.
-        public MediaItem getMediaItem(int offset);
+        MediaItem getMediaItem(int offset);
 
         // Returns the rotation for the specified picture.
-        public int getImageRotation(int offset);
+        int getImageRotation(int offset);
 
         // This amends the getScreenNail() method of TileImageView.Model to get
         // ScreenNail at previous (negative offset) or next (positive offset)
         // positions. Returns null if the specified ScreenNail is unavailable.
-        public ScreenNail getScreenNail(int offset);
+        ScreenNail getScreenNail(int offset);
 
         // Set this to true if we need the model to provide full images.
-        public void setNeedFullImage(boolean enabled);
+        void setNeedFullImage(boolean enabled);
 
         // Returns true if the item is the Camera preview.
-        public boolean isCamera(int offset);
+        boolean isCamera(int offset);
 
         // Returns true if the item is the Panorama.
-        public boolean isPanorama(int offset);
+        boolean isPanorama(int offset);
 
         // Returns true if the item is a static image that represents camera
         // preview.
-        public boolean isStaticCamera(int offset);
+        boolean isStaticCamera(int offset);
 
         // Returns true if the item is a Video.
-        public boolean isVideo(int offset);
+        boolean isVideo(int offset);
 
         // Returns true if the item can be deleted.
-        public boolean isDeletable(int offset);
+        boolean isDeletable(int offset);
 
-        public static final int LOADING_INIT = 0;
-        public static final int LOADING_COMPLETE = 1;
-        public static final int LOADING_FAIL = 2;
+        int LOADING_INIT = 0;
+        int LOADING_COMPLETE = 1;
+        int LOADING_FAIL = 2;
 
-        public int getLoadingState(int offset);
+        int getLoadingState(int offset);
 
         // When data change happens, we need to decide which MediaItem to focus
         // on.
@@ -113,24 +111,24 @@ public class PhotoView extends GLView {
         //
         // 3. Otherwise try to focus on the previous MediaItem or the next
         // MediaItem, depending on the value of focus hint direction.
-        public static final int FOCUS_HINT_NEXT = 0;
-        public static final int FOCUS_HINT_PREVIOUS = 1;
-        public void setFocusHintDirection(int direction);
-        public void setFocusHintPath(Path path);
+        int FOCUS_HINT_NEXT = 0;
+        int FOCUS_HINT_PREVIOUS = 1;
+        void setFocusHintDirection(int direction);
+        void setFocusHintPath(Path path);
     }
 
     public interface Listener {
-        public void onSingleTapUp(int x, int y);
-        public void onFullScreenChanged(boolean full);
-        public void onActionBarAllowed(boolean allowed);
-        public void onActionBarWanted();
-        public void onCurrentImageUpdated();
-        public void onDeleteImage(Path path, int offset);
-        public void onUndoDeleteImage();
-        public void onCommitDeleteImage();
-        public void onFilmModeChanged(boolean enabled);
-        public void onPictureCenter(boolean isCamera);
-        public void onUndoBarVisibilityChanged(boolean visible);
+        void onSingleTapUp(int x, int y);
+        void onFullScreenChanged(boolean full);
+        void onActionBarAllowed(boolean allowed);
+        void onActionBarWanted();
+        void onCurrentImageUpdated();
+        void onDeleteImage(Path path, int offset);
+        void onUndoDeleteImage();
+        void onCommitDeleteImage();
+        void onFilmModeChanged(boolean enabled);
+        void onPictureCenter(boolean isCamera);
+        void onUndoBarVisibilityChanged(boolean visible);
     }
 
     // The rules about orientation locking:
@@ -186,7 +184,7 @@ public class PhotoView extends GLView {
     // The picture entries, the valid index is from -SCREEN_NAIL_MAX to
     // SCREEN_NAIL_MAX.
     private final RangeArray<Picture> mPictures =
-            new RangeArray<Picture>(-SCREEN_NAIL_MAX, SCREEN_NAIL_MAX);
+            new RangeArray<>(-SCREEN_NAIL_MAX, SCREEN_NAIL_MAX);
     private Size[] mSizes = new Size[2 * SCREEN_NAIL_MAX + 1];
 
     private final MyGestureListener mGestureListener;

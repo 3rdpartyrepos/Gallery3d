@@ -22,7 +22,7 @@ import java.util.List;
  *
  */
 public class Movie {
-    List<Track> tracks = new LinkedList<Track>();
+    List<Track> tracks = new LinkedList<>();
 
     public List<Track> getTracks() {
         return tracks;

@@ -398,19 +398,19 @@ public class XMPNodeUtils implements XMPConst
 		}
 		else if (value instanceof Boolean)
 		{
-			strValue = XMPUtils.convertFromBoolean(((Boolean) value).booleanValue());
+			strValue = XMPUtils.convertFromBoolean((Boolean) value);
 		}
 		else if (value instanceof Integer)
 		{
-			strValue = XMPUtils.convertFromInteger(((Integer) value).intValue());
+			strValue = XMPUtils.convertFromInteger((Integer) value);
 		}
 		else if (value instanceof Long)
 		{
-			strValue = XMPUtils.convertFromLong(((Long) value).longValue());
+			strValue = XMPUtils.convertFromLong((Long) value);
 		}
 		else if (value instanceof Double)
 		{
-			strValue = XMPUtils.convertFromDouble(((Double) value).doubleValue());
+			strValue = XMPUtils.convertFromDouble((Double) value);
 		}
 		else if (value instanceof XMPDateTime)
 		{
@@ -822,7 +822,7 @@ public class XMPNodeUtils implements XMPConst
 		}
 		else if (!arrayNode.hasChildren())
 		{
-			return new Object[] { new Integer(XMPNodeUtils.CLT_NO_VALUES), null };
+			return new Object[] {XMPNodeUtils.CLT_NO_VALUES, null };
 		}
 	
 		int foundGenericMatches = 0;
@@ -851,7 +851,7 @@ public class XMPNodeUtils implements XMPConst
 			// Look for an exact match with the specific language.
 			if (specificLang.equals(currLang))
 			{
-				return new Object[] { new Integer(XMPNodeUtils.CLT_SPECIFIC_MATCH), currItem };
+				return new Object[] {XMPNodeUtils.CLT_SPECIFIC_MATCH, currItem };
 			}
 			else if (genericLang != null && currLang.startsWith(genericLang))
 			{
@@ -871,20 +871,20 @@ public class XMPNodeUtils implements XMPConst
 		// evaluate loop
 		if (foundGenericMatches == 1)
 		{
-			return new Object[] { new Integer(XMPNodeUtils.CLT_SINGLE_GENERIC), resultNode };
+			return new Object[] {XMPNodeUtils.CLT_SINGLE_GENERIC, resultNode };
 		}
 		else if (foundGenericMatches > 1)
 		{
-			return new Object[] { new Integer(XMPNodeUtils.CLT_MULTIPLE_GENERIC), resultNode };
+			return new Object[] {XMPNodeUtils.CLT_MULTIPLE_GENERIC, resultNode };
 		}
 		else if (xDefault != null)
 		{
-			return new Object[] { new Integer(XMPNodeUtils.CLT_XDEFAULT), xDefault };
+			return new Object[] {XMPNodeUtils.CLT_XDEFAULT, xDefault };
 		}
 		else
 		{
 			// Everything failed, choose the first item.
-			return new Object[] { new Integer(XMPNodeUtils.CLT_FIRST_ITEM), arrayNode.getChild(1) };
+			return new Object[] {XMPNodeUtils.CLT_FIRST_ITEM, arrayNode.getChild(1) };
 		}
 	}
 

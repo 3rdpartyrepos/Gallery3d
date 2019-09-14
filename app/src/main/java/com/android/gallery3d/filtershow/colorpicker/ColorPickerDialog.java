@@ -18,21 +18,16 @@ package com.android.gallery3d.filtershow.colorpicker;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ToggleButton;
 
 import com.android.gallery3d.R;
 import com.android.gallery3d.filtershow.FilterShowActivity;
-import com.android.photos.views.GalleryThumbnailView;
 
 public class ColorPickerDialog extends Dialog   {
     ToggleButton mSelectedButton;
@@ -53,30 +48,22 @@ public class ColorPickerDialog extends Dialog   {
         getWindow().setLayout(width, height);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.filtershow_color_picker);
-        mColorHueView = (ColorHueView) findViewById(R.id.ColorHueView);
-        mColorSVRectView = (ColorSVRectView) findViewById(R.id.colorRectView);
-        mColorOpacityView = (ColorOpacityView) findViewById(R.id.colorOpacityView);
-        mColorCompareView = (ColorCompareView) findViewById(R.id.btnSelect);
+        mColorHueView = findViewById(R.id.ColorHueView);
+        mColorSVRectView = findViewById(R.id.colorRectView);
+        mColorOpacityView = findViewById(R.id.colorOpacityView);
+        mColorCompareView = findViewById(R.id.btnSelect);
 
         float[] hsvo = new float[] {
                 123, .9f, 1, 1 };
 
-        ImageButton apply = (ImageButton) findViewById(R.id.applyColorPick);
-        ImageButton cancel = (ImageButton) findViewById(R.id.cancelColorPick);
+        ImageButton apply = findViewById(R.id.applyColorPick);
+        ImageButton cancel = findViewById(R.id.cancelColorPick);
 
-        apply.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cl.setColor(mHSVO);
-                ColorPickerDialog.this.dismiss();
-            }
+        apply.setOnClickListener(v -> {
+            cl.setColor(mHSVO);
+            ColorPickerDialog.this.dismiss();
         });
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ColorPickerDialog.this.dismiss();
-            }
-        });
+        cancel.setOnClickListener(v -> ColorPickerDialog.this.dismiss());
         ColorListener [] c = {mColorCompareView,mColorSVRectView,mColorOpacityView,mColorHueView};
         for (int i = 0; i < c.length; i++) {
             c[i].setColor(hsvo);
@@ -101,8 +88,8 @@ public class ColorPickerDialog extends Dialog   {
             }
         };
 
-        for (int i = 0; i < c.length; i++) {
-            c[i].addColorListener(colorListener);
+        for (ColorListener listener : c) {
+            listener.addColorListener(colorListener);
         }
         setOnShowListener((FilterShowActivity) context);
         setOnDismissListener((FilterShowActivity) context);
@@ -114,9 +101,9 @@ public class ColorPickerDialog extends Dialog   {
             mSelectedButton = null;
             return;
         }
-        for (int i = 0; i < buttons.length; i++) {
-            if (id != buttons[i]) {
-                ToggleButton b = (ToggleButton) findViewById(buttons[i]);
+        for (int button : buttons) {
+            if (id != button) {
+                ToggleButton b = findViewById(button);
                 b.setChecked(false);
             }
         }
@@ -124,9 +111,9 @@ public class ColorPickerDialog extends Dialog   {
 
         float[] hsv = (float[]) v.getTag();
 
-        ColorHueView csv = (ColorHueView) findViewById(R.id.ColorHueView);
-        ColorSVRectView cwv = (ColorSVRectView) findViewById(R.id.colorRectView);
-        ColorOpacityView cvv = (ColorOpacityView) findViewById(R.id.colorOpacityView);
+        ColorHueView csv = findViewById(R.id.ColorHueView);
+        ColorSVRectView cwv = findViewById(R.id.colorRectView);
+        ColorOpacityView cvv = findViewById(R.id.colorOpacityView);
         cwv.setColor(hsv);
         cvv.setColor(hsv);
         csv.setColor(hsv);

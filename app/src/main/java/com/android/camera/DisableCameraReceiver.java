@@ -30,8 +30,8 @@ import android.util.Log;
 public class DisableCameraReceiver extends BroadcastReceiver {
     private static final String TAG = "G:DisableCameraReceiver";
     private static final boolean CHECK_BACK_CAMERA_ONLY = true;
-    private static final String ACTIVITIES[] = {
-        "com.android.camera.CameraLauncher",
+    private static final String[] ACTIVITIES = {
+            "com.android.camera.CameraLauncher",
     };
 
     @Override
@@ -43,8 +43,8 @@ public class DisableCameraReceiver extends BroadcastReceiver {
 
         if (!needCameraActivity) {
             Log.i(TAG, "disable all camera activities");
-            for (int i = 0; i < ACTIVITIES.length; i++) {
-                disableComponent(context, ACTIVITIES[i]);
+            for (String activity : ACTIVITIES) {
+                disableComponent(context, activity);
             }
         }
 

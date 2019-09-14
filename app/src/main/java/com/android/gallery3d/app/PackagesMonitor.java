@@ -24,7 +24,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.android.gallery3d.picasasource.PicasaSource;
-import com.android.gallery3d.util.LightCycleHelper;
 
 public class PackagesMonitor extends BroadcastReceiver {
     public static final String KEY_PACKAGES_VERSION  = "packages-version";

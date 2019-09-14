@@ -46,7 +46,7 @@ public class ImageFilterEdge extends SimpleImageFilter {
         int w = bitmap.getWidth();
         int h = bitmap.getHeight();
         float p = getParameters().getValue() + 101;
-        p = (float) p / 100;
+        p = p / 100;
         nativeApplyFilter(bitmap, w, h, p);
         return bitmap;
     }

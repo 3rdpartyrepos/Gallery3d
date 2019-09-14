@@ -268,8 +268,8 @@ import java.util.Map;
 public class AudioSpecificConfig extends BaseDescriptor {
     byte[] configBytes;
 
-    public static Map<Integer, Integer> samplingFrequencyIndexMap = new HashMap<Integer, Integer>();
-    public static Map<Integer, String> audioObjectTypeMap = new HashMap<Integer, String>();
+    public static Map<Integer, Integer> samplingFrequencyIndexMap = new HashMap<>();
+    public static Map<Integer, String> audioObjectTypeMap = new HashMap<>();
     int audioObjectType;
     int samplingFrequencyIndex;
     int samplingFrequency;
@@ -462,13 +462,14 @@ public class AudioSpecificConfig extends BaseDescriptor {
                     throw new UnsupportedOperationException("can't parse ErrorProtectionSpecificConfig yet");
                     //ErrorProtectionSpecificConfig();
                 }
-                if (epConfig == 3) {
-                    directMapping = bitReaderBuffer.readBits(1);
-                    if (directMapping == 0) {
-                        /* tbd */
-                        throw new RuntimeException("not implemented");
-                    }
-                }
+                // unreachable code
+//                if (epConfig == 3) {
+//                    directMapping = bitReaderBuffer.readBits(1);
+//                    if (directMapping == 0) {
+//                        /* tbd */
+//                        throw new RuntimeException("not implemented");
+//                    }
+//                }
         }
 
         if (extensionAudioObjectType != 5 && bitReaderBuffer.remainingBits() >= 16) {
@@ -1119,11 +1120,7 @@ public class AudioSpecificConfig extends BaseDescriptor {
         if (var_ScalableFlag != that.var_ScalableFlag) {
             return false;
         }
-        if (!Arrays.equals(configBytes, that.configBytes)) {
-            return false;
-        }
-
-        return true;
+        return Arrays.equals(configBytes, that.configBytes);
     }
 
     @Override

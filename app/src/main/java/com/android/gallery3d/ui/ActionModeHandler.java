@@ -61,7 +61,7 @@ public class ActionModeHandler implements Callback, PopupList.OnPopupItemClickLi
             | MediaObject.SUPPORT_CACHE;
 
     public interface ActionModeListener {
-        public boolean onActionItemClicked(MenuItem item);
+        boolean onActionItemClicked(MenuItem item);
     }
 
     private final AbstractGalleryActivity mActivity;
@@ -138,7 +138,7 @@ public class ActionModeHandler implements Callback, PopupList.OnPopupItemClickLi
                 R.layout.action_mode, null);
         mActionMode.setCustomView(customView);
         mSelectionMenu = new SelectionMenu(a,
-                (Button) customView.findViewById(R.id.selection_menu), this);
+                customView.findViewById(R.id.selection_menu), this);
         updateSelectionMenu();
     }
 
@@ -269,7 +269,7 @@ public class ActionModeHandler implements Callback, PopupList.OnPopupItemClickLi
             // (instead of long press a media object)
             return null;
         }
-        ArrayList<MediaObject> selected = new ArrayList<MediaObject>();
+        ArrayList<MediaObject> selected = new ArrayList<>();
         DataManager manager = mActivity.getDataManager();
         for (Path path : unexpandedPaths) {
             if (jc.isCancelled()) {
@@ -322,7 +322,7 @@ public class ActionModeHandler implements Callback, PopupList.OnPopupItemClickLi
         if (expandedPaths == null || expandedPaths.size() == 0) {
             return new Intent();
         }
-        final ArrayList<Uri> uris = new ArrayList<Uri>();
+        final ArrayList<Uri> uris = new ArrayList<>();
         DataManager manager = mActivity.getDataManager();
         final Intent intent = new Intent();
         for (Path path : expandedPaths) {
@@ -353,7 +353,7 @@ public class ActionModeHandler implements Callback, PopupList.OnPopupItemClickLi
             setNfcBeamPushUris(null);
             return new Intent();
         }
-        final ArrayList<Uri> uris = new ArrayList<Uri>();
+        final ArrayList<Uri> uris = new ArrayList<>();
         DataManager manager = mActivity.getDataManager();
         int type = 0;
         final Intent intent = new Intent();
@@ -378,7 +378,7 @@ public class ActionModeHandler implements Callback, PopupList.OnPopupItemClickLi
                 intent.putExtra(Intent.EXTRA_STREAM, uris.get(0));
             }
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            setNfcBeamPushUris(uris.toArray(new Uri[uris.size()]));
+            setNfcBeamPushUris(uris.toArray(new Uri[0]));
         } else {
             setNfcBeamPushUris(null);
         }
@@ -403,82 +403,73 @@ public class ActionModeHandler implements Callback, PopupList.OnPopupItemClickLi
 
         // Generate sharing intent and update supported operations in the background
         // The task can take a long time and be canceled in the mean time.
-        mMenuTask = mActivity.getThreadPool().submit(new Job<Void>() {
-            @Override
-            public Void run(final JobContext jc) {
-                // Pass1: Deal with unexpanded media object list for menu operation.
-                ArrayList<MediaObject> selected = getSelectedMediaObjects(jc);
-                if (selected == null) {
-                    mMainHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            mMenuTask = null;
-                            if (jc.isCancelled()) return;
-                            // Disable all the operations when no item is selected
-                            MenuExecutor.updateMenuOperation(mMenu, 0);
-                        }
-                    });
-                    return null;
-                }
-                final int operation = computeMenuOptions(selected);
-                if (jc.isCancelled()) {
-                    return null;
-                }
-                int numSelected = selected.size();
-                final boolean canSharePanoramas =
-                        numSelected < MAX_SELECTED_ITEMS_FOR_PANORAMA_SHARE_INTENT;
-                final boolean canShare =
-                        numSelected < MAX_SELECTED_ITEMS_FOR_SHARE_INTENT;
-
-                final GetAllPanoramaSupports supportCallback = canSharePanoramas ?
-                        new GetAllPanoramaSupports(selected, jc)
-                        : null;
-
-                // Pass2: Deal with expanded media object list for sharing operation.
-                final Intent share_panorama_intent = canSharePanoramas ?
-                        computePanoramaSharingIntent(jc, MAX_SELECTED_ITEMS_FOR_PANORAMA_SHARE_INTENT)
-                        : new Intent();
-                final Intent share_intent = canShare ?
-                        computeSharingIntent(jc, MAX_SELECTED_ITEMS_FOR_SHARE_INTENT)
-                        : new Intent();
-
-                if (canSharePanoramas) {
-                    supportCallback.waitForPanoramaSupport();
-                }
-                if (jc.isCancelled()) {
-                    return null;
-                }
-                mMainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        mMenuTask = null;
-                        if (jc.isCancelled()) return;
-                        MenuExecutor.updateMenuOperation(mMenu, operation);
-                        MenuExecutor.updateMenuForPanorama(mMenu,
-                                canSharePanoramas && supportCallback.mAllPanorama360,
-                                canSharePanoramas && supportCallback.mHasPanorama360);
-                        if (mSharePanoramaMenuItem != null) {
-                            mSharePanoramaMenuItem.setEnabled(true);
-                            if (canSharePanoramas && supportCallback.mAllPanorama360) {
-                                mShareMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-                                mShareMenuItem.setTitle(
-                                    mActivity.getResources().getString(R.string.share_as_photo));
-                            } else {
-                                mSharePanoramaMenuItem.setVisible(false);
-                                mShareMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-                                mShareMenuItem.setTitle(
-                                    mActivity.getResources().getString(R.string.share));
-                            }
-                            mSharePanoramaActionProvider.setShareIntent(share_panorama_intent);
-                        }
-                        if (mShareMenuItem != null) {
-                            mShareMenuItem.setEnabled(canShare);
-                            mShareActionProvider.setShareIntent(share_intent);
-                        }
-                    }
+        mMenuTask = mActivity.getThreadPool().submit((Job<Void>) jc -> {
+            // Pass1: Deal with unexpanded media object list for menu operation.
+            ArrayList<MediaObject> selected = getSelectedMediaObjects(jc);
+            if (selected == null) {
+                mMainHandler.post(() -> {
+                    mMenuTask = null;
+                    if (jc.isCancelled()) return;
+                    // Disable all the operations when no item is selected
+                    MenuExecutor.updateMenuOperation(mMenu, 0);
                 });
                 return null;
             }
+            final int operation = computeMenuOptions(selected);
+            if (jc.isCancelled()) {
+                return null;
+            }
+            int numSelected = selected.size();
+            final boolean canSharePanoramas =
+                    numSelected < MAX_SELECTED_ITEMS_FOR_PANORAMA_SHARE_INTENT;
+            final boolean canShare =
+                    numSelected < MAX_SELECTED_ITEMS_FOR_SHARE_INTENT;
+
+            final GetAllPanoramaSupports supportCallback = canSharePanoramas ?
+                    new GetAllPanoramaSupports(selected, jc)
+                    : null;
+
+            // Pass2: Deal with expanded media object list for sharing operation.
+            final Intent share_panorama_intent = canSharePanoramas ?
+                    computePanoramaSharingIntent(jc, MAX_SELECTED_ITEMS_FOR_PANORAMA_SHARE_INTENT)
+                    : new Intent();
+            final Intent share_intent = canShare ?
+                    computeSharingIntent(jc, MAX_SELECTED_ITEMS_FOR_SHARE_INTENT)
+                    : new Intent();
+
+            if (canSharePanoramas) {
+                supportCallback.waitForPanoramaSupport();
+            }
+            if (jc.isCancelled()) {
+                return null;
+            }
+            mMainHandler.post(() -> {
+                mMenuTask = null;
+                if (jc.isCancelled()) return;
+                MenuExecutor.updateMenuOperation(mMenu, operation);
+                MenuExecutor.updateMenuForPanorama(mMenu,
+                        canSharePanoramas && supportCallback.mAllPanorama360,
+                        canSharePanoramas && supportCallback.mHasPanorama360);
+                if (mSharePanoramaMenuItem != null) {
+                    mSharePanoramaMenuItem.setEnabled(true);
+                    if (canSharePanoramas && supportCallback.mAllPanorama360) {
+                        mShareMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+                        mShareMenuItem.setTitle(
+                            mActivity.getResources().getString(R.string.share_as_photo));
+                    } else {
+                        mSharePanoramaMenuItem.setVisible(false);
+                        mShareMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+                        mShareMenuItem.setTitle(
+                            mActivity.getResources().getString(R.string.share));
+                    }
+                    mSharePanoramaActionProvider.setShareIntent(share_panorama_intent);
+                }
+                if (mShareMenuItem != null) {
+                    mShareMenuItem.setEnabled(canShare);
+                    mShareActionProvider.setShareIntent(share_intent);
+                }
+            });
+            return null;
         });
     }
 

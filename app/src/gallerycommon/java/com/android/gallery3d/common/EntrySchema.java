@@ -37,8 +37,8 @@ public final class EntrySchema {
     public static final int TYPE_FLOAT = 5;
     public static final int TYPE_DOUBLE = 6;
     public static final int TYPE_BLOB = 7;
-    private static final String SQLITE_TYPES[] = {
-            "TEXT", "INTEGER", "INTEGER", "INTEGER", "INTEGER", "REAL", "REAL", "NONE" };
+    private static final String[] SQLITE_TYPES = {
+            "TEXT", "INTEGER", "INTEGER", "INTEGER", "INTEGER", "REAL", "REAL", "NONE"};
 
     private static final String FULL_TEXT_INDEX_SUFFIX = "_fulltext";
 
@@ -445,7 +445,7 @@ public final class EntrySchema {
         logExecSql(db, sql.toString());
     }
 
-    private String parseTableName(Class<? extends Object> clazz) {
+    private String parseTableName(Class<?> clazz) {
         // Check for a table annotation.
         Entry.Table table = clazz.getAnnotation(Entry.Table.class);
         if (table == null) {
@@ -456,8 +456,8 @@ public final class EntrySchema {
         return table.value();
     }
 
-    private ColumnInfo[] parseColumnInfo(Class<? extends Object> clazz) {
-        ArrayList<ColumnInfo> columns = new ArrayList<ColumnInfo>();
+    private ColumnInfo[] parseColumnInfo(Class<?> clazz) {
+        ArrayList<ColumnInfo> columns = new ArrayList<>();
         while (clazz != null) {
             parseColumnInfo(clazz, columns);
             clazz = clazz.getSuperclass();
@@ -469,7 +469,7 @@ public final class EntrySchema {
         return columnList;
     }
 
-    private void parseColumnInfo(Class<? extends Object> clazz, ArrayList<ColumnInfo> columns) {
+    private void parseColumnInfo(Class<?> clazz, ArrayList<ColumnInfo> columns) {
         // Gather metadata from each annotated field.
         Field[] fields = clazz.getDeclaredFields(); // including non-public fields
         for (int i = 0; i != fields.length; ++i) {

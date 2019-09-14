@@ -35,8 +35,8 @@ public class ChangeNotifier {
 
     public ChangeNotifier(MediaSet set, Uri[] uris, GalleryApp application) {
         mMediaSet = set;
-        for (int i = 0; i < uris.length; i++) {
-            application.getDataManager().registerChangeNotifier(uris[i], this);
+        for (Uri uri : uris) {
+            application.getDataManager().registerChangeNotifier(uri, this);
         }
     }
 

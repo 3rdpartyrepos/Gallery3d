@@ -19,7 +19,6 @@ package com.android.gallery3d.data;
 import android.graphics.Bitmap;
 import android.graphics.BitmapRegionDecoder;
 
-import com.android.gallery3d.common.ApiHelper;
 import com.android.gallery3d.ui.ScreenNail;
 import com.android.gallery3d.util.ThreadPool.Job;
 

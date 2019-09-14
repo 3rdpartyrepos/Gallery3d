@@ -69,7 +69,7 @@ public class AppendTrack extends AbstractTrack {
                         if (stsd.getBoxes().get(0) instanceof AudioSampleEntry && curStsd.getBoxes().get(0) instanceof AudioSampleEntry) {
                             AudioSampleEntry aseResult = mergeAudioSampleEntries((AudioSampleEntry) stsd.getBoxes().get(0), (AudioSampleEntry) curStsd.getBoxes().get(0));
                             if (aseResult != null) {
-                                stsd.setBoxes(Collections.<Box>singletonList(aseResult));
+                                stsd.setBoxes(Collections.singletonList(aseResult));
                                 return;
                             }
                         }
@@ -243,7 +243,7 @@ public class AppendTrack extends AbstractTrack {
 
 
     public List<ByteBuffer> getSamples() {
-        ArrayList<ByteBuffer> lists = new ArrayList<ByteBuffer>();
+        ArrayList<ByteBuffer> lists = new ArrayList<>();
 
         for (Track track : tracks) {
             lists.addAll(track.getSamples());
@@ -258,12 +258,12 @@ public class AppendTrack extends AbstractTrack {
 
     public List<TimeToSampleBox.Entry> getDecodingTimeEntries() {
         if (tracks[0].getDecodingTimeEntries() != null && !tracks[0].getDecodingTimeEntries().isEmpty()) {
-            List<long[]> lists = new LinkedList<long[]>();
+            List<long[]> lists = new LinkedList<>();
             for (Track track : tracks) {
                 lists.add(TimeToSampleBox.blowupTimeToSamples(track.getDecodingTimeEntries()));
             }
 
-            LinkedList<TimeToSampleBox.Entry> returnDecodingEntries = new LinkedList<TimeToSampleBox.Entry>();
+            LinkedList<TimeToSampleBox.Entry> returnDecodingEntries = new LinkedList<>();
             for (long[] list : lists) {
                 for (long nuDecodingTime : list) {
                     if (returnDecodingEntries.isEmpty() || returnDecodingEntries.getLast().getDelta() != nuDecodingTime) {
@@ -283,11 +283,11 @@ public class AppendTrack extends AbstractTrack {
 
     public List<CompositionTimeToSample.Entry> getCompositionTimeEntries() {
         if (tracks[0].getCompositionTimeEntries() != null && !tracks[0].getCompositionTimeEntries().isEmpty()) {
-            List<int[]> lists = new LinkedList<int[]>();
+            List<int[]> lists = new LinkedList<>();
             for (Track track : tracks) {
                 lists.add(CompositionTimeToSample.blowupCompositionTimes(track.getCompositionTimeEntries()));
             }
-            LinkedList<CompositionTimeToSample.Entry> compositionTimeEntries = new LinkedList<CompositionTimeToSample.Entry>();
+            LinkedList<CompositionTimeToSample.Entry> compositionTimeEntries = new LinkedList<>();
             for (int[] list : lists) {
                 for (int compositionTime : list) {
                     if (compositionTimeEntries.isEmpty() || compositionTimeEntries.getLast().getOffset() != compositionTime) {
@@ -329,7 +329,7 @@ public class AppendTrack extends AbstractTrack {
 
     public List<SampleDependencyTypeBox.Entry> getSampleDependencies() {
         if (tracks[0].getSampleDependencies() != null && !tracks[0].getSampleDependencies().isEmpty()) {
-            List<SampleDependencyTypeBox.Entry> list = new LinkedList<SampleDependencyTypeBox.Entry>();
+            List<SampleDependencyTypeBox.Entry> list = new LinkedList<>();
             for (Track track : tracks) {
                 list.addAll(track.getSampleDependencies());
             }

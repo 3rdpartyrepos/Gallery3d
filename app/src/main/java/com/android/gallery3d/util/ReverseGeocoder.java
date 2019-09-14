@@ -398,10 +398,10 @@ public class ReverseGeocoder {
     }
 
     private String valueIfEqual(String a, String b) {
-        return (a != null && b != null && a.equalsIgnoreCase(b)) ? a : null;
+        return (a != null && a.equalsIgnoreCase(b)) ? a : null;
     }
 
-    public static final void writeUTF(DataOutputStream dos, String string) throws IOException {
+    public static void writeUTF(DataOutputStream dos, String string) throws IOException {
         if (string == null) {
             dos.writeUTF("");
         } else {
@@ -409,7 +409,7 @@ public class ReverseGeocoder {
         }
     }
 
-    public static final String readUTF(DataInputStream dis) throws IOException {
+    public static String readUTF(DataInputStream dis) throws IOException {
         String retVal = dis.readUTF();
         if (retVal.length() == 0)
             return null;

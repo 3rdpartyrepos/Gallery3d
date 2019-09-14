@@ -68,13 +68,8 @@ public class EditorMirror extends Editor implements EditorInfo {
 
     @Override
     public void openUtilityPanel(final LinearLayout accessoryViewList) {
-        final Button button = (Button) accessoryViewList.findViewById(R.id.applyEffect);
-        button.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                mImageMirror.flip();
-            }
-        });
+        final Button button = accessoryViewList.findViewById(R.id.applyEffect);
+        button.setOnClickListener(arg0 -> mImageMirror.flip());
     }
 
     @Override

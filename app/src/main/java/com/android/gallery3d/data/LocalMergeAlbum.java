@@ -24,7 +24,6 @@ import com.android.gallery3d.common.ApiHelper;
 import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.NoSuchElementException;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -46,7 +45,7 @@ public class LocalMergeAlbum extends MediaSet implements ContentListener {
     private int mBucketId;
 
     // mIndex maps global position to the position of each underlying media sets.
-    private TreeMap<Integer, int[]> mIndex = new TreeMap<Integer, int[]>();
+    private TreeMap<Integer, int[]> mIndex = new TreeMap<>();
 
     public LocalMergeAlbum(
             Path path, Comparator<MediaItem> comparator, MediaSet[] sources, int bucketId) {
@@ -70,7 +69,7 @@ public class LocalMergeAlbum extends MediaSet implements ContentListener {
     }
 
     private void updateData() {
-        ArrayList<MediaSet> matches = new ArrayList<MediaSet>();
+        ArrayList<MediaSet> matches = new ArrayList<>();
         int supported = mSources.length == 0 ? 0 : MediaItem.SUPPORT_ALL;
         mFetcher = new FetchCache[mSources.length];
         for (int i = 0, n = mSources.length; i < n; ++i) {
@@ -132,7 +131,7 @@ public class LocalMergeAlbum extends MediaSet implements ContentListener {
             slot[i] = mFetcher[i].getItem(subPos[i]);
         }
 
-        ArrayList<MediaItem> result = new ArrayList<MediaItem>();
+        ArrayList<MediaItem> result = new ArrayList<>();
 
         for (int i = markPos; i < start + count; i++) {
             int k = -1;  // k points to the best slot up to now.
@@ -175,8 +174,8 @@ public class LocalMergeAlbum extends MediaSet implements ContentListener {
     @Override
     public long reload() {
         boolean changed = false;
-        for (int i = 0, n = mSources.length; i < n; ++i) {
-            if (mSources[i].reload() > mDataVersion) changed = true;
+        for (MediaSet mSource : mSources) {
+            if (mSource.reload() > mDataVersion) changed = true;
         }
         if (changed) {
             mDataVersion = nextVersionNumber();
@@ -238,7 +237,7 @@ public class LocalMergeAlbum extends MediaSet implements ContentListener {
 
             if (needLoading) {
                 cache = mBaseSet.getMediaItem(index, PAGE_SIZE);
-                mCacheRef = new SoftReference<ArrayList<MediaItem>>(cache);
+                mCacheRef = new SoftReference<>(cache);
                 mStartPos = index;
             }
 

@@ -16,9 +16,6 @@
 
 package com.android.gallery3d.filtershow.controller;
 
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
@@ -36,23 +33,11 @@ public class ActionSlider extends TitledSlider {
     @Override
     public void setUp(ViewGroup container, Parameter parameter, Editor editor) {
         super.setUp(container, parameter, editor);
-        mLeftButton = (ImageButton) mTopView.findViewById(R.id.leftActionButton);
-        mLeftButton.setOnClickListener(new OnClickListener() {
+        mLeftButton = mTopView.findViewById(R.id.leftActionButton);
+        mLeftButton.setOnClickListener(v -> ((ParameterActionAndInt) mParameter).fireLeftAction());
 
-            @Override
-            public void onClick(View v) {
-                ((ParameterActionAndInt) mParameter).fireLeftAction();
-            }
-        });
-
-        mRightButton = (ImageButton) mTopView.findViewById(R.id.rightActionButton);
-        mRightButton.setOnClickListener(new OnClickListener() {
-
-                @Override
-            public void onClick(View v) {
-                ((ParameterActionAndInt) mParameter).fireRightAction();
-            }
-        });
+        mRightButton = mTopView.findViewById(R.id.rightActionButton);
+        mRightButton.setOnClickListener(v -> ((ParameterActionAndInt) mParameter).fireRightAction());
         updateUI();
     }
 

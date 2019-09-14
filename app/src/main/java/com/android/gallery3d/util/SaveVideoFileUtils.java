@@ -75,12 +75,7 @@ public class SaveVideoFileUtils {
         final File[] dir = new File[1];
         querySource(contentResolver, uri,
                 new String[] { VideoColumns.DATA },
-                new ContentResolverQueryCallback() {
-            @Override
-            public void onCursorResult(Cursor cursor) {
-                dir[0] = new File(cursor.getString(0)).getParentFile();
-            }
-        });
+                cursor -> dir[0] = new File(cursor.getString(0)).getParentFile());
         return dir[0];
     }
 
@@ -113,9 +108,7 @@ public class SaveVideoFileUtils {
 
         // Copy some info from the source file.
         querySource(contentResolver, uri, projection,
-                new ContentResolverQueryCallback() {
-                @Override
-                    public void onCursorResult(Cursor cursor) {
+                cursor -> {
                         long timeTaken = cursor.getLong(0);
                         if (timeTaken > 0) {
                             values.put(Video.Media.DATE_TAKEN, timeTaken);
@@ -131,8 +124,7 @@ public class SaveVideoFileUtils {
                         }
                         values.put(Video.Media.RESOLUTION, cursor.getString(3));
 
-                    }
-                });
+                    });
 
         return contentResolver.insert(Video.Media.EXTERNAL_CONTENT_URI, values);
     }

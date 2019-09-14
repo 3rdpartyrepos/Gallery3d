@@ -24,7 +24,6 @@ import android.util.JsonWriter;
 import android.util.Log;
 
 import com.android.gallery3d.R;
-import com.android.gallery3d.filtershow.cache.BitmapCache;
 import com.android.gallery3d.filtershow.cache.ImageLoader;
 import com.android.gallery3d.filtershow.filters.BaseFiltersManager;
 import com.android.gallery3d.filtershow.filters.FilterCropRepresentation;
@@ -54,7 +53,7 @@ public class ImagePreset {
     private static final String LOGTAG = "ImagePreset";
     public static final String JASON_SAVED = "Saved";
 
-    private Vector<FilterRepresentation> mFilters = new Vector<FilterRepresentation>();
+    private Vector<FilterRepresentation> mFilters = new Vector<>();
 
     private boolean mDoApplyGeometry = true;
     private boolean mDoApplyFilters = true;
@@ -443,7 +442,7 @@ public class ImagePreset {
     }
 
     public Collection<FilterRepresentation> getGeometryFilters() {
-        ArrayList<FilterRepresentation> geometry = new ArrayList<FilterRepresentation>();
+        ArrayList<FilterRepresentation> geometry = new ArrayList<>();
         for (FilterRepresentation r : mFilters) {
             if (r.getFilterType() == FilterRepresentation.TYPE_GEOMETRY) {
                 geometry.add(r);
@@ -587,7 +586,7 @@ public class ImagePreset {
         if (imageStateAdapter == null) {
             return;
         }
-        Vector<State> states = new Vector<State>();
+        Vector<State> states = new Vector<>();
         for (FilterRepresentation filter : mFilters) {
             if (filter instanceof FilterUserPresetRepresentation) {
                 // do not show the user preset itself in the state panel
@@ -614,7 +613,7 @@ public class ImagePreset {
     }
 
     public Vector<ImageFilter> getUsedFilters(BaseFiltersManager filtersManager) {
-        Vector<ImageFilter> usedFilters = new Vector<ImageFilter>();
+        Vector<ImageFilter> usedFilters = new Vector<>();
         for (int i = 0; i < mFilters.size(); i++) {
             FilterRepresentation representation = mFilters.elementAt(i);
             ImageFilter filter = filtersManager.getFilterForRepresentation(representation);

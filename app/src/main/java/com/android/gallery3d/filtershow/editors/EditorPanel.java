@@ -77,19 +77,16 @@ public class EditorPanel extends Fragment {
 
         View actionControl = mMainView.findViewById(R.id.panelAccessoryViewList);
         View editControl = mMainView.findViewById(R.id.controlArea);
-        ImageButton cancelButton = (ImageButton) mMainView.findViewById(R.id.cancelFilter);
-        ImageButton applyButton = (ImageButton) mMainView.findViewById(R.id.applyFilter);
-        Button editTitle = (Button) mMainView.findViewById(R.id.applyEffect);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cancelCurrentFilter();
-                FilterShowActivity activity = (FilterShowActivity) getActivity();
-                activity.backToMain();
-            }
+        ImageButton cancelButton = mMainView.findViewById(R.id.cancelFilter);
+        ImageButton applyButton = mMainView.findViewById(R.id.applyFilter);
+        Button editTitle = mMainView.findViewById(R.id.applyEffect);
+        cancelButton.setOnClickListener(v -> {
+            cancelCurrentFilter();
+            FilterShowActivity activity12 = (FilterShowActivity) getActivity();
+            activity12.backToMain();
         });
 
-        Button toggleState = (Button) mMainView.findViewById(R.id.toggle_state);
+        Button toggleState = mMainView.findViewById(R.id.toggle_state);
         mEditor = activity.getEditor(mEditorID);
         if (mEditor != null) {
             mEditor.setUpEditorUI(actionControl, editControl, editTitle, toggleState);
@@ -98,13 +95,10 @@ public class EditorPanel extends Fragment {
                 mEditor.openUtilityPanel((LinearLayout) actionControl);
             }
         }
-        applyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FilterShowActivity activity = (FilterShowActivity) getActivity();
-                mEditor.finalApplyCalled();
-                activity.backToMain();
-            }
+        applyButton.setOnClickListener(v -> {
+            FilterShowActivity activity1 = (FilterShowActivity) getActivity();
+            mEditor.finalApplyCalled();
+            activity1.backToMain();
         });
 
         showImageStatePanel(activity.isShowingImageStatePanel());

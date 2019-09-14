@@ -112,7 +112,7 @@ public abstract class AbstractBox implements Box {
             assert contentSize < Integer.MAX_VALUE;
             content = ChannelHelper.readFully(readableByteChannel, contentSize);
         }
-        if (isParsed() == false) {
+        if (!isParsed()) {
             parseDetails();
         }
 

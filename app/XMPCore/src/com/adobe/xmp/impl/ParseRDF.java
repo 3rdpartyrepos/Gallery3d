@@ -385,9 +385,8 @@ public class ParseRDF implements XMPError, XMPConst
 		}
 		if (nsAttrs != null)
 		{
-			for (Iterator it = nsAttrs.iterator(); it.hasNext();)
-			{
-				String ns = (String) it.next();
+			for (Object nsAttr : nsAttrs) {
+				String ns = (String) nsAttr;
 				attributes.removeNamedItem(ns);
 			}
 		}

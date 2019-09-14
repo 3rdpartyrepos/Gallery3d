@@ -63,8 +63,7 @@ public class XMPSerializerRDF
 	/** */
 	private static final String RDF_STRUCT_END    = "</rdf:Description>";
 	/** a set of all rdf attribute qualifier */
-	static final Set RDF_ATTR_QUALIFIER = new HashSet(Arrays.asList(new String[] {
-			XMPConst.XML_LANG, "rdf:resource", "rdf:ID", "rdf:bagID", "rdf:nodeID" }));
+	static final Set RDF_ATTR_QUALIFIER = new HashSet(Arrays.asList(XMPConst.XML_LANG, "rdf:resource", "rdf:ID", "rdf:bagID", "rdf:nodeID"));
 	
 	/** the metadata object to be serialized. */ 
 	private XMPMetaImpl xmp; 
@@ -545,8 +544,8 @@ public class XMPSerializerRDF
 				if (!node.getOptions().isCompositeProperty())
 				{
 					Object[] result = serializeCompactRDFSimpleProp(node);
-					emitEndTag = ((Boolean) result[0]).booleanValue();
-					indentEndTag = ((Boolean) result[1]).booleanValue();
+					emitEndTag = (Boolean) result[0];
+					indentEndTag = (Boolean) result[1];
 				}
 				else if (node.getOptions().isArray())
 				{

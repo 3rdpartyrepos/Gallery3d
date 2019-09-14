@@ -68,15 +68,12 @@ public class EditorRotate extends Editor implements EditorInfo {
 
     @Override
     public void openUtilityPanel(final LinearLayout accessoryViewList) {
-        final Button button = (Button) accessoryViewList.findViewById(R.id.applyEffect);
-        button.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                mImageRotate.rotate();
-                String displayVal = mContext.getString(getTextId()) + " "
-                        + mImageRotate.getLocalValue();
-                button.setText(displayVal);
-            }
+        final Button button = accessoryViewList.findViewById(R.id.applyEffect);
+        button.setOnClickListener(arg0 -> {
+            mImageRotate.rotate();
+            String displayVal = mContext.getString(getTextId()) + " "
+                    + mImageRotate.getLocalValue();
+            button.setText(displayVal);
         });
     }
 

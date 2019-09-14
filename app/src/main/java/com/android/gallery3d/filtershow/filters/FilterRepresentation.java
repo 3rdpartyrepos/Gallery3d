@@ -18,7 +18,6 @@ package com.android.gallery3d.filtershow.filters;
 
 import android.util.JsonReader;
 import android.util.JsonWriter;
-import android.util.Log;
 
 import com.android.gallery3d.filtershow.editors.BasicEditor;
 
@@ -77,7 +76,7 @@ public class FilterRepresentation {
         if (representation == null) {
             return false;
         }
-        if (representation.mFilterClass == mFilterClass
+        return representation.mFilterClass == mFilterClass
                 && representation.mName.equalsIgnoreCase(mName)
                 && representation.mPriority == mPriority
                 // TODO: After we enable partial rendering, we can switch back
@@ -89,10 +88,7 @@ public class FilterRepresentation {
                 && representation.mOverlayId == mOverlayId
                 && representation.mOverlayOnly == mOverlayOnly
                 && representation.mShowParameterValue == mShowParameterValue
-                && representation.mIsBooleanFilter == mIsBooleanFilter) {
-            return true;
-        }
-        return false;
+                && representation.mIsBooleanFilter == mIsBooleanFilter;
     }
 
     public boolean isBooleanFilter() {
@@ -227,9 +223,9 @@ public class FilterRepresentation {
         writer.beginObject();
         {
             String[][] rep = serializeRepresentation();
-            for (int k = 0; k < rep.length; k++) {
-                writer.name(rep[k][0]);
-                writer.value(rep[k][1]);
+            for (String[] strings : rep) {
+                writer.name(strings[0]);
+                writer.value(strings[1]);
             }
         }
         writer.endObject();
@@ -242,7 +238,7 @@ public class FilterRepresentation {
     }
 
     public void deSerializeRepresentation(JsonReader reader) throws IOException {
-        ArrayList<String[]> al = new ArrayList<String[]>();
+        ArrayList<String[]> al = new ArrayList<>();
         reader.beginObject();
         while (reader.hasNext()) {
             String[] kv = {reader.nextName(), reader.nextString()};
@@ -257,9 +253,9 @@ public class FilterRepresentation {
 
     // this is the old way of doing this and will be removed soon
     public void deSerializeRepresentation(String[][] rep) {
-        for (int i = 0; i < rep.length; i++) {
-            if (NAME_TAG.equals(rep[i][0])) {
-                mName = rep[i][1];
+        for (String[] strings : rep) {
+            if (NAME_TAG.equals(strings[0])) {
+                mName = strings[1];
                 break;
             }
         }
@@ -271,10 +267,7 @@ public class FilterRepresentation {
     }
 
     public boolean canMergeWith(FilterRepresentation representation) {
-        if (getFilterType() == FilterRepresentation.TYPE_GEOMETRY
-            && representation.getFilterType() == FilterRepresentation.TYPE_GEOMETRY) {
-            return true;
-        }
-        return false;
+        return getFilterType() == FilterRepresentation.TYPE_GEOMETRY
+                && representation.getFilterType() == FilterRepresentation.TYPE_GEOMETRY;
     }
 }

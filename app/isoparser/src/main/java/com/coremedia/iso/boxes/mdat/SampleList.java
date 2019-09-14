@@ -35,8 +35,8 @@ public class SampleList extends AbstractList<ByteBuffer> {
     long[] sizes;
 
     IsoFile isoFile;
-    HashMap<MediaDataBox, Long> mdatStartCache = new HashMap<MediaDataBox, Long>();
-    HashMap<MediaDataBox, Long> mdatEndCache = new HashMap<MediaDataBox, Long>();
+    HashMap<MediaDataBox, Long> mdatStartCache = new HashMap<>();
+    HashMap<MediaDataBox, Long> mdatEndCache = new HashMap<>();
     MediaDataBox[] mdats;
 
     /**
@@ -93,7 +93,7 @@ public class SampleList extends AbstractList<ByteBuffer> {
         List<MovieExtendsBox> movieExtendsBoxes = trackBox.getParent().getBoxes(MovieExtendsBox.class);
 
         if (movieExtendsBoxes.size() > 0) {
-            Map<Long, Long> offsets2Sizes = new HashMap<Long, Long>();
+            Map<Long, Long> offsets2Sizes = new HashMap<>();
             List<TrackExtendsBox> trackExtendsBoxes = movieExtendsBoxes.get(0).getBoxes(TrackExtendsBox.class);
             for (TrackExtendsBox trackExtendsBox : trackExtendsBoxes) {
                 if (trackExtendsBox.getTrackId() == trackBox.getTrackHeaderBox().getTrackId()) {
@@ -115,7 +115,7 @@ public class SampleList extends AbstractList<ByteBuffer> {
     }
 
     private void splitToArrays(Map<Long, Long> offsets2Sizes) {
-        List<Long> keys = new ArrayList<Long>(offsets2Sizes.keySet());
+        List<Long> keys = new ArrayList<>(offsets2Sizes.keySet());
         Collections.sort(keys);
 
         long[] nuSizes = new long[sizes.length + keys.size()];
@@ -133,7 +133,7 @@ public class SampleList extends AbstractList<ByteBuffer> {
     public SampleList(TrackFragmentBox traf) {
         sizes = new long[0];
         offsets = new long[0];
-        Map<Long, Long> offsets2Sizes = new HashMap<Long, Long>();
+        Map<Long, Long> offsets2Sizes = new HashMap<>();
         initIsoFile(traf.getIsoFile());
 
         final List<MovieFragmentBox> movieFragmentBoxList = isoFile.getBoxes(MovieFragmentBox.class);
@@ -154,7 +154,7 @@ public class SampleList extends AbstractList<ByteBuffer> {
         this.isoFile = isoFile;
         // find all mdats first to be able to use them later with explicitly looking them up
         long currentOffset = 0;
-        LinkedList<MediaDataBox> mdats = new LinkedList<MediaDataBox>();
+        LinkedList<MediaDataBox> mdats = new LinkedList<>();
         for (Box b : this.isoFile.getBoxes()) {
             long currentSize = b.getSize();
             if ("mdat".equals(b.getType())) {
@@ -169,7 +169,7 @@ public class SampleList extends AbstractList<ByteBuffer> {
             }
             currentOffset += currentSize;
         }
-        this.mdats = mdats.toArray(new MediaDataBox[mdats.size()]);
+        this.mdats = mdats.toArray(new MediaDataBox[0]);
     }
 
 
@@ -197,7 +197,7 @@ public class SampleList extends AbstractList<ByteBuffer> {
     }
 
     Map<Long, Long> getOffsets(MovieFragmentBox moof, long trackId, TrackExtendsBox trex) {
-        Map<Long, Long> offsets2Sizes = new HashMap<Long, Long>();
+        Map<Long, Long> offsets2Sizes = new HashMap<>();
         List<TrackFragmentBox> traf = moof.getBoxes(TrackFragmentBox.class);
         for (TrackFragmentBox trackFragmentBox : traf) {
             if (trackFragmentBox.getTrackFragmentHeaderBox().getTrackId() == trackId) {

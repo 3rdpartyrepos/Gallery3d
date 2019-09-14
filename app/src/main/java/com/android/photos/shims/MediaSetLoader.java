@@ -41,21 +41,13 @@ import java.util.ArrayList;
  */
 public class MediaSetLoader extends AsyncTaskLoader<Cursor> implements LoaderCompatShim<Cursor>{
 
-    private static final SyncListener sNullListener = new SyncListener() {
-        @Override
-        public void onSyncDone(MediaSet mediaSet, int resultCode) {
-        }
+    private static final SyncListener sNullListener = (mediaSet, resultCode) -> {
     };
 
     private final MediaSet mMediaSet;
     private final DataManager mDataManager;
     private Future<Integer> mSyncTask = null;
-    private ContentListener mObserver = new ContentListener() {
-        @Override
-        public void onContentDirty() {
-            onContentChanged();
-        }
-    };
+    private ContentListener mObserver = this::onContentChanged;
 
     private ArrayList<MediaItem> mCoverItems;
 
@@ -109,7 +101,7 @@ public class MediaSetLoader extends AsyncTaskLoader<Cursor> implements LoaderCom
         final MatrixCursor cursor = new MatrixCursor(AlbumSetLoader.PROJECTION);
         final Object[] row = new Object[AlbumSetLoader.PROJECTION.length];
         int count = mMediaSet.getSubMediaSetCount();
-        ArrayList<MediaItem> coverItems = new ArrayList<MediaItem>(count);
+        ArrayList<MediaItem> coverItems = new ArrayList<>(count);
         for (int i = 0; i < count; i++) {
             MediaSet m = mMediaSet.getSubMediaSet(i);
             m.reload();
@@ -159,13 +151,10 @@ public class MediaSetLoader extends AsyncTaskLoader<Cursor> implements LoaderCom
         int index = item.getInt(AlbumSetLoader.INDEX_ID);
         MediaSet ms = mMediaSet.getSubMediaSet(index);
         if (ms == null) return null;
-        final ArrayList<Uri> result = new ArrayList<Uri>();
-        ms.enumerateMediaItems(new MediaSet.ItemConsumer() {
-            @Override
-            public void consume(int index, MediaItem item) {
-                if (item != null) {
-                    result.add(item.getContentUri());
-                }
+        final ArrayList<Uri> result = new ArrayList<>();
+        ms.enumerateMediaItems((index1, item1) -> {
+            if (item1 != null) {
+                result.add(item1.getContentUri());
             }
         });
         return result;

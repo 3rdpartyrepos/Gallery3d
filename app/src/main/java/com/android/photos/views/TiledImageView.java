@@ -229,12 +229,9 @@ public class TiledImageView extends FrameLayout {
         if (!mInvalPending) {
             mInvalPending = true;
             if (mFrameCallback == null) {
-                mFrameCallback = new FrameCallback() {
-                    @Override
-                    public void doFrame(long frameTimeNanos) {
-                        mInvalPending = false;
-                        mGLSurfaceView.requestRender();
-                    }
+                mFrameCallback = frameTimeNanos -> {
+                    mInvalPending = false;
+                    mGLSurfaceView.requestRender();
                 };
             }
             Choreographer.getInstance().postFrameCallback(mFrameCallback);

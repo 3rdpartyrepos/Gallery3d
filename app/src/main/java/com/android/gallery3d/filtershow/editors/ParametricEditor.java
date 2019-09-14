@@ -18,12 +18,10 @@ package com.android.gallery3d.filtershow.editors;
 
 import android.content.Context;
 import android.content.res.Configuration;
-import android.graphics.Point;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -64,8 +62,8 @@ public class ParametricEditor extends Editor {
     public static final int MINIMUM_HEIGHT = 800;
     View mActionButton;
     View mEditControl;
-    static HashMap<String, Class> portraitMap = new HashMap<String, Class>();
-    static HashMap<String, Class> landscapeMap = new HashMap<String, Class>();
+    static HashMap<String, Class> portraitMap = new HashMap<>();
+    static HashMap<String, Class> landscapeMap = new HashMap<>();
     static {
         portraitMap.put(ParameterSaturation.sParameterType, SliderSaturation.class);
         landscapeMap.put(ParameterSaturation.sParameterType, SliderSaturation.class);

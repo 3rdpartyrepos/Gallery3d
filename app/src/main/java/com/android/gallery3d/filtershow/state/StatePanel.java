@@ -18,7 +18,6 @@ package com.android.gallery3d.filtershow.state;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +48,7 @@ public class StatePanel extends Fragment {
         View panel = mMainView.findViewById(R.id.listStates);
         track = (StatePanelTrack) panel;
         track.setAdapter(MasterImage.getImage().getState());
-        mToggleVersionsPanel = (ImageButton) mMainView.findViewById(R.id.toggleVersionsPanel);
+        mToggleVersionsPanel = mMainView.findViewById(R.id.toggleVersionsPanel);
         if (FilterShowHelper.shouldUseVersions()) {
             if (mToggleVersionsPanel.getVisibility() == View.GONE
                     || mToggleVersionsPanel.getVisibility() == View.INVISIBLE) {

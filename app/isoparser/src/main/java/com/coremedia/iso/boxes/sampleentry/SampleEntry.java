@@ -45,7 +45,7 @@ public abstract class SampleEntry extends AbstractBox implements ContainerBox {
 
 
     private int dataReferenceIndex = 1;
-    protected List<Box> boxes = new LinkedList<Box>();
+    protected List<Box> boxes = new LinkedList<>();
     private BoxParser boxParser;
 
 
@@ -66,7 +66,7 @@ public abstract class SampleEntry extends AbstractBox implements ContainerBox {
     }
 
     public void setBoxes(List<Box> boxes) {
-        this.boxes = new LinkedList<Box>(boxes);
+        this.boxes = new LinkedList<>(boxes);
     }
 
     public void addBox(Box b) {
@@ -85,7 +85,7 @@ public abstract class SampleEntry extends AbstractBox implements ContainerBox {
 
     @SuppressWarnings("unchecked")
     public <T extends Box> List<T> getBoxes(Class<T> clazz, boolean recursive) {
-        List<T> boxesToBeReturned = new ArrayList<T>(2);
+        List<T> boxesToBeReturned = new ArrayList<>(2);
         for (Box boxe : boxes) { //clazz.isInstance(boxe) / clazz == boxe.getClass()?
             if (clazz == boxe.getClass()) {
                 boxesToBeReturned.add((T) boxe);
@@ -100,7 +100,6 @@ public abstract class SampleEntry extends AbstractBox implements ContainerBox {
         //return (T[]) boxesToBeReturned.toArray();
     }
 
-    @SuppressWarnings("unchecked")
     public <T extends Box> List<T> getBoxes(Class<T> clazz) {
         return getBoxes(clazz, false);
     }

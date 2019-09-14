@@ -79,13 +79,11 @@ public class FilterBasicRepresentation extends FilterRepresentation implements P
         }
         if (representation instanceof FilterBasicRepresentation) {
             FilterBasicRepresentation basic = (FilterBasicRepresentation) representation;
-            if (basic.mMinimum == mMinimum
+            return basic.mMinimum == mMinimum
                     && basic.mMaximum == mMaximum
                     && basic.mValue == mValue
                     && basic.mDefaultValue == mDefaultValue
-                    && basic.mPreviewValue == mPreviewValue) {
-                return true;
-            }
+                    && basic.mPreviewValue == mPreviewValue;
         }
         return false;
     }
@@ -186,9 +184,9 @@ public class FilterBasicRepresentation extends FilterRepresentation implements P
     @Override
     public void deSerializeRepresentation(String[][] rep) {
         super.deSerializeRepresentation(rep);
-        for (int i = 0; i < rep.length; i++) {
-            if (SERIAL_VALUE.equals(rep[i][0])) {
-                mValue = Integer.parseInt(rep[i][1]);
+        for (String[] strings : rep) {
+            if (SERIAL_VALUE.equals(strings[0])) {
+                mValue = Integer.parseInt(strings[1]);
                 break;
             }
         }

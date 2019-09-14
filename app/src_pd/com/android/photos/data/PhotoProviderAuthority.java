@@ -17,5 +17,5 @@
 package com.android.photos.data;
 
 interface PhotoProviderAuthority {
-    public static final String AUTHORITY = "com.android.gallery3d.photoprovider";
+    String AUTHORITY = "com.android.gallery3d.photoprovider";
 }

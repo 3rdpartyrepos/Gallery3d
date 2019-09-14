@@ -38,21 +38,18 @@ public class SelectionManager {
     private Intent mShareIntent = new Intent();
 
     public interface SelectedUriSource {
-        public ArrayList<Uri> getSelectedShareableUris();
+        ArrayList<Uri> getSelectedShareableUris();
     }
 
     public SelectionManager(Activity activity) {
         mActivity = activity;
         if (ApiHelper.AT_LEAST_16) {
             mNfcAdapter = NfcAdapter.getDefaultAdapter(mActivity);
-            mNfcAdapter.setBeamPushUrisCallback(new CreateBeamUrisCallback() {
-                @Override
-                public Uri[] createBeamUris(NfcEvent arg0) {
-                 // This will have been preceded by a call to onItemSelectedStateChange
-                    if (mCachedShareableUris == null) return null;
-                    return mCachedShareableUris.toArray(
-                            new Uri[mCachedShareableUris.size()]);
-                }
+            mNfcAdapter.setBeamPushUrisCallback(arg0 -> {
+             // This will have been preceded by a call to onItemSelectedStateChange
+                if (mCachedShareableUris == null) return null;
+                return mCachedShareableUris.toArray(
+                        new Uri[0]);
             }, mActivity);
         }
     }

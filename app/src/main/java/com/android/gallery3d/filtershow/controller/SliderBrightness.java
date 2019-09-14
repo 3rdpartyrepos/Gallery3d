@@ -25,7 +25,6 @@ import android.widget.LinearLayout;
 import com.android.gallery3d.R;
 import com.android.gallery3d.filtershow.colorpicker.ColorBrightnessView;
 import com.android.gallery3d.filtershow.colorpicker.ColorListener;
-import com.android.gallery3d.filtershow.colorpicker.ColorOpacityView;
 import com.android.gallery3d.filtershow.editors.Editor;
 
 public class SliderBrightness implements Control {
@@ -44,7 +43,7 @@ public class SliderBrightness implements Control {
         LinearLayout lp = (LinearLayout) inflater.inflate(
                 R.layout.filtershow_brightness, container, true);
 
-        mColorOpacityView =   (ColorBrightnessView) lp.findViewById(R.id.brightnessView);
+        mColorOpacityView = lp.findViewById(R.id.brightnessView);
         updateUI();
         mColorOpacityView.addColorListener(new ColorListener() {
             @Override

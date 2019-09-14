@@ -97,7 +97,7 @@ public class IngestActivity extends Activity implements
     doBindHelperService();
 
     setContentView(R.layout.ingest_activity_item_list);
-    mGridView = (IngestGridView) findViewById(R.id.ingest_gridview);
+    mGridView = findViewById(R.id.ingest_gridview);
     mAdapter = new MtpAdapter(this);
     mAdapter.registerDataSetObserver(mMasterObserver);
     mGridView.setAdapter(mAdapter);
@@ -105,7 +105,7 @@ public class IngestActivity extends Activity implements
     mGridView.setOnItemClickListener(mOnItemClickListener);
     mGridView.setOnClearChoicesListener(mPositionMappingCheckBroker);
 
-    mFullscreenPager = (ViewPager) findViewById(R.id.ingest_view_pager);
+    mFullscreenPager = findViewById(R.id.ingest_view_pager);
 
     mHandler = new ItemListHandler(this);
 
@@ -272,7 +272,7 @@ public class IngestActivity extends Activity implements
     if (mWarningView == null) {
       mWarningView = findViewById(R.id.ingest_warning_view);
       mWarningText =
-          (TextView) mWarningView.findViewById(R.id.ingest_warning_view_text);
+              mWarningView.findViewById(R.id.ingest_warning_view_text);
     }
     mWarningText.setText(textResId);
     mWarningView.setVisibility(View.VISIBLE);
@@ -549,7 +549,7 @@ public class IngestActivity extends Activity implements
 
     public ItemListHandler(IngestActivity parent) {
       super();
-      mParentReference = new WeakReference<IngestActivity>(parent);
+      mParentReference = new WeakReference<>(parent);
     }
 
     @Override

@@ -42,12 +42,7 @@ public class MovieControllerOverlay extends CommonControllerOverlay implements
         super(context);
 
         handler = new Handler();
-        startHidingRunnable = new Runnable() {
-                @Override
-            public void run() {
-                startHiding();
-            }
-        };
+        startHidingRunnable = this::startHiding;
 
         hideAnimation = AnimationUtils.loadAnimation(context, R.anim.player_out);
         hideAnimation.setAnimationListener(this);

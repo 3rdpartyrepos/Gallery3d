@@ -74,10 +74,10 @@ public class FlatManifestWriterImpl extends AbstractManifestWriter {
 
     public String getManifest(Movie movie) throws IOException {
 
-        LinkedList<VideoQuality> videoQualities = new LinkedList<VideoQuality>();
+        LinkedList<VideoQuality> videoQualities = new LinkedList<>();
         long videoTimescale = -1;
 
-        LinkedList<AudioQuality> audioQualities = new LinkedList<AudioQuality>();
+        LinkedList<AudioQuality> audioQualities = new LinkedList<>();
         long audioTimescale = -1;
 
         for (Track track : movie.getTracks()) {

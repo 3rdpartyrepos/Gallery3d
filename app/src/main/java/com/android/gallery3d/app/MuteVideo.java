@@ -25,7 +25,6 @@ import android.provider.MediaStore;
 import android.widget.Toast;
 
 import com.android.gallery3d.R;
-import com.android.gallery3d.data.MediaItem;
 import com.android.gallery3d.util.SaveVideoFileInfo;
 import com.android.gallery3d.util.SaveVideoFileUtils;
 
@@ -55,42 +54,36 @@ public class MuteVideo {
                 mActivity.getString(R.string.folder_download));
 
         showProgressDialog();
-        new Thread(new Runnable() {
-                @Override
-            public void run() {
-                try {
-                    VideoUtils.startMute(mFilePath, mDstFileInfo);
-                    SaveVideoFileUtils.insertContent(
-                            mDstFileInfo, mActivity.getContentResolver(), mUri);
-                } catch (IOException e) {
-                    Toast.makeText(mActivity, mActivity.getString(R.string.video_mute_err),
-                            Toast.LENGTH_SHORT).show();
-                }
-                // After muting is done, trigger the UI changed.
-                mHandler.post(new Runnable() {
-                        @Override
-                    public void run() {
-                        Toast.makeText(mActivity.getApplicationContext(),
-                                mActivity.getString(R.string.save_into,
-                                        mDstFileInfo.mFolderName),
-                                Toast.LENGTH_SHORT)
-                                .show();
+        new Thread(() -> {
+        try {
+            VideoUtils.startMute(mFilePath, mDstFileInfo);
+            SaveVideoFileUtils.insertContent(
+                    mDstFileInfo, mActivity.getContentResolver(), mUri);
+        } catch (IOException e) {
+            Toast.makeText(mActivity, mActivity.getString(R.string.video_mute_err),
+                    Toast.LENGTH_SHORT).show();
+        }
+        // After muting is done, trigger the UI changed.
+        mHandler.post(() -> {
+            Toast.makeText(mActivity.getApplicationContext(),
+                    mActivity.getString(R.string.save_into,
+                            mDstFileInfo.mFolderName),
+                    Toast.LENGTH_SHORT)
+                    .show();
 
-                        if (mMuteProgress != null) {
-                            mMuteProgress.dismiss();
-                            mMuteProgress = null;
+            if (mMuteProgress != null) {
+                mMuteProgress.dismiss();
+                mMuteProgress = null;
 
-                            // Show the result only when the activity not
-                            // stopped.
-                            Intent intent = new Intent(Intent.ACTION_VIEW);
-                            intent.setDataAndType(Uri.fromFile(mDstFileInfo.mFile), "video/*");
-                            intent.putExtra(MediaStore.EXTRA_FINISH_ON_COMPLETION, false);
-                            mActivity.startActivity(intent);
-                        }
-                    }
-                });
+                // Show the result only when the activity not
+                // stopped.
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setDataAndType(Uri.fromFile(mDstFileInfo.mFile), "video/*");
+                intent.putExtra(MediaStore.EXTRA_FINISH_ON_COMPLETION, false);
+                mActivity.startActivity(intent);
             }
-        }).start();
+        });
+    }).start();
     }
 
     private void showProgressDialog() {

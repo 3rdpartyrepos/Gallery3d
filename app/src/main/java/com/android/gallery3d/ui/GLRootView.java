@@ -95,10 +95,10 @@ public class GLRootView extends GLSurfaceView
     private volatile boolean mRenderRequested = false;
 
     private final ArrayList<CanvasAnimation> mAnimations =
-            new ArrayList<CanvasAnimation>();
+            new ArrayList<>();
 
     private final ArrayDeque<OnGLIdleListener> mIdleListeners =
-            new ArrayDeque<OnGLIdleListener>();
+            new ArrayDeque<>();
 
     private final IdleRunner mIdleRunner = new IdleRunner();
 
@@ -196,12 +196,7 @@ public class GLRootView extends GLSurfaceView
         }
     }
 
-    private Runnable mRequestRenderOnAnimationFrame = new Runnable() {
-        @Override
-        public void run() {
-            superRequestRender();
-        }
-    };
+    private Runnable mRequestRenderOnAnimationFrame = this::superRequestRender;
 
     private void superRequestRender() {
         super.requestRender();
@@ -362,14 +357,11 @@ public class GLRootView extends GLSurfaceView
         // before the first draw.
         if (mFirstDraw) {
             mFirstDraw = false;
-            post(new Runnable() {
-                    @Override
-                    public void run() {
-                        View root = getRootView();
-                        View cover = root.findViewById(R.id.gl_root_cover);
-                        cover.setVisibility(GONE);
-                    }
-                });
+            post(() -> {
+                View root = getRootView();
+                View cover = root.findViewById(R.id.gl_root_cover);
+                cover.setVisibility(GONE);
+            });
         }
 
         if (DEBUG_PROFILE_SLOW_ONLY) {

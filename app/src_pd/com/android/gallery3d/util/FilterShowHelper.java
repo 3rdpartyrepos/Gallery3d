@@ -21,7 +21,7 @@ public class FilterShowHelper {
     /**
      * Whether to utilize version info in editor.
      */
-    public static final boolean shouldUseVersions() {
+    public static boolean shouldUseVersions() {
         return true;
     }
 }

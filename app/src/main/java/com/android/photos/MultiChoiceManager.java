@@ -45,19 +45,19 @@ public class MultiChoiceManager implements MultiChoiceModeListener,
     OnShareTargetSelectedListener, SelectionManager.SelectedUriSource {
 
     public interface Provider {
-        public MultiChoiceManager getMultiChoiceManager();
+        MultiChoiceManager getMultiChoiceManager();
     }
 
     public interface Delegate {
-        public SparseBooleanArray getSelectedItemPositions();
-        public int getSelectedItemCount();
-        public int getItemMediaType(Object item);
-        public int getItemSupportedOperations(Object item);
-        public ArrayList<Uri> getSubItemUrisForItem(Object item);
-        public Uri getItemUri(Object item);
-        public Object getItemAtPosition(int position);
-        public Object getPathForItemAtPosition(int position);
-        public void deleteItemWithPath(Object itemPath);
+        SparseBooleanArray getSelectedItemPositions();
+        int getSelectedItemCount();
+        int getItemMediaType(Object item);
+        int getItemSupportedOperations(Object item);
+        ArrayList<Uri> getSubItemUrisForItem(Object item);
+        Uri getItemUri(Object item);
+        Object getItemAtPosition(int position);
+        Object getPathForItemAtPosition(int position);
+        void deleteItemWithPath(Object itemPath);
     }
 
     private SelectionManager mSelectionManager;
@@ -66,7 +66,7 @@ public class MultiChoiceManager implements MultiChoiceModeListener,
     private Context mContext;
     private Delegate mDelegate;
 
-    private ArrayList<Uri> mSelectedShareableUrisArray = new ArrayList<Uri>();
+    private ArrayList<Uri> mSelectedShareableUrisArray = new ArrayList<>();
 
     public MultiChoiceManager(Activity activity) {
         mContext = activity;
@@ -166,7 +166,7 @@ public class MultiChoiceManager implements MultiChoiceModeListener,
         // onDestroyActionMode gets called when the share target was selected,
         // but apparently before the ArrayList is serialized in the intent
         // so we can't clear the old one here.
-        mSelectedShareableUrisArray = new ArrayList<Uri>();
+        mSelectedShareableUrisArray = new ArrayList<>();
         mSelectionManager.onClearSelection();
         mSelectionManager.setSelectedUriSource(null);
         mShareActionProvider = null;
@@ -270,7 +270,7 @@ public class MultiChoiceManager implements MultiChoiceModeListener,
     }
 
     private List<Object> getPathsForSelectedItems() {
-        List<Object> paths = new ArrayList<Object>();
+        List<Object> paths = new ArrayList<>();
         SparseBooleanArray selected = mDelegate.getSelectedItemPositions();
         for (int i = 0; i < selected.size(); i++) {
             if (selected.valueAt(i)) {

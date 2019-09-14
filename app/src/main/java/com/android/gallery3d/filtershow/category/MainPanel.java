@@ -93,35 +93,15 @@ public class MainPanel extends Fragment {
         mMainView = (LinearLayout) inflater.inflate(
                 R.layout.filtershow_main_panel, null, false);
 
-        looksButton = (ImageButton) mMainView.findViewById(R.id.fxButton);
-        bordersButton = (ImageButton) mMainView.findViewById(R.id.borderButton);
-        geometryButton = (ImageButton) mMainView.findViewById(R.id.geometryButton);
-        filtersButton = (ImageButton) mMainView.findViewById(R.id.colorsButton);
+        looksButton = mMainView.findViewById(R.id.fxButton);
+        bordersButton = mMainView.findViewById(R.id.borderButton);
+        geometryButton = mMainView.findViewById(R.id.geometryButton);
+        filtersButton = mMainView.findViewById(R.id.colorsButton);
 
-        looksButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showPanel(LOOKS);
-            }
-        });
-        bordersButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showPanel(BORDERS);
-            }
-        });
-        geometryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showPanel(GEOMETRY);
-            }
-        });
-        filtersButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showPanel(FILTERS);
-            }
-        });
+        looksButton.setOnClickListener(v -> showPanel(LOOKS));
+        bordersButton.setOnClickListener(v -> showPanel(BORDERS));
+        geometryButton.setOnClickListener(v -> showPanel(GEOMETRY));
+        filtersButton.setOnClickListener(v -> showPanel(FILTERS));
 
         FilterShowActivity activity = (FilterShowActivity) getActivity();
         showImageStatePanel(activity.isShowingImageStatePanel());
@@ -130,10 +110,7 @@ public class MainPanel extends Fragment {
     }
 
     private boolean isRightAnimation(int newPos) {
-        if (newPos < mCurrentSelected) {
-            return false;
-        }
-        return true;
+        return newPos >= mCurrentSelected;
     }
 
     private void setCategoryFragment(CategoryPanel category, boolean fromRight) {
@@ -246,15 +223,12 @@ public class MainPanel extends Fragment {
         if (button == null) {
             return;
         }
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mCurrentSelected == VERSIONS) {
-                    showPanel(mPreviousToggleVersions);
-                } else {
-                    mPreviousToggleVersions = mCurrentSelected;
-                    showPanel(VERSIONS);
-                }
+        button.setOnClickListener(v -> {
+            if (mCurrentSelected == VERSIONS) {
+                showPanel(mPreviousToggleVersions);
+            } else {
+                mPreviousToggleVersions = mCurrentSelected;
+                showPanel(VERSIONS);
             }
         });
     }

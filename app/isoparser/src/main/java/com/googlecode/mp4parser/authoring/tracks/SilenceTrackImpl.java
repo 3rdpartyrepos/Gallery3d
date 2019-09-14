@@ -20,7 +20,7 @@ import java.util.List;
 public class SilenceTrackImpl implements Track {
     Track source;
 
-    List<ByteBuffer> samples = new LinkedList<ByteBuffer>();
+    List<ByteBuffer> samples = new LinkedList<>();
     TimeToSampleBox.Entry entry;
 
     public SilenceTrackImpl(Track ofType, long ms) {

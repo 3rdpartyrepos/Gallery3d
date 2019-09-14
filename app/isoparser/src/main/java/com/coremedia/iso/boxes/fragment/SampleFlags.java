@@ -187,9 +187,7 @@ public class SampleFlags {
         if (sampleHasRedundancy != that.sampleHasRedundancy) return false;
         if (sampleIsDependedOn != that.sampleIsDependedOn) return false;
         if (sampleIsDifferenceSample != that.sampleIsDifferenceSample) return false;
-        if (samplePaddingValue != that.samplePaddingValue) return false;
-
-        return true;
+        return samplePaddingValue == that.samplePaddingValue;
     }
 
     @Override

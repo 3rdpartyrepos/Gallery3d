@@ -254,7 +254,7 @@ public class GLES20Canvas implements GLCanvas {
     private int[] mFrameBuffer = new int[1];
 
     // Bound textures.
-    private ArrayList<RawTexture> mTargetTextures = new ArrayList<RawTexture>();
+    private ArrayList<RawTexture> mTargetTextures = new ArrayList<>();
 
     // Temporary variables used within calculations
     private final float[] mTempMatrix = new float[32];
@@ -322,8 +322,8 @@ public class GLES20Canvas implements GLCanvas {
             GLES20.glDeleteProgram(program);
             program = 0;
         }
-        for (int i = 0; i < params.length; i++) {
-            params[i].loadHandle(program);
+        for (ShaderParameter param : params) {
+            param.loadHandle(program);
         }
         return program;
     }

@@ -11,7 +11,7 @@ import java.util.Set;
  * A SortedSet that contains just one value.
  */
 public class DummyMap<K, V> implements Map<K, V> {
-    HashSet<K> keys = new HashSet<K>();
+    HashSet<K> keys = new HashSet<>();
     V value;
 
     public DummyMap(V value) {

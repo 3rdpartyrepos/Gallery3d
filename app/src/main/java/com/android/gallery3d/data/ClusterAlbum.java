@@ -17,11 +17,12 @@
 package com.android.gallery3d.data;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ClusterAlbum extends MediaSet implements ContentListener {
     @SuppressWarnings("unused")
     private static final String TAG = "ClusterAlbum";
-    private ArrayList<Path> mPaths = new ArrayList<Path>();
+    private ArrayList<Path> mPaths = new ArrayList<>();
     private String mName = "";
     private DataManager mDataManager;
     private MediaSet mClusterAlbumSet;
@@ -75,22 +76,15 @@ public class ClusterAlbum extends MediaSet implements ContentListener {
             ArrayList<Path> paths, int start, int count,
             DataManager dataManager) {
         if (start >= paths.size()) {
-            return new ArrayList<MediaItem>();
+            return new ArrayList<>();
         }
         int end = Math.min(start + count, paths.size());
-        ArrayList<Path> subset = new ArrayList<Path>(paths.subList(start, end));
+        ArrayList<Path> subset = new ArrayList<>(paths.subList(start, end));
         final MediaItem[] buf = new MediaItem[end - start];
-        ItemConsumer consumer = new ItemConsumer() {
-            @Override
-            public void consume(int index, MediaItem item) {
-                buf[index] = item;
-            }
-        };
+        ItemConsumer consumer = (index, item) -> buf[index] = item;
         dataManager.mapMediaItems(subset, consumer, 0);
-        ArrayList<MediaItem> result = new ArrayList<MediaItem>(end - start);
-        for (int i = 0; i < buf.length; i++) {
-            result.add(buf[i]);
-        }
+        ArrayList<MediaItem> result = new ArrayList<>(end - start);
+        result.addAll(Arrays.asList(buf));
         return result;
     }
 
@@ -125,12 +119,9 @@ public class ClusterAlbum extends MediaSet implements ContentListener {
 
     @Override
     public void delete() {
-        ItemConsumer consumer = new ItemConsumer() {
-            @Override
-            public void consume(int index, MediaItem item) {
-                if ((item.getSupportedOperations() & SUPPORT_DELETE) != 0) {
-                    item.delete();
-                }
+        ItemConsumer consumer = (index, item) -> {
+            if ((item.getSupportedOperations() & SUPPORT_DELETE) != 0) {
+                item.delete();
             }
         };
         mDataManager.mapMediaItems(mPaths, consumer, 0);

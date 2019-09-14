@@ -68,9 +68,7 @@ public class VisualRandomAccessEntry extends GroupEntry {
         VisualRandomAccessEntry that = (VisualRandomAccessEntry) o;
 
         if (numLeadingSamples != that.numLeadingSamples) return false;
-        if (numLeadingSamplesKnown != that.numLeadingSamplesKnown) return false;
-
-        return true;
+        return numLeadingSamplesKnown == that.numLeadingSamplesKnown;
     }
 
     @Override

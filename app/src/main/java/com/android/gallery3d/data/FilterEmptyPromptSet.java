@@ -27,7 +27,7 @@ public class FilterEmptyPromptSet extends MediaSet implements ContentListener {
 
     public FilterEmptyPromptSet(Path path, MediaSet baseSet, MediaItem emptyItem) {
         super(path, INVALID_DATA_VERSION);
-        mEmptyItem = new ArrayList<MediaItem>(1);
+        mEmptyItem = new ArrayList<>(1);
         mEmptyItem.add(emptyItem);
         mBaseSet = baseSet;
         mBaseSet.addContentListener(this);

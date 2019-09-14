@@ -12,6 +12,7 @@
 package com.adobe.xmp.impl;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 
 
 /**
@@ -185,7 +186,7 @@ public class Latin1Converter
 				}
 				
 				// interpret byte as Windows Cp1252 char
-				return new String(new byte[] { ch }, "cp1252").getBytes("UTF-8");
+				return new String(new byte[] { ch }, "cp1252").getBytes(StandardCharsets.UTF_8);
 			}
 		}	
 		catch (UnsupportedEncodingException e)

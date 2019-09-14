@@ -89,7 +89,7 @@ public class FragmentedMp4Builder implements Mp4Builder {
     }
 
     public Box createFtyp(Movie movie) {
-        List<String> minorBrands = new LinkedList<String>();
+        List<String> minorBrands = new LinkedList<>();
         minorBrands.add("isom");
         minorBrands.add("iso2");
         minorBrands.add("avc1");
@@ -121,36 +121,34 @@ public class FragmentedMp4Builder implements Mp4Builder {
      * @return the list of tracks in order of appearance in the fragment
      */
     protected List<Track> sortTracksInSequence(List<Track> tracks, final int cycle, final Map<Track, long[]> intersectionMap) {
-        tracks = new LinkedList<Track>(tracks);
-        Collections.sort(tracks, new Comparator<Track>() {
-            public int compare(Track o1, Track o2) {
-                long[] startSamples1 = intersectionMap.get(o1);
-                long startSample1 = startSamples1[cycle];
-                // one based sample numbers - the first sample is 1
-                long endSample1 = cycle + 1 < startSamples1.length ? startSamples1[cycle + 1] : o1.getSamples().size() + 1;
-                long[] startSamples2 = intersectionMap.get(o2);
-                long startSample2 = startSamples2[cycle];
-                // one based sample numbers - the first sample is 1
-                long endSample2 = cycle + 1 < startSamples2.length ? startSamples2[cycle + 1] : o2.getSamples().size() + 1;
-                List<ByteBuffer> samples1 = o1.getSamples().subList(l2i(startSample1) - 1, l2i(endSample1) - 1);
-                List<ByteBuffer> samples2 = o2.getSamples().subList(l2i(startSample2) - 1, l2i(endSample2) - 1);
-                int size1 = 0;
-                for (ByteBuffer byteBuffer : samples1) {
-                    size1 += byteBuffer.limit();
-                }
-                int size2 = 0;
-                for (ByteBuffer byteBuffer : samples2) {
-                    size2 += byteBuffer.limit();
-                }
-                return size1 - size2;
+        tracks = new LinkedList<>(tracks);
+        Collections.sort(tracks, (o1, o2) -> {
+            long[] startSamples1 = intersectionMap.get(o1);
+            long startSample1 = startSamples1[cycle];
+            // one based sample numbers - the first sample is 1
+            long endSample1 = cycle + 1 < startSamples1.length ? startSamples1[cycle + 1] : o1.getSamples().size() + 1;
+            long[] startSamples2 = intersectionMap.get(o2);
+            long startSample2 = startSamples2[cycle];
+            // one based sample numbers - the first sample is 1
+            long endSample2 = cycle + 1 < startSamples2.length ? startSamples2[cycle + 1] : o2.getSamples().size() + 1;
+            List<ByteBuffer> samples1 = o1.getSamples().subList(l2i(startSample1) - 1, l2i(endSample1) - 1);
+            List<ByteBuffer> samples2 = o2.getSamples().subList(l2i(startSample2) - 1, l2i(endSample2) - 1);
+            int size1 = 0;
+            for (ByteBuffer byteBuffer : samples1) {
+                size1 += byteBuffer.limit();
             }
+            int size2 = 0;
+            for (ByteBuffer byteBuffer : samples2) {
+                size2 += byteBuffer.limit();
+            }
+            return size1 - size2;
         });
         return tracks;
     }
 
     protected List<Box> createMoofMdat(final Movie movie) {
-        List<Box> boxes = new LinkedList<Box>();
-        HashMap<Track, long[]> intersectionMap = new HashMap<Track, long[]>();
+        List<Box> boxes = new LinkedList<>();
+        HashMap<Track, long[]> intersectionMap = new HashMap<>();
         int maxNumberOfFragments = 0;
         for (Track track : movie.getTracks()) {
             long[] intersects = intersectionFinder.sampleNumbers(track, movie);
@@ -250,7 +248,7 @@ public class FragmentedMp4Builder implements Mp4Builder {
                         List<ByteBuffer> sublist = samples.subList(
                                 i * STEPSIZE, // start
                                 (i + 1) * STEPSIZE < samples.size() ? (i + 1) * STEPSIZE : samples.size()); // end
-                        ByteBuffer sampleArray[] = sublist.toArray(new ByteBuffer[sublist.size()]);
+                        ByteBuffer[] sampleArray = sublist.toArray(new ByteBuffer[0]);
                         do {
                             ((GatheringByteChannel) writableByteChannel).write(sampleArray);
                         } while (sampleArray[sampleArray.length - 1].remaining() > 0);
@@ -349,10 +347,10 @@ public class FragmentedMp4Builder implements Mp4Builder {
 
         trun.setSampleDurationPresent(true);
         trun.setSampleSizePresent(true);
-        List<TrackRunBox.Entry> entries = new ArrayList<TrackRunBox.Entry>(l2i(endSample - startSample));
+        List<TrackRunBox.Entry> entries = new ArrayList<>(l2i(endSample - startSample));
 
 
-        Queue<TimeToSampleBox.Entry> timeQueue = new LinkedList<TimeToSampleBox.Entry>(track.getDecodingTimeEntries());
+        Queue<TimeToSampleBox.Entry> timeQueue = new LinkedList<>(track.getDecodingTimeEntries());
         long left = startSample - 1;
         long curEntryLeft = timeQueue.peek().getCount();
         while (left > curEntryLeft) {
@@ -365,7 +363,7 @@ public class FragmentedMp4Builder implements Mp4Builder {
 
         Queue<CompositionTimeToSample.Entry> compositionTimeQueue =
                 track.getCompositionTimeEntries() != null && track.getCompositionTimeEntries().size() > 0 ?
-                        new LinkedList<CompositionTimeToSample.Entry>(track.getCompositionTimeEntries()) : null;
+                        new LinkedList<>(track.getCompositionTimeEntries()) : null;
         long compositionTimeEntriesLeft = compositionTimeQueue != null ? compositionTimeQueue.peek().getCount() : -1;
 
 
@@ -528,7 +526,7 @@ public class FragmentedMp4Builder implements Mp4Builder {
     protected Box createTfra(Track track, IsoFile isoFile) {
         TrackFragmentRandomAccessBox tfra = new TrackFragmentRandomAccessBox();
         tfra.setVersion(1); // use long offsets and times
-        List<TrackFragmentRandomAccessBox.Entry> offset2timeEntries = new LinkedList<TrackFragmentRandomAccessBox.Entry>();
+        List<TrackFragmentRandomAccessBox.Entry> offset2timeEntries = new LinkedList<>();
         List<Box> boxes = isoFile.getBoxes();
         long offset = 0;
         long duration = 0;
@@ -541,7 +539,7 @@ public class FragmentedMp4Builder implements Mp4Builder {
                         // here we are at the offset required for the current entry.
                         List<TrackRunBox> truns = traf.getBoxes(TrackRunBox.class);
                         for (int j = 0; j < truns.size(); j++) {
-                            List<TrackFragmentRandomAccessBox.Entry> offset2timeEntriesThisTrun = new LinkedList<TrackFragmentRandomAccessBox.Entry>();
+                            List<TrackFragmentRandomAccessBox.Entry> offset2timeEntriesThisTrun = new LinkedList<>();
                             TrackRunBox trun = truns.get(j);
                             for (int k = 0; k < trun.getEntries().size(); k++) {
                                 TrackRunBox.Entry trunEntry = trun.getEntries().get(k);

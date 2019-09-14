@@ -19,7 +19,6 @@ package com.android.gallery3d.filtershow.editors;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -116,7 +115,7 @@ public class Editor implements OnSeekBarChangeListener, SwapButton.SwapButtonLis
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         LinearLayout lp = (LinearLayout) inflater.inflate(
                 R.layout.filtershow_seekbar, (ViewGroup) editControl, true);
-        mSeekBar = (SeekBar) lp.findViewById(R.id.primarySeekBar);
+        mSeekBar = lp.findViewById(R.id.primarySeekBar);
         mSeekBar.setOnSeekBarChangeListener(this);
         mSeekBar.setVisibility(View.GONE);
         if (context.getResources().getConfiguration().orientation
@@ -220,7 +219,7 @@ public class Editor implements OnSeekBarChangeListener, SwapButton.SwapButtonLis
      * This causes the preview bitmap to be regenerated.
      */
     public void commitLocalRepresentation(FilterRepresentation rep) {
-        ArrayList<FilterRepresentation> filter = new ArrayList<FilterRepresentation>(1);
+        ArrayList<FilterRepresentation> filter = new ArrayList<>(1);
         filter.add(rep);
         commitLocalRepresentation(filter);
     }

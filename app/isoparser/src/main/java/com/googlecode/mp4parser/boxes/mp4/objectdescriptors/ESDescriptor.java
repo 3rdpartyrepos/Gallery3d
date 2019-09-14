@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 /*
@@ -78,7 +79,7 @@ public class ESDescriptor extends BaseDescriptor {
 
     DecoderConfigDescriptor decoderConfigDescriptor;
     SLConfigDescriptor slConfigDescriptor;
-    List<BaseDescriptor> otherDescriptors = new ArrayList<BaseDescriptor>();
+    List<BaseDescriptor> otherDescriptors = new ArrayList<>();
 
     @Override
     public void parseDetail(ByteBuffer bb) throws IOException {
@@ -345,15 +346,12 @@ public class ESDescriptor extends BaseDescriptor {
         if (remoteODFlag != that.remoteODFlag) return false;
         if (streamDependenceFlag != that.streamDependenceFlag) return false;
         if (streamPriority != that.streamPriority) return false;
-        if (URLString != null ? !URLString.equals(that.URLString) : that.URLString != null) return false;
-        if (decoderConfigDescriptor != null ? !decoderConfigDescriptor.equals(that.decoderConfigDescriptor) : that.decoderConfigDescriptor != null)
+        if (!Objects.equals(URLString, that.URLString)) return false;
+        if (!Objects.equals(decoderConfigDescriptor, that.decoderConfigDescriptor))
             return false;
-        if (otherDescriptors != null ? !otherDescriptors.equals(that.otherDescriptors) : that.otherDescriptors != null)
+        if (!Objects.equals(otherDescriptors, that.otherDescriptors))
             return false;
-        if (slConfigDescriptor != null ? !slConfigDescriptor.equals(that.slConfigDescriptor) : that.slConfigDescriptor != null)
-            return false;
-
-        return true;
+        return Objects.equals(slConfigDescriptor, that.slConfigDescriptor);
     }
 
     @Override

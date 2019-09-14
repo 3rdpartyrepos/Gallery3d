@@ -30,24 +30,24 @@ public class DetailsHelper {
     private DetailsViewContainer mContainer;
 
     public interface DetailsSource {
-        public int size();
-        public int setIndex();
-        public MediaDetails getDetails();
+        int size();
+        int setIndex();
+        MediaDetails getDetails();
     }
 
     public interface CloseListener {
-        public void onClose();
+        void onClose();
     }
 
     public interface DetailsViewContainer {
-        public void reloadDetails();
-        public void setCloseListener(CloseListener listener);
-        public void show();
-        public void hide();
+        void reloadDetails();
+        void setCloseListener(CloseListener listener);
+        void show();
+        void hide();
     }
 
     public interface ResolutionResolvingListener {
-        public void onResolutionAvailable(int width, int height);
+        void onResolutionAvailable(int width, int height);
     }
 
     public DetailsHelper(AbstractGalleryActivity activity, GLView rootPane, DetailsSource source) {

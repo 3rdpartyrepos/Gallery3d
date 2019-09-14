@@ -24,11 +24,8 @@ import com.android.gallery3d.filtershow.controller.BasicParameterInt;
 import com.android.gallery3d.filtershow.controller.Parameter;
 import com.android.gallery3d.filtershow.controller.ParameterSet;
 import com.android.gallery3d.filtershow.editors.EditorChanSat;
-import com.android.gallery3d.filtershow.imageshow.ControlPoint;
-import com.android.gallery3d.filtershow.imageshow.Spline;
 
 import java.io.IOException;
-import java.util.Vector;
 
 /**
  * Representation for a filter that has per channel & Master saturation

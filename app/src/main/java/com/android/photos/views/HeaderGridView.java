@@ -54,7 +54,7 @@ public class HeaderGridView extends GridView {
         public boolean isSelectable;
     }
 
-    private ArrayList<FixedViewInfo> mHeaderViewInfos = new ArrayList<FixedViewInfo>();
+    private ArrayList<FixedViewInfo> mHeaderViewInfos = new ArrayList<>();
 
     private void initHeaderGridView() {
         super.setClipChildren(false);

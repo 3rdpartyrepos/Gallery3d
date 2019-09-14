@@ -48,8 +48,7 @@ public class MovieBox extends AbstractContainerBox {
         List<TrackBox> trackBoxes = this.getBoxes(TrackBox.class);
         long[] trackNumbers = new long[trackBoxes.size()];
         for (int trackCounter = 0; trackCounter < trackBoxes.size(); trackCounter++) {
-            AbstractBox trackBoxe = trackBoxes.get(trackCounter);
-            TrackBox trackBox = (TrackBox) trackBoxe;
+            TrackBox trackBox = trackBoxes.get(trackCounter);
             trackNumbers[trackCounter] = trackBox.getTrackHeaderBox().getTrackId();
         }
         return trackNumbers;

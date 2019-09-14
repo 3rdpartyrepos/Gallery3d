@@ -18,8 +18,6 @@ package com.android.gallery3d.filtershow.controller;
 
 import android.content.Context;
 
-import com.android.gallery3d.filtershow.pipeline.RenderingRequestCaller;
-
 public class BasicParameterStyle implements ParameterStyles {
     protected String mParameterName;
     protected int mSelectedStyle;

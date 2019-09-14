@@ -598,7 +598,7 @@ public class GalleryThumbnailView extends ViewGroup {
      * @param optScrap Optional scrap view; will be reused if possible
      * @return A new view, a recycled view from mRecycler, or optScrap
      */
-    private final View obtainView(int position, View optScrap) {
+    private View obtainView(int position, View optScrap) {
         View view = mRecycler.getTransientStateView(position);
         if (view != null) {
             return view;
@@ -789,7 +789,7 @@ public class GalleryThumbnailView extends ViewGroup {
 
             ArrayList<View>[] scrapViews = new ArrayList[viewTypeCount];
             for (int i = 0; i < viewTypeCount; i++) {
-                scrapViews[i] = new ArrayList<View>();
+                scrapViews[i] = new ArrayList<>();
             }
             mViewTypeCount = viewTypeCount;
             mScrapViews = scrapViews;
@@ -815,7 +815,7 @@ public class GalleryThumbnailView extends ViewGroup {
             final LayoutParams lp = (LayoutParams) v.getLayoutParams();
             if (ViewCompat.hasTransientState(v)) {
                 if (mTransientStateViews == null) {
-                    mTransientStateViews = new SparseArray<View>();
+                    mTransientStateViews = new SparseArray<>();
                 }
                 mTransientStateViews.put(lp.position, v);
                 return;

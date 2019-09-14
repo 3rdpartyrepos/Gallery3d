@@ -106,9 +106,6 @@ public class IngestObjectInfo implements Comparable<IngestObjectInfo> {
     if (mFormat != other.mFormat) {
       return false;
     }
-    if (mHandle != other.mHandle) {
-      return false;
-    }
-    return true;
+      return mHandle == other.mHandle;
   }
 }

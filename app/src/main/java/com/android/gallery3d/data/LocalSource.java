@@ -190,8 +190,8 @@ class LocalSource extends MediaSource {
 
     @Override
     public void mapMediaItems(ArrayList<PathId> list, ItemConsumer consumer) {
-        ArrayList<PathId> imageList = new ArrayList<PathId>();
-        ArrayList<PathId> videoList = new ArrayList<PathId>();
+        ArrayList<PathId> imageList = new ArrayList<>();
+        ArrayList<PathId> videoList = new ArrayList<>();
         int n = list.size();
         for (int i = 0; i < n; i++) {
             PathId pid = list.get(i);
@@ -218,7 +218,7 @@ class LocalSource extends MediaSource {
             PathId pid = list.get(i);
 
             // Find a range of items.
-            ArrayList<Integer> ids = new ArrayList<Integer>();
+            ArrayList<Integer> ids = new ArrayList<>();
             int startId = Integer.parseInt(pid.path.getSuffix());
             ids.add(startId);
 

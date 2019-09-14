@@ -49,8 +49,8 @@ public class PhotoFallbackEffect extends Animation implements SlotFilter {
     }
 
     public interface PositionProvider {
-        public Rect getPosition(int index);
-        public int getItemIndex(Path path);
+        Rect getPosition(int index);
+        int getItemIndex(Path path);
     }
 
     private RectF mSource = new RectF();
@@ -58,7 +58,7 @@ public class PhotoFallbackEffect extends Animation implements SlotFilter {
     private float mProgress;
     private PositionProvider mPositionProvider;
 
-    private ArrayList<Entry> mList = new ArrayList<Entry>();
+    private ArrayList<Entry> mList = new ArrayList<>();
 
     public PhotoFallbackEffect() {
         setDuration(ANIM_DURATION);

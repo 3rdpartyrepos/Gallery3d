@@ -246,7 +246,7 @@ public class TrimTimeBar extends TimeBar {
                             mScrubberCorrection = x - mTrimEndScrubberLeft;
                             break;
                     }
-                    if (mScrubbing == true) {
+                    if (mScrubbing) {
                         mListener.onScrubbingStart();
                         return true;
                     }

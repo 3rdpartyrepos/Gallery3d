@@ -34,7 +34,7 @@ public class FaceClustering extends Clustering {
     private Context mContext;
 
     private class FaceCluster {
-        ArrayList<Path> mPaths = new ArrayList<Path>();
+        ArrayList<Path> mPaths = new ArrayList<>();
         String mName;
         MediaItem mCoverItem;
         Rect mCoverRegion;
@@ -90,26 +90,23 @@ public class FaceClustering extends Clustering {
     @Override
     public void run(MediaSet baseSet) {
         final TreeMap<Face, FaceCluster> map =
-                new TreeMap<Face, FaceCluster>();
+                new TreeMap<>();
         final FaceCluster untagged = new FaceCluster(mUntaggedString);
 
-        baseSet.enumerateTotalMediaItems(new MediaSet.ItemConsumer() {
-            @Override
-            public void consume(int index, MediaItem item) {
-                Face[] faces = item.getFaces();
-                if (faces == null || faces.length == 0) {
-                    untagged.add(item, -1);
-                    return;
+        baseSet.enumerateTotalMediaItems((index, item) -> {
+            Face[] faces = item.getFaces();
+            if (faces == null || faces.length == 0) {
+                untagged.add(item, -1);
+                return;
+            }
+            for (int j = 0; j < faces.length; j++) {
+                Face face = faces[j];
+                FaceCluster cluster = map.get(face);
+                if (cluster == null) {
+                    cluster = new FaceCluster(face.getName());
+                    map.put(face, cluster);
                 }
-                for (int j = 0; j < faces.length; j++) {
-                    Face face = faces[j];
-                    FaceCluster cluster = map.get(face);
-                    if (cluster == null) {
-                        cluster = new FaceCluster(face.getName());
-                        map.put(face, cluster);
-                    }
-                    cluster.add(item, j);
-                }
+                cluster.add(item, j);
             }
         });
 

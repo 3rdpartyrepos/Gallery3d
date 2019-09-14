@@ -28,15 +28,15 @@ import java.util.Collection;
 @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR1)
 public abstract class CheckBroker {
   private Collection<OnCheckedChangedListener> mListeners =
-      new ArrayList<OnCheckedChangedListener>();
+          new ArrayList<>();
 
   /**
    * Listener for item checked state changes.
    */
   public interface OnCheckedChangedListener {
-    public void onCheckedChanged(int position, boolean isChecked);
+    void onCheckedChanged(int position, boolean isChecked);
 
-    public void onBulkCheckedChanged();
+    void onBulkCheckedChanged();
   }
 
   public abstract void setItemChecked(int position, boolean checked);

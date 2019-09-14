@@ -64,11 +64,11 @@ public class InitialObjectDescriptor extends ObjectDescriptorBase {
     int visualProfileLevelIndication;
     int graphicsProfileLevelIndication;
 
-    List<ESDescriptor> esDescriptors = new ArrayList<ESDescriptor>();
+    List<ESDescriptor> esDescriptors = new ArrayList<>();
 
-    List<ExtensionDescriptor> extensionDescriptors = new ArrayList<ExtensionDescriptor>();
+    List<ExtensionDescriptor> extensionDescriptors = new ArrayList<>();
 
-    List<BaseDescriptor> unknownDescriptors = new ArrayList<BaseDescriptor>();
+    List<BaseDescriptor> unknownDescriptors = new ArrayList<>();
 
     @Override
     public void parseDetail(ByteBuffer bb) throws IOException {

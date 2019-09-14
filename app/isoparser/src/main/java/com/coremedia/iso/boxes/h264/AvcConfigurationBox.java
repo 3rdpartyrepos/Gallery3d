@@ -190,14 +190,14 @@ public final class AvcConfigurationBox extends AbstractBox {
         public int profileCompatibility;
         public int avcLevelIndication;
         public int lengthSizeMinusOne;
-        public List<byte[]> sequenceParameterSets = new ArrayList<byte[]>();
-        public List<byte[]> pictureParameterSets = new ArrayList<byte[]>();
+        public List<byte[]> sequenceParameterSets = new ArrayList<>();
+        public List<byte[]> pictureParameterSets = new ArrayList<>();
 
         public boolean hasExts = true;
         public int chromaFormat = 1;
         public int bitDepthLumaMinus8 = 0;
         public int bitDepthChromaMinus8 = 0;
-        public List<byte[]> sequenceParameterSetExts = new ArrayList<byte[]>();
+        public List<byte[]> sequenceParameterSetExts = new ArrayList<>();
 
         /**
          * Just for non-spec-conform encoders
@@ -321,7 +321,7 @@ public final class AvcConfigurationBox extends AbstractBox {
         }
 
         public String[] getPPS() {
-            ArrayList<String> l = new ArrayList<String>();
+            ArrayList<String> l = new ArrayList<>();
             for (byte[] pictureParameterSet : pictureParameterSets) {
                 String details = "not parsable";
                 try {
@@ -332,11 +332,11 @@ public final class AvcConfigurationBox extends AbstractBox {
 
                 l.add(details);
             }
-            return l.toArray(new String[l.size()]);
+            return l.toArray(new String[0]);
         }
 
         public String[] getSPS() {
-            ArrayList<String> l = new ArrayList<String>();
+            ArrayList<String> l = new ArrayList<>();
             for (byte[] sequenceParameterSet : sequenceParameterSets) {
                 String detail = "not parsable";
                 try {
@@ -346,11 +346,11 @@ public final class AvcConfigurationBox extends AbstractBox {
                 }
                 l.add(detail);
             }
-            return l.toArray(new String[l.size()]);
+            return l.toArray(new String[0]);
         }
 
         public List<String> getSequenceParameterSetsAsStrings() {
-            List <String> result = new ArrayList<String>(sequenceParameterSets.size());
+            List <String> result = new ArrayList<>(sequenceParameterSets.size());
             for (byte[] parameterSet : sequenceParameterSets) {
                 result.add(Hex.encodeHex(parameterSet));
             }
@@ -358,7 +358,7 @@ public final class AvcConfigurationBox extends AbstractBox {
         }
 
         public List<String> getSequenceParameterSetExtsAsStrings() {
-            List <String> result = new ArrayList<String>(sequenceParameterSetExts.size());
+            List <String> result = new ArrayList<>(sequenceParameterSetExts.size());
             for (byte[] parameterSet : sequenceParameterSetExts) {
                 result.add(Hex.encodeHex(parameterSet));
             }
@@ -366,7 +366,7 @@ public final class AvcConfigurationBox extends AbstractBox {
         }
 
         public List<String> getPictureParameterSetsAsStrings() {
-            List <String> result = new ArrayList<String>(pictureParameterSets.size());
+            List <String> result = new ArrayList<>(pictureParameterSets.size());
             for (byte[] parameterSet : pictureParameterSets) {
                 result.add(Hex.encodeHex(parameterSet));
             }

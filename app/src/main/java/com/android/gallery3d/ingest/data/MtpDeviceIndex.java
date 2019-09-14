@@ -56,17 +56,17 @@ public class MtpDeviceIndex {
      * @param object The media item that was just indexed
      * @param numVisited Number of items visited so far
      */
-    public void onObjectIndexed(IngestObjectInfo object, int numVisited);
+    void onObjectIndexed(IngestObjectInfo object, int numVisited);
 
     /**
      * The metadata loaded from the device is being sorted.
      */
-    public void onSortingStarted();
+    void onSortingStarted();
 
     /**
      * The indexing is done and the index is ready to be used.
      */
-    public void onIndexingFinished();
+    void onIndexingFinished();
   }
 
   /**
@@ -83,7 +83,7 @@ public class MtpDeviceIndex {
   public static final Set<Integer> SUPPORTED_VIDEO_FORMATS;
 
   static {
-    Set<Integer> supportedImageFormats = new HashSet<Integer>();
+    Set<Integer> supportedImageFormats = new HashSet<>();
     supportedImageFormats.add(MtpConstants.FORMAT_JFIF);
     supportedImageFormats.add(MtpConstants.FORMAT_EXIF_JPEG);
     supportedImageFormats.add(MtpConstants.FORMAT_PNG);
@@ -96,7 +96,7 @@ public class MtpDeviceIndex {
     }
     SUPPORTED_IMAGE_FORMATS = Collections.unmodifiableSet(supportedImageFormats);
 
-    Set<Integer> supportedVideoFormats = new HashSet<Integer>();
+    Set<Integer> supportedVideoFormats = new HashSet<>();
     supportedVideoFormats.add(MtpConstants.FORMAT_3GP_CONTAINER);
     supportedVideoFormats.add(MtpConstants.FORMAT_AVI);
     supportedVideoFormats.add(MtpConstants.FORMAT_MP4_CONTAINER);

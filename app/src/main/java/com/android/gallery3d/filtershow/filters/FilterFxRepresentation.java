@@ -73,10 +73,8 @@ public class FilterFxRepresentation extends FilterRepresentation {
         }
         if (representation instanceof FilterFxRepresentation) {
             FilterFxRepresentation fx = (FilterFxRepresentation) representation;
-            if (fx.mNameResource == mNameResource
-                    && fx.mBitmapResource == mBitmapResource) {
-                return true;
-            }
+            return fx.mNameResource == mNameResource
+                    && fx.mBitmapResource == mBitmapResource;
         }
         return false;
     }

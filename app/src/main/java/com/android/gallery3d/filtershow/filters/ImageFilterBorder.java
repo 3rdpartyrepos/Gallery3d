@@ -32,7 +32,7 @@ public class ImageFilterBorder extends ImageFilter {
     private FilterImageBorderRepresentation mParameters = null;
     private Resources mResources = null;
 
-    private HashMap<Integer, Drawable> mDrawables = new HashMap<Integer, Drawable>();
+    private HashMap<Integer, Drawable> mDrawables = new HashMap<>();
 
     public ImageFilterBorder() {
         mName = "Border";

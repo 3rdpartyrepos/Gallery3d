@@ -23,6 +23,7 @@ import com.coremedia.iso.IsoTypeWriter;
 import java.nio.ByteBuffer;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import static com.googlecode.mp4parser.util.CastUtils.l2i;
 
@@ -49,7 +50,7 @@ public class RateShareEntry extends GroupEntry {
 
     private short operationPointCut;
     private short targetRateShare;
-    private List<Entry> entries = new LinkedList<Entry>();
+    private List<Entry> entries = new LinkedList<>();
     private int maximumBitrate;
     private int minimumBitrate;
     private short discardPriority;
@@ -137,11 +138,7 @@ public class RateShareEntry extends GroupEntry {
             if (availableBitrate != entry.availableBitrate) {
                 return false;
             }
-            if (targetRateShare != entry.targetRateShare) {
-                return false;
-            }
-
-            return true;
+            return targetRateShare == entry.targetRateShare;
         }
 
         @Override
@@ -178,11 +175,7 @@ public class RateShareEntry extends GroupEntry {
         if (targetRateShare != that.targetRateShare) {
             return false;
         }
-        if (entries != null ? !entries.equals(that.entries) : that.entries != null) {
-            return false;
-        }
-
-        return true;
+        return Objects.equals(entries, that.entries);
     }
 
     @Override

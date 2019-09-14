@@ -21,7 +21,7 @@ import java.util.List;
 public class TrickPlayBox extends AbstractFullBox {
     public static final String TYPE = "trik";
 
-    private List<Entry> entries = new ArrayList<Entry>();
+    private List<Entry> entries = new ArrayList<>();
 
     public TrickPlayBox() {
         super(TYPE);

@@ -21,14 +21,9 @@ import android.util.JsonWriter;
 import android.util.Log;
 
 import com.android.gallery3d.R;
-import com.android.gallery3d.filtershow.editors.EditorMirror;
 import com.android.gallery3d.filtershow.editors.ImageOnlyEditor;
-import com.android.gallery3d.filtershow.imageshow.GeometryMathUtils;
-import com.android.gallery3d.filtershow.imageshow.MasterImage;
-import com.android.gallery3d.filtershow.pipeline.ImagePreset;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class FilterMirrorRepresentation extends FilterRepresentation {
     public static final String SERIALIZATION_NAME = "MIRROR";
@@ -41,7 +36,7 @@ public class FilterMirrorRepresentation extends FilterRepresentation {
         NONE('N'), VERTICAL('V'), HORIZONTAL('H'), BOTH('B');
         char mValue;
 
-        private Mirror(char value) {
+        Mirror(char value) {
             mValue = value;
         }
 
@@ -92,10 +87,7 @@ public class FilterMirrorRepresentation extends FilterRepresentation {
             return false;
         }
         FilterMirrorRepresentation mirror = (FilterMirrorRepresentation) rep;
-        if (mMirror != mirror.mMirror) {
-            return false;
-        }
-        return true;
+        return mMirror == mirror.mMirror;
     }
 
     public Mirror getMirror() {
@@ -114,19 +106,13 @@ public class FilterMirrorRepresentation extends FilterRepresentation {
     }
 
     public boolean isHorizontal() {
-        if (mMirror == Mirror.BOTH
-                || mMirror == Mirror.HORIZONTAL) {
-            return true;
-        }
-        return false;
+        return mMirror == Mirror.BOTH
+                || mMirror == Mirror.HORIZONTAL;
     }
 
     public boolean isVertical() {
-        if (mMirror == Mirror.BOTH
-                || mMirror == Mirror.VERTICAL) {
-            return true;
-        }
-        return false;
+        return mMirror == Mirror.BOTH
+                || mMirror == Mirror.VERTICAL;
     }
 
     public void cycle() {

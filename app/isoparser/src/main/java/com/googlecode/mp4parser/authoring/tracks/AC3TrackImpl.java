@@ -56,7 +56,7 @@ public class AC3TrackImpl extends AbstractTrack {
     private void parse(InputStream fin) throws IOException {
         inputStream = fin;
         bitRateAndFrameSizeTable = new int[19][2][3][2];
-        stts = new LinkedList<TimeToSampleBox.Entry>();
+        stts = new LinkedList<>();
         initBitRateAndFrameSizeTable();
         if (!readVariables()) {
             throw new IOException();
@@ -86,7 +86,7 @@ public class AC3TrackImpl extends AbstractTrack {
         trackMetaData.setLanguage(lang);
         trackMetaData.setTimescale(samplerate); // Audio tracks always use samplerate as timescale
 
-        samples = new LinkedList<ByteBuffer>();
+        samples = new LinkedList<>();
         if (!readSamples()) {
             throw new IOException();
         }

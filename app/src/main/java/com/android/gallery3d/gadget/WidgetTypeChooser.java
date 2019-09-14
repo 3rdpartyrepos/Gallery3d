@@ -29,14 +29,11 @@ import com.android.gallery3d.R;
 
 public class WidgetTypeChooser extends Activity {
 
-    private OnCheckedChangeListener mListener = new OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(RadioGroup group, int checkedId) {
-            Intent data = new Intent()
-                    .putExtra(WidgetConfigure.KEY_WIDGET_TYPE, checkedId);
-            setResult(RESULT_OK, data);
-            finish();
-        }
+    private OnCheckedChangeListener mListener = (group, checkedId) -> {
+        Intent data = new Intent()
+                .putExtra(WidgetConfigure.KEY_WIDGET_TYPE, checkedId);
+        setResult(RESULT_OK, data);
+        finish();
     };
 
     @Override
@@ -44,16 +41,13 @@ public class WidgetTypeChooser extends Activity {
         super.onCreate(savedInstanceState);
         setTitle(R.string.widget_type);
         setContentView(R.layout.choose_widget_type);
-        RadioGroup rg = (RadioGroup) findViewById(R.id.widget_type);
+        RadioGroup rg = findViewById(R.id.widget_type);
         rg.setOnCheckedChangeListener(mListener);
 
-        Button cancel = (Button) findViewById(R.id.cancel);
-        cancel.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setResult(RESULT_CANCELED);
-                finish();
-            }
+        Button cancel = findViewById(R.id.cancel);
+        cancel.setOnClickListener(v -> {
+            setResult(RESULT_CANCELED);
+            finish();
         });
     }
 }

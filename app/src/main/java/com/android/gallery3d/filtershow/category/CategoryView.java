@@ -76,10 +76,7 @@ public class CategoryView extends IconView
         if (mAction.getType() == Action.CROP_VIEW) {
             return true;
         }
-        if (mAction.getType() == Action.ADD_ACTION) {
-            return true;
-        }
-        return false;
+        return mAction.getType() == Action.ADD_ACTION;
     }
 
     private boolean canBeRemoved() {

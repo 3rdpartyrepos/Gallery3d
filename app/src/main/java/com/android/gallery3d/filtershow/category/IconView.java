@@ -88,10 +88,7 @@ public class IconView extends View {
     }
 
     public boolean needsCenterText() {
-        if (mOrientation == HORIZONTAL) {
-            return true;
-        }
-        return false;
+        return mOrientation == HORIZONTAL;
     }
 
     protected void drawText(Canvas canvas, String text) {

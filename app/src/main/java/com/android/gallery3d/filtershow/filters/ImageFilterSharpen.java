@@ -72,7 +72,7 @@ public class ImageFilterSharpen extends ImageFilterRS {
         float scaleFactor = getEnvironment().getScaleFactor();
         float p1 = mParameters.getValue() * scaleFactor;
         float value = p1 / 100.0f;
-        float f[] = new float[9];
+        float[] f = new float[9];
         float p = value;
         f[0] = -p;
         f[1] = -p;

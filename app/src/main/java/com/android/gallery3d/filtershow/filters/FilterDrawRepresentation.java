@@ -27,11 +27,7 @@ import com.android.gallery3d.R;
 import com.android.gallery3d.filtershow.controller.BasicParameterInt;
 import com.android.gallery3d.filtershow.controller.BasicParameterStyle;
 import com.android.gallery3d.filtershow.controller.Parameter;
-import com.android.gallery3d.filtershow.controller.ParameterBrightness;
 import com.android.gallery3d.filtershow.controller.ParameterColor;
-import com.android.gallery3d.filtershow.controller.ParameterHue;
-import com.android.gallery3d.filtershow.controller.ParameterOpacity;
-import com.android.gallery3d.filtershow.controller.ParameterSaturation;
 import com.android.gallery3d.filtershow.editors.EditorDraw;
 
 import java.io.IOException;
@@ -154,7 +150,7 @@ public class FilterDrawRepresentation extends FilterRepresentation {
         return "";
     }
 
-    private Vector<StrokeData> mDrawing = new Vector<StrokeData>();
+    private Vector<StrokeData> mDrawing = new Vector<>();
     private StrokeData mCurrent; // used in the currently drawing style
 
     public FilterDrawRepresentation() {
@@ -208,14 +204,13 @@ public class FilterDrawRepresentation extends FilterRepresentation {
             mParamColor.copyPalletFrom(representation.mParamColor);
             try {
                 if (representation.mCurrent != null) {
-                    mCurrent = (StrokeData) representation.mCurrent.clone();
+                    mCurrent = representation.mCurrent.clone();
                 } else {
                     mCurrent = null;
                 }
                 if (representation.mDrawing != null) {
-                    mDrawing = new Vector<StrokeData>();
-                    for (Iterator<StrokeData> elem = representation.mDrawing.iterator(); elem.hasNext(); ) {
-                        StrokeData next =  elem.next();
+                    mDrawing = new Vector<>();
+                    for (StrokeData next : representation.mDrawing) {
                         mDrawing.add(new StrokeData(next));
                     }
                 } else {
@@ -245,10 +240,7 @@ public class FilterDrawRepresentation extends FilterRepresentation {
 
 
             if (fdRep.mCurrent != null && mCurrent != null && mCurrent.mPath != null) {
-                if (fdRep.mCurrent.noPoints == mCurrent.noPoints) {
-                    return true;
-                }
-                return false;
+                return fdRep.mCurrent.noPoints == mCurrent.noPoints;
             }
 
         int n = mDrawing.size();
@@ -346,7 +338,7 @@ public class FilterDrawRepresentation extends FilterRepresentation {
     @Override
     public void deSerializeRepresentation(JsonReader sreader) throws IOException {
         sreader.beginObject();
-        Vector<StrokeData> strokes = new Vector<StrokeData>();
+        Vector<StrokeData> strokes = new Vector<>();
 
         while (sreader.hasNext()) {
             sreader.nextName();
@@ -355,33 +347,39 @@ public class FilterDrawRepresentation extends FilterRepresentation {
 
             while (sreader.hasNext()) {
                 String name = sreader.nextName();
-                if (name.equals(SERIAL_COLOR)) {
-                    stroke.mColor = sreader.nextInt();
-                } else if (name.equals(SERIAL_RADIUS)) {
-                    stroke.mRadius = (float) sreader.nextDouble();
-                } else if (name.equals(SERIAL_TYPE)) {
-                    stroke.mType = (byte) sreader.nextInt();
-                } else if (name.equals(SERIAL_POINTS_COUNT)) {
-                    stroke.noPoints = sreader.nextInt();
-                } else if (name.equals(SERIAL_POINTS)) {
-
-                    int count = 0;
-                    sreader.beginArray();
-                    while (sreader.hasNext()) {
-                        if ((count + 1) > stroke.mPoints.length) {
-                            stroke.mPoints = Arrays.copyOf(stroke.mPoints, count * 2);
+                switch (name) {
+                    case SERIAL_COLOR:
+                        stroke.mColor = sreader.nextInt();
+                        break;
+                    case SERIAL_RADIUS:
+                        stroke.mRadius = (float) sreader.nextDouble();
+                        break;
+                    case SERIAL_TYPE:
+                        stroke.mType = (byte) sreader.nextInt();
+                        break;
+                    case SERIAL_POINTS_COUNT:
+                        stroke.noPoints = sreader.nextInt();
+                        break;
+                    case SERIAL_POINTS:
+                        int count = 0;
+                        sreader.beginArray();
+                        while (sreader.hasNext()) {
+                            if ((count + 1) > stroke.mPoints.length) {
+                                stroke.mPoints = Arrays.copyOf(stroke.mPoints, count * 2);
+                            }
+                            stroke.mPoints[count++] = (float) sreader.nextDouble();
                         }
-                        stroke.mPoints[count++] = (float) sreader.nextDouble();
-                    }
-                    stroke.mPath = new Path();
-                    stroke.mPath.moveTo(stroke.mPoints[0], stroke.mPoints[1]);
-                    for (int i = 0; i < count; i += 2) {
-                        stroke.mPath.lineTo(stroke.mPoints[i], stroke.mPoints[i + 1]);
-                    }
-                    sreader.endArray();
-                    strokes.add(stroke);
-                } else {
-                    sreader.skipValue();
+                        stroke.mPath = new Path();
+                        stroke.mPath.moveTo(stroke.mPoints[0], stroke.mPoints[1]);
+                        for (int i = 0; i < count; i += 2) {
+                            stroke.mPath.lineTo(stroke.mPoints[i], stroke.mPoints[i + 1]);
+                        }
+                        sreader.endArray();
+                        strokes.add(stroke);
+                        break;
+                    default:
+                        sreader.skipValue();
+                        break;
                 }
             }
             sreader.endObject();

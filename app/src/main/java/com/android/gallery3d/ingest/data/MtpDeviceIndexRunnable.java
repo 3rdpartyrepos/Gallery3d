@@ -99,7 +99,7 @@ public class MtpDeviceIndexRunnable implements Runnable {
 
   private void indexDevice() throws IndexingException {
     SortedMap<SimpleDate, List<IngestObjectInfo>> bucketsTemp =
-        new TreeMap<SimpleDate, List<IngestObjectInfo>>();
+            new TreeMap<>();
     int numObjects = addAllObjects(bucketsTemp);
     mIndex.onSorting();
     int numBuckets = bucketsTemp.size();
@@ -144,7 +144,7 @@ public class MtpDeviceIndexRunnable implements Runnable {
     mDateInstance.setTimestamp(objectInfo.getDateCreated());
     List<IngestObjectInfo> bucket = bucketsTemp.get(mDateInstance);
     if (bucket == null) {
-      bucket = new ArrayList<IngestObjectInfo>();
+      bucket = new ArrayList<>();
       bucketsTemp.put(mDateInstance, bucket);
       mDateInstance = new SimpleDate(); // only create new date objects when they are used
     }
@@ -159,7 +159,7 @@ public class MtpDeviceIndexRunnable implements Runnable {
       if (!mIndex.isAtGeneration(mDevice, mIndexGeneration)) {
         throw new IndexingException();
       }
-      Stack<Integer> pendingDirectories = new Stack<Integer>();
+      Stack<Integer> pendingDirectories = new Stack<>();
       pendingDirectories.add(0xFFFFFFFF); // start at the root of the device
       while (!pendingDirectories.isEmpty()) {
         if (!mIndex.isAtGeneration(mDevice, mIndexGeneration)) {

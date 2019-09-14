@@ -61,7 +61,7 @@ public final class MediaDataBox implements Box {
     private long contentSize;
 
 
-    private Map<Long, Reference<ByteBuffer>> cache = new HashMap<Long, Reference<ByteBuffer>>();
+    private Map<Long, Reference<ByteBuffer>> cache = new HashMap<>();
 
 
     /**
@@ -145,7 +145,7 @@ public final class MediaDataBox implements Box {
             ((FileChannel) readableByteChannel).position(((FileChannel) readableByteChannel).position() + contentSize);
         } else {
             content = ChannelHelper.readFully(readableByteChannel, l2i(contentSize));
-            cache.put(0l, new SoftReference<ByteBuffer>(content));
+            cache.put(0L, new SoftReference<>(content));
         }
     }
 
@@ -174,7 +174,7 @@ public final class MediaDataBox implements Box {
                     "Delayed reading of mdat content failed. Make sure not to close " +
                             "the FileChannel that has been used to create the IsoFile!", e1);
         }
-        cache.put(offset, new SoftReference<ByteBuffer>(cacheEntry));
+        cache.put(offset, new SoftReference<>(cacheEntry));
         cacheEntry.position(0);
         ByteBuffer cachedSample = cacheEntry.slice();
         cachedSample.limit(length);

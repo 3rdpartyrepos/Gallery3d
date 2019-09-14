@@ -253,9 +253,9 @@ public class TimeBar extends View {
         int minutes = (totalSeconds / 60) % 60;
         int hours = totalSeconds / 3600;
         if (hours > 0) {
-            return String.format("%d:%02d:%02d", hours, minutes, seconds).toString();
+            return String.format("%d:%02d:%02d", hours, minutes, seconds);
         } else {
-            return String.format("%02d:%02d", minutes, seconds).toString();
+            return String.format("%02d:%02d", minutes, seconds);
         }
     }
 

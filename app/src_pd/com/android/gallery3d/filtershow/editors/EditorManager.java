@@ -17,7 +17,6 @@
 package com.android.gallery3d.filtershow.editors;
 
 import com.android.gallery3d.filtershow.EditorPlaceHolder;
-import com.android.gallery3d.filtershow.editors.BasicEditor;
 import com.android.gallery3d.filtershow.editors.EditorCurves;
 import com.android.gallery3d.filtershow.editors.EditorZoom;
 

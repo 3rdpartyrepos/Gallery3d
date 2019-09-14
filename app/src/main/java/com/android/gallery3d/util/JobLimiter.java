@@ -34,7 +34,7 @@ public class JobLimiter implements FutureListener {
     private static final int STATE_DONE = 1;
     private static final int STATE_CANCELLED = 2;
 
-    private final LinkedList<JobWrapper<?>> mJobs = new LinkedList<JobWrapper<?>>();
+    private final LinkedList<JobWrapper<?>> mJobs = new LinkedList<>();
     private final ThreadPool mPool;
     private int mLimit;
 
@@ -134,7 +134,7 @@ public class JobLimiter implements FutureListener {
     }
 
     public synchronized <T> Future<T> submit(Job<T> job, FutureListener<T> listener) {
-        JobWrapper<T> future = new JobWrapper<T>(Utils.checkNotNull(job), listener);
+        JobWrapper<T> future = new JobWrapper<>(Utils.checkNotNull(job), listener);
         mJobs.addLast(future);
         submitTasksIfAllowed();
         return future;

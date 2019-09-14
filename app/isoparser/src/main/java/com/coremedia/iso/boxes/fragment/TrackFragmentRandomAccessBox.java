@@ -91,7 +91,7 @@ public class TrackFragmentRandomAccessBox extends AbstractFullBox {
         lengthSizeOfSampleNum = ((int) (temp & 0x3)) + 1;
         long numberOfEntries = IsoTypeReader.readUInt32(content);
 
-        entries = new ArrayList<Entry>();
+        entries = new ArrayList<>();
 
         for (int i = 0; i < numberOfEntries; i++) {
             Entry entry = new Entry();
@@ -268,9 +268,7 @@ public class TrackFragmentRandomAccessBox extends AbstractFullBox {
             if (sampleNumber != entry.sampleNumber) return false;
             if (time != entry.time) return false;
             if (trafNumber != entry.trafNumber) return false;
-            if (trunNumber != entry.trunNumber) return false;
-
-            return true;
+            return trunNumber == entry.trunNumber;
         }
 
         @Override

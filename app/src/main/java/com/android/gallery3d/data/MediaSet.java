@@ -43,7 +43,7 @@ public abstract class MediaSet extends MediaObject {
     public static final int SYNC_RESULT_ERROR = 2;
 
     /** Listener to be used with requestSync(SyncListener). */
-    public static interface SyncListener {
+    public interface SyncListener {
         /**
          * Called when the sync task completed. Completion may be due to normal termination,
          * an exception, or cancellation.
@@ -70,7 +70,7 @@ public abstract class MediaSet extends MediaObject {
     // getMediaItemCount() because the contents of database may have already
     // changed.
     public ArrayList<MediaItem> getMediaItem(int start, int count) {
-        return new ArrayList<MediaItem>();
+        return new ArrayList<>();
     }
 
     public MediaItem getCoverMediaItem() {
@@ -150,7 +150,7 @@ public abstract class MediaSet extends MediaObject {
     public abstract String getName();
 
     private WeakHashMap<ContentListener, Object> mListeners =
-            new WeakHashMap<ContentListener, Object>();
+            new WeakHashMap<>();
 
     // NOTE: The MediaSet only keeps a weak reference to the listener. The
     // listener is automatically removed when there is no other reference to
@@ -192,7 +192,7 @@ public abstract class MediaSet extends MediaObject {
         enumerateTotalMediaItems(consumer, 0);
     }
 
-    public static interface ItemConsumer {
+    public interface ItemConsumer {
         void consume(int index, MediaItem item);
     }
 
@@ -271,11 +271,10 @@ public abstract class MediaSet extends MediaObject {
     }
 
     private class MultiSetSyncFuture implements Future<Integer>, SyncListener {
-        @SuppressWarnings("hiding")
         private static final String TAG = "Gallery.MultiSetSync";
 
         private final SyncListener mListener;
-        private final Future<Integer> mFutures[];
+        private final Future<Integer>[] mFutures;
 
         private boolean mIsCancelled = false;
         private int mResult = -1;

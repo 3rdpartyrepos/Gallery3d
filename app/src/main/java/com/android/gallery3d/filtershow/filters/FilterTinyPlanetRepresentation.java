@@ -83,10 +83,7 @@ public class FilterTinyPlanetRepresentation extends FilterBasicRepresentation {
         if (!super.equals(representation)) {
             return false;
         }
-        if (mAngle == ((FilterTinyPlanetRepresentation) representation).mAngle) {
-            return true;
-        }
-        return false;
+        return mAngle == ((FilterTinyPlanetRepresentation) representation).mAngle;
     }
 
     @Override
@@ -101,11 +98,11 @@ public class FilterTinyPlanetRepresentation extends FilterBasicRepresentation {
     @Override
     public void deSerializeRepresentation(String[][] rep) {
         super.deSerializeRepresentation(rep);
-        for (int i = 0; i < rep.length; i++) {
-            if (SERIAL_VALUE.equals(rep[i][0])) {
-                setValue(Integer.parseInt(rep[i][1]));
-            } else if (SERIAL_ANGLE.equals(rep[i][0])) {
-                setAngle(Float.parseFloat(rep[i][1]));
+        for (String[] strings : rep) {
+            if (SERIAL_VALUE.equals(strings[0])) {
+                setValue(Integer.parseInt(strings[1]));
+            } else if (SERIAL_ANGLE.equals(strings[0])) {
+                setAngle(Float.parseFloat(strings[1]));
             }
         }
     }

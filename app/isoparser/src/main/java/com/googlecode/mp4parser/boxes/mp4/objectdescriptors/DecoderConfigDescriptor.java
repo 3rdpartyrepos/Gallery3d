@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -56,7 +57,7 @@ public class DecoderConfigDescriptor extends BaseDescriptor {
 
     DecoderSpecificInfo decoderSpecificInfo;
     AudioSpecificConfig audioSpecificInfo;
-    List<ProfileLevelIndicationDescriptor> profileLevelIndicationDescriptors = new ArrayList<ProfileLevelIndicationDescriptor>();
+    List<ProfileLevelIndicationDescriptor> profileLevelIndicationDescriptors = new ArrayList<>();
     byte[] configDescriptorDeadBytes;
 
     @Override
@@ -200,7 +201,7 @@ public class DecoderConfigDescriptor extends BaseDescriptor {
         sb.append(", decoderSpecificInfo=").append(decoderSpecificInfo);
         sb.append(", audioSpecificInfo=").append(audioSpecificInfo);
         sb.append(", configDescriptorDeadBytes=").append(Hex.encodeHex(configDescriptorDeadBytes != null ? configDescriptorDeadBytes : new byte[]{}));
-        sb.append(", profileLevelIndicationDescriptors=").append(profileLevelIndicationDescriptors == null ? "null" : Arrays.asList(profileLevelIndicationDescriptors).toString());
+        sb.append(", profileLevelIndicationDescriptors=").append(profileLevelIndicationDescriptors == null ? "null" : Collections.singletonList(profileLevelIndicationDescriptors).toString());
         sb.append('}');
         return sb.toString();
     }

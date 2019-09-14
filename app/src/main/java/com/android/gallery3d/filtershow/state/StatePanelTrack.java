@@ -20,15 +20,12 @@ import android.animation.LayoutTransition;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.database.DataSetObserver;
-import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.LinearLayout;
 import com.android.gallery3d.R;
@@ -214,10 +211,7 @@ public class StatePanelTrack extends LinearLayout implements PanelTrack {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
-        if (mCurrentView != null) {
-            return true;
-        }
-        return false;
+        return mCurrentView != null;
     }
 
     @Override

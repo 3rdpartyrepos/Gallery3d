@@ -22,8 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ListView;
+
 import com.android.gallery3d.R;
 import com.android.gallery3d.filtershow.FilterShowActivity;
 
@@ -38,7 +37,7 @@ public class PresetManagementDialog extends DialogFragment implements View.OnCli
 
         FilterShowActivity activity = (FilterShowActivity) getActivity();
         mAdapter = activity.getUserPresetsAdapter();
-        mEditText = (EditText) view.findViewById(R.id.editView);
+        mEditText = view.findViewById(R.id.editView);
         view.findViewById(R.id.cancel).setOnClickListener(this);
         view.findViewById(R.id.ok).setOnClickListener(this);
         getDialog().setTitle(getString(R.string.filtershow_save_preset));

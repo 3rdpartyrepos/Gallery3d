@@ -103,9 +103,9 @@ public class CropView extends View {
         mMargin = (int) rsc.getDimension(R.dimen.preview_margin);
         mMinSideSize = (int) rsc.getDimension(R.dimen.crop_min_side);
         mTouchTolerance = (int) rsc.getDimension(R.dimen.crop_touch_tolerance);
-        mOverlayShadowColor = (int) rsc.getColor(R.color.crop_shadow_color);
-        mOverlayWPShadowColor = (int) rsc.getColor(R.color.crop_shadow_wp_color);
-        mWPMarkerColor = (int) rsc.getColor(R.color.crop_wp_markers);
+        mOverlayShadowColor = rsc.getColor(R.color.crop_shadow_color);
+        mOverlayWPShadowColor = rsc.getColor(R.color.crop_shadow_wp_color);
+        mWPMarkerColor = rsc.getColor(R.color.crop_wp_markers);
         mDashOnLength = rsc.getDimension(R.dimen.wp_selector_dash_length);
         mDashOffLength = rsc.getDimension(R.dimen.wp_selector_off_length);
     }

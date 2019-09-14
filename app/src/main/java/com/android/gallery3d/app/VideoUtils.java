@@ -87,7 +87,7 @@ public class VideoUtils {
 
         // remove all tracks we will create new tracks from the old
         List<Track> tracks = movie.getTracks();
-        movie.setTracks(new LinkedList<Track>());
+        movie.setTracks(new LinkedList<>());
 
         for (Track track : tracks) {
             if (track.getHandler().equals("vide")) {
@@ -139,8 +139,7 @@ public class VideoUtils {
 
         // Set up the tracks and retrieve the max buffer size for selected
         // tracks.
-        HashMap<Integer, Integer> indexMap = new HashMap<Integer,
-                Integer>(trackCount);
+        HashMap<Integer, Integer> indexMap = new HashMap<>(trackCount);
         int bufferSize = -1;
         for (int i = 0; i < trackCount; i++) {
             MediaFormat format = extractor.getTrackFormat(i);
@@ -234,7 +233,7 @@ public class VideoUtils {
 
         // remove all tracks we will create new tracks from the old
         List<Track> tracks = movie.getTracks();
-        movie.setTracks(new LinkedList<Track>());
+        movie.setTracks(new LinkedList<>());
 
         double startTime = startMs / 1000;
         double endTime = endMs / 1000;

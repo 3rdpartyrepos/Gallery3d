@@ -66,7 +66,7 @@ public class CroppedTrack extends AbstractTrack {
             long[] nuDecodingTimes = new long[toSample - fromSample];
             System.arraycopy(decodingTimes, fromSample, nuDecodingTimes, 0, toSample - fromSample);
 
-            LinkedList<TimeToSampleBox.Entry> returnDecodingEntries = new LinkedList<TimeToSampleBox.Entry>();
+            LinkedList<TimeToSampleBox.Entry> returnDecodingEntries = new LinkedList<>();
 
             for (long nuDecodingTime : nuDecodingTimes) {
                 if (returnDecodingEntries.isEmpty() || returnDecodingEntries.getLast().getDelta() != nuDecodingTime) {
@@ -89,7 +89,7 @@ public class CroppedTrack extends AbstractTrack {
             int[] nuCompositionTimes = new int[toSample - fromSample];
             System.arraycopy(compositionTime, fromSample, nuCompositionTimes, 0, toSample - fromSample);
 
-            LinkedList<CompositionTimeToSample.Entry> returnDecodingEntries = new LinkedList<CompositionTimeToSample.Entry>();
+            LinkedList<CompositionTimeToSample.Entry> returnDecodingEntries = new LinkedList<>();
 
             for (int nuDecodingTime : nuCompositionTimes) {
                 if (returnDecodingEntries.isEmpty() || returnDecodingEntries.getLast().getOffset() != nuDecodingTime) {
@@ -109,7 +109,7 @@ public class CroppedTrack extends AbstractTrack {
     synchronized public long[] getSyncSamples() {
         if (this.syncSampleArray == null) {
             if (origTrack.getSyncSamples() != null && origTrack.getSyncSamples().length > 0) {
-                List<Long> syncSamples = new LinkedList<Long>();
+                List<Long> syncSamples = new LinkedList<>();
                 for (long l : origTrack.getSyncSamples()) {
                     if (l >= fromSample && l < toSample) {
                         syncSamples.add(l - fromSample);

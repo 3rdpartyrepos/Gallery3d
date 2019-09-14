@@ -30,7 +30,7 @@ import android.util.Pools.SimplePool;
 public class SparseArrayBitmapPool {
 
     private int mCapacityBytes;
-    private SparseArray<Node> mStore = new SparseArray<Node>();
+    private SparseArray<Node> mStore = new SparseArray<>();
     private int mSizeBytes = 0;
 
     private Pool<Node> mNodePool;
@@ -58,7 +58,7 @@ public class SparseArrayBitmapPool {
     public SparseArrayBitmapPool(int capacityBytes, Pool<Node> nodePool) {
         mCapacityBytes = capacityBytes;
         if (nodePool == null) {
-            mNodePool = new SimplePool<Node>(32);
+            mNodePool = new SimplePool<>(32);
         } else {
             mNodePool = nodePool;
         }

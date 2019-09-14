@@ -48,7 +48,7 @@ public class Amf0Track extends AbstractTrack {
      * @param rawSamples
      */
     public Amf0Track(Map<Long, byte[]> rawSamples) {
-        this.rawSamples = new TreeMap<Long, byte[]>(rawSamples);
+        this.rawSamples = new TreeMap<>(rawSamples);
         trackMetaData.setCreationTime(new Date());
         trackMetaData.setModificationTime(new Date());
         trackMetaData.setTimescale(1000); // Text tracks use millieseconds
@@ -56,7 +56,7 @@ public class Amf0Track extends AbstractTrack {
     }
 
     public List<ByteBuffer> getSamples() {
-        LinkedList<ByteBuffer> samples = new LinkedList<ByteBuffer>();
+        LinkedList<ByteBuffer> samples = new LinkedList<>();
         for (byte[] bytes : rawSamples.values()) {
             samples.add(ByteBuffer.wrap(bytes));
         }
@@ -72,8 +72,8 @@ public class Amf0Track extends AbstractTrack {
     }
 
     public List<TimeToSampleBox.Entry> getDecodingTimeEntries() {
-        LinkedList<TimeToSampleBox.Entry> timesToSample = new LinkedList<TimeToSampleBox.Entry>();
-        LinkedList<Long> keys = new LinkedList<Long>(rawSamples.keySet());
+        LinkedList<TimeToSampleBox.Entry> timesToSample = new LinkedList<>();
+        LinkedList<Long> keys = new LinkedList<>(rawSamples.keySet());
         Collections.sort(keys);
         long lastTimeStamp = 0;
         for (Long key : keys) {

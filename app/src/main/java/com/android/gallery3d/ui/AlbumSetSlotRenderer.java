@@ -19,7 +19,6 @@ package com.android.gallery3d.ui;
 import com.android.gallery3d.R;
 import com.android.gallery3d.app.AbstractGalleryActivity;
 import com.android.gallery3d.app.AlbumSetDataLoader;
-import com.android.gallery3d.data.MediaObject;
 import com.android.gallery3d.data.Path;
 import com.android.gallery3d.glrenderer.ColorTexture;
 import com.android.gallery3d.glrenderer.FadeInTexture;

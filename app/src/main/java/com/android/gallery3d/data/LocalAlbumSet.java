@@ -49,7 +49,7 @@ public class LocalAlbumSet extends MediaSet
 
     private final GalleryApp mApplication;
     private final int mType;
-    private ArrayList<MediaSet> mAlbums = new ArrayList<MediaSet>();
+    private ArrayList<MediaSet> mAlbums = new ArrayList<>();
     private final ChangeNotifier mNotifier;
     private final String mName;
     private final Handler mHandler;
@@ -69,7 +69,7 @@ public class LocalAlbumSet extends MediaSet
     }
 
     private static int getTypeFromPath(Path path) {
-        String name[] = path.split();
+        String[] name = path.split();
         if (name.length < 2) {
             throw new IllegalArgumentException(path.toString());
         }
@@ -91,7 +91,7 @@ public class LocalAlbumSet extends MediaSet
         return mName;
     }
 
-    private static int findBucket(BucketEntry entries[], int bucketId) {
+    private static int findBucket(BucketEntry[] entries, int bucketId) {
         for (int i = 0, n = entries.length; i < n; ++i) {
             if (entries[i].bucketId == bucketId) return i;
         }
@@ -101,7 +101,6 @@ public class LocalAlbumSet extends MediaSet
     private class AlbumsLoader implements ThreadPool.Job<ArrayList<MediaSet>> {
 
         @Override
-        @SuppressWarnings("unchecked")
         public ArrayList<MediaSet> run(JobContext jc) {
             // Note: it will be faster if we only select media_type and bucket_id.
             //       need to test the performance if that is worth
@@ -122,7 +121,7 @@ public class LocalAlbumSet extends MediaSet
                 circularShiftRight(entries, offset++, index);
             }
 
-            ArrayList<MediaSet> albums = new ArrayList<MediaSet>();
+            ArrayList<MediaSet> albums = new ArrayList<>();
             DataManager dataManager = mApplication.getDataManager();
             for (BucketEntry entry : entries) {
                 MediaSet album = getLocalAlbum(dataManager,
@@ -185,13 +184,8 @@ public class LocalAlbumSet extends MediaSet
         if (mLoadTask != future) return; // ignore, wait for the latest task
         mLoadBuffer = future.get();
         mIsLoading = false;
-        if (mLoadBuffer == null) mLoadBuffer = new ArrayList<MediaSet>();
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                notifyContentChanged();
-            }
-        });
+        if (mLoadBuffer == null) mLoadBuffer = new ArrayList<>();
+        mHandler.post(this::notifyContentChanged);
     }
 
     // For debug only. Fake there is a ContentObserver.onChange() event.
@@ -203,9 +197,7 @@ public class LocalAlbumSet extends MediaSet
     // a[i] -> a[i+1] -> a[i+2] -> ... -> a[j], and a[j] -> a[i]
     private static <T> void circularShiftRight(T[] array, int i, int j) {
         T temp = array[j];
-        for (int k = j; k > i; k--) {
-            array[k] = array[k - 1];
-        }
+        if (j - i >= 0) System.arraycopy(array, i, array, i + 1, j - i);
         array[i] = temp;
     }
 }

@@ -170,7 +170,7 @@ public class ColorRectView extends View implements ColorListener {
         canvas.drawRect(rect, mWheelPaint3);
         canvas.drawRect(rect, mWheelPaint2);
 
-        if (mDotX != Float.NaN) {
+        if (!Float.isNaN(mDotX)) {
 
             canvas.drawCircle(mDotX, mDotY, mDotRadus, mDotPaint);
         }
@@ -207,7 +207,7 @@ public class ColorRectView extends View implements ColorListener {
 
     }
 
-    ArrayList<ColorListener> mColorListeners = new ArrayList<ColorListener>();
+    ArrayList<ColorListener> mColorListeners = new ArrayList<>();
 
     public void notifyColorListeners(float[] hsv) {
         for (ColorListener l : mColorListeners) {

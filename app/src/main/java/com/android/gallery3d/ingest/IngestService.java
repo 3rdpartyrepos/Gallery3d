@@ -183,7 +183,7 @@ public class IngestService extends Service implements ImportTask.Listener,
   }
 
   protected void importSelectedItems(SparseBooleanArray selected, Adapter adapter) {
-    List<IngestObjectInfo> importHandles = new ArrayList<IngestObjectInfo>();
+    List<IngestObjectInfo> importHandles = new ArrayList<>();
     for (int i = 0; i < selected.size(); i++) {
       if (selected.valueAt(i)) {
         Object item = adapter.getItem(selected.keyAt(i));
@@ -294,7 +294,7 @@ public class IngestService extends Service implements ImportTask.Listener,
 
   // Copied from old Gallery3d code
   private static final class ScannerClient implements MediaScannerConnectionClient {
-    ArrayList<String> mPaths = new ArrayList<String>();
+    ArrayList<String> mPaths = new ArrayList<>();
     MediaScannerConnection mScannerConnection;
     boolean mConnected;
     Object mLock = new Object();

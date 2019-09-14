@@ -38,7 +38,7 @@ public class MovieFragmentBox extends AbstractContainerBox {
 
 
     public List<Long> getSyncSamples(SampleDependencyTypeBox sdtp) {
-        List<Long> result = new ArrayList<Long>();
+        List<Long> result = new ArrayList<>();
 
         final List<SampleDependencyTypeBox.Entry> sampleEntries = sdtp.getEntries();
         long i = 1;

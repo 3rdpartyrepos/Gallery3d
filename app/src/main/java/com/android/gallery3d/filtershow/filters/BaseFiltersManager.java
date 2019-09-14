@@ -32,16 +32,16 @@ public abstract class BaseFiltersManager implements FiltersManagerInterface {
     protected HashMap<String, FilterRepresentation> mRepresentationLookup = null;
     private static final String LOGTAG = "BaseFiltersManager";
 
-    protected ArrayList<FilterRepresentation> mLooks = new ArrayList<FilterRepresentation>();
-    protected ArrayList<FilterRepresentation> mBorders = new ArrayList<FilterRepresentation>();
-    protected ArrayList<FilterRepresentation> mTools = new ArrayList<FilterRepresentation>();
-    protected ArrayList<FilterRepresentation> mEffects = new ArrayList<FilterRepresentation>();
+    protected ArrayList<FilterRepresentation> mLooks = new ArrayList<>();
+    protected ArrayList<FilterRepresentation> mBorders = new ArrayList<>();
+    protected ArrayList<FilterRepresentation> mTools = new ArrayList<>();
+    protected ArrayList<FilterRepresentation> mEffects = new ArrayList<>();
     private static int mImageBorderSize = 4; // in percent
 
     protected void init() {
-        mFilters = new HashMap<Class, ImageFilter>();
-        mRepresentationLookup = new HashMap<String, FilterRepresentation>();
-        Vector<Class> filters = new Vector<Class>();
+        mFilters = new HashMap<>();
+        mRepresentationLookup = new HashMap<>();
+        Vector<Class> filters = new Vector<>();
         addFilterClasses(filters);
         for (Class filterClass : filters) {
             try {
@@ -181,7 +181,7 @@ public abstract class BaseFiltersManager implements FiltersManagerInterface {
         mBorders.add(rep);
 
         // Regular borders
-        ArrayList <FilterRepresentation> borderList = new ArrayList<FilterRepresentation>();
+        ArrayList <FilterRepresentation> borderList = new ArrayList<>();
 
 
         rep = new FilterImageBorderRepresentation(R.drawable.filtershow_border_4x5);

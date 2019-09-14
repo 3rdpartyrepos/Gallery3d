@@ -41,7 +41,7 @@ public class StateManager {
     private static final String KEY_CLASS = "class";
 
     private AbstractGalleryActivity mActivity;
-    private Stack<StateEntry> mStack = new Stack<StateEntry>();
+    private Stack<StateEntry> mStack = new Stack<>();
     private ActivityState.ResultEntry mResult;
 
     public StateManager(AbstractGalleryActivity activity) {
@@ -266,7 +266,7 @@ public class StateManager {
     @SuppressWarnings("unchecked")
     public void restoreFromState(Bundle inState) {
         Log.v(TAG, "restoreFromState");
-        Parcelable list[] = inState.getParcelableArray(KEY_MAIN);
+        Parcelable[] list = inState.getParcelableArray(KEY_MAIN);
         ActivityState topState = null;
         for (Parcelable parcelable : list) {
             Bundle bundle = (Bundle) parcelable;
@@ -297,7 +297,7 @@ public class StateManager {
     public void saveState(Bundle outState) {
         Log.v(TAG, "saveState");
 
-        Parcelable list[] = new Parcelable[mStack.size()];
+        Parcelable[] list = new Parcelable[mStack.size()];
         int i = 0;
         for (StateEntry entry : mStack) {
             Bundle bundle = new Bundle();

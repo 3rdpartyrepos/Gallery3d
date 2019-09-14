@@ -46,8 +46,8 @@ public class H264TrackImpl extends AbstractTrack {
 
     SeqParameterSet seqParameterSet = null;
     PictureParameterSet pictureParameterSet = null;
-    LinkedList<byte[]> seqParameterSetList = new LinkedList<byte[]>();
-    LinkedList<byte[]> pictureParameterSetList = new LinkedList<byte[]>();
+    LinkedList<byte[]> seqParameterSetList = new LinkedList<>();
+    LinkedList<byte[]> pictureParameterSetList = new LinkedList<>();
 
     private int width;
     private int height;
@@ -84,12 +84,12 @@ public class H264TrackImpl extends AbstractTrack {
 
     private void parse(InputStream inputStream) throws IOException {
         this.reader = new ReaderWrapper(inputStream);
-        stts = new LinkedList<TimeToSampleBox.Entry>();
-        ctts = new LinkedList<CompositionTimeToSample.Entry>();
-        sdtp = new LinkedList<SampleDependencyTypeBox.Entry>();
-        stss = new LinkedList<Integer>();
+        stts = new LinkedList<>();
+        ctts = new LinkedList<>();
+        sdtp = new LinkedList<>();
+        stss = new LinkedList<>();
 
-        samples = new LinkedList<ByteBuffer>();
+        samples = new LinkedList<>();
         if (!readSamples()) {
             throw new IOException();
         }
@@ -186,7 +186,7 @@ public class H264TrackImpl extends AbstractTrack {
         height = 16 * (seqParameterSet.pic_height_in_map_units_minus1 + 1) * mult;
         if (seqParameterSet.frame_cropping_flag) {
             int chromaArrayType = 0;
-            if (seqParameterSet.residual_color_transform_flag == false) {
+            if (!seqParameterSet.residual_color_transform_flag) {
                 chromaArrayType = seqParameterSet.chroma_format_idc.getId();
             }
             int cropUnitX = 1;
@@ -241,7 +241,7 @@ public class H264TrackImpl extends AbstractTrack {
         reader.mark();
         long pos = reader.getPos();
 
-        ArrayList<byte[]> buffered = new ArrayList<byte[]>();
+        ArrayList<byte[]> buffered = new ArrayList<>();
 
         int frameNr = 0;
 

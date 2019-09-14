@@ -3,8 +3,8 @@ package com.googlecode.mp4parser.boxes.piff;
 import com.coremedia.iso.IsoTypeReader;
 import com.coremedia.iso.IsoTypeWriter;
 
-import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -106,7 +106,7 @@ public class PlayReadyHeader extends ProtectionSpecificHeader {
         }
 
         public static List<PlayReadyRecord> createFor(ByteBuffer byteBuffer, int recordCount) {
-            List<PlayReadyRecord> records = new ArrayList<PlayReadyRecord>(recordCount);
+            List<PlayReadyRecord> records = new ArrayList<>(recordCount);
 
             for (int i = 0; i < recordCount; i++) {
                 PlayReadyRecord record;
@@ -157,23 +157,15 @@ public class PlayReadyHeader extends ProtectionSpecificHeader {
 
             @Override
             public void parse(ByteBuffer bytes) {
-                try {
-                    byte[] str = new byte[bytes.slice().limit()];
-                    bytes.get(str);
-                    header = new String(str, "UTF-16LE");
-                } catch (UnsupportedEncodingException e) {
-                    throw new RuntimeException(e);
-                }
+                byte[] str = new byte[bytes.slice().limit()];
+                bytes.get(str);
+                header = new String(str, StandardCharsets.UTF_16LE);
             }
 
             @Override
             public ByteBuffer getValue() {
                 byte[] headerBytes;
-                try {
-                    headerBytes = header.getBytes("UTF-16LE");
-                } catch (UnsupportedEncodingException e) {
-                    throw new RuntimeException(e);
-                }
+                headerBytes = header.getBytes(StandardCharsets.UTF_16LE);
                 return ByteBuffer.wrap(headerBytes);
             }
 

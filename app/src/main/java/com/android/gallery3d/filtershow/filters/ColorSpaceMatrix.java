@@ -74,8 +74,7 @@ public class ColorSpaceMatrix {
                         + mMatrix[y4 + 3] * a[12 + x];
             }
         }
-        for (int i = 0; i < 16; i++)
-            mMatrix[i] = temp[i];
+        System.arraycopy(temp, 0, mMatrix, 0, 16);
     }
 
     private void xRotateMatrix(float rs, float rc)

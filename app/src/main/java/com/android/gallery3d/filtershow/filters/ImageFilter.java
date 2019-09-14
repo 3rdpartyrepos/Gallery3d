@@ -49,12 +49,8 @@ public abstract class ImageFilter implements Cloneable {
 
     public void displayLowMemoryToast() {
         if (sActivity != null) {
-            sActivity.runOnUiThread(new Runnable() {
-                public void run() {
-                    Toast.makeText(sActivity, "Memory too low for filter " + getName() +
-                            ", please file a bug report", Toast.LENGTH_SHORT).show();
-                }
-            });
+            sActivity.runOnUiThread(() -> Toast.makeText(sActivity, "Memory too low for filter " + getName() +
+                    ", please file a bug report", Toast.LENGTH_SHORT).show());
         }
     }
 

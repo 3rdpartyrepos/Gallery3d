@@ -13,7 +13,7 @@ import java.util.List;
  *
  */
 public class FontTableBox extends AbstractBox {
-    List<FontRecord> entries = new LinkedList<FontRecord>();
+    List<FontRecord> entries = new LinkedList<>();
 
     public FontTableBox() {
         super("ftab");

@@ -52,7 +52,7 @@ public class ColorValueView extends View implements ColorListener {
     private final static float DOT_SIZE = ColorRectView.DOT_SIZE;
     private final static float BORDER_SIZE = ColorRectView.DOT_SIZE;
 
-    private ArrayList<ColorListener> mColorListeners = new ArrayList<ColorListener>();
+    private ArrayList<ColorListener> mColorListeners = new ArrayList<>();
 
     public ColorValueView(Context ctx, AttributeSet attrs) {
         super(ctx, attrs);
@@ -148,7 +148,7 @@ public class ColorValueView extends View implements ColorListener {
         canvas.drawRect(mBorder, mBorder, mWidth - mBorder, mHeight - mBorder, mBarPaint1);
         canvas.drawLine(mDotX, mDotY, mDotX, mHeight - mBorder, mLinePaint2);
         canvas.drawLine(mDotX, mBorder, mDotX, mDotY, mLinePaint1);
-        if (mDotX != Float.NaN) {
+        if (!Float.isNaN(mDotX)) {
             canvas.drawCircle(mDotX, mDotY, dotRadus, mDotPaint);
         }
     }

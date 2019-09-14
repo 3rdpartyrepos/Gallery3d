@@ -81,11 +81,11 @@ public class MenuExecutor {
     }
 
     public interface ProgressListener {
-        public void onConfirmDialogShown();
-        public void onConfirmDialogDismissed(boolean confirmed);
-        public void onProgressStart();
-        public void onProgressUpdate(int index);
-        public void onProgressComplete(int result);
+        void onConfirmDialogShown();
+        void onConfirmDialogDismissed(boolean confirmed);
+        void onProgressStart();
+        void onProgressUpdate(int index);
+        void onProgressComplete(int result);
     }
 
     public MenuExecutor(
@@ -121,7 +121,7 @@ public class MenuExecutor {
                         break;
                     }
                     case MSG_DO_SHARE: {
-                        ((Activity) mActivity).startActivity((Intent) message.obj);
+                        mActivity.startActivity((Intent) message.obj);
                         break;
                     }
                 }
@@ -241,13 +241,13 @@ public class MenuExecutor {
                 return;
             case R.id.action_crop: {
                 Intent intent = getIntentBySingleSelectedPath(CropActivity.CROP_ACTION);
-                ((Activity) mActivity).startActivity(intent);
+                mActivity.startActivity(intent);
                 return;
             }
             case R.id.action_edit: {
                 Intent intent = getIntentBySingleSelectedPath(Intent.ACTION_EDIT)
                         .setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                ((Activity) mActivity).startActivity(Intent.createChooser(intent, null));
+                mActivity.startActivity(Intent.createChooser(intent, null));
                 return;
             }
             case R.id.action_setas: {
@@ -348,7 +348,7 @@ public class MenuExecutor {
     }
 
     public void startSingleItemAction(int action, Path targetPath) {
-        ArrayList<Path> ids = new ArrayList<Path>(1);
+        ArrayList<Path> ids = new ArrayList<>(1);
         ids.add(targetPath);
         mDialog = null;
         MediaOperation operation = new MediaOperation(action, ids, null);
@@ -395,7 +395,7 @@ public class MenuExecutor {
             }
             case R.id.action_show_on_map: {
                 MediaItem item = (MediaItem) manager.getMediaObject(path);
-                double latlng[] = new double[2];
+                double[] latlng = new double[2];
                 item.getLatLong(latlng);
                 if (GalleryUtils.isValidLocation(latlng[0], latlng[1])) {
                     GalleryUtils.showOnMap(mActivity, latlng[0], latlng[1]);

@@ -17,7 +17,6 @@
 package com.android.gallery3d.filtershow.controller;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,9 +47,9 @@ public class TitledSlider implements Control {
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mTopView = inflater.inflate(mLayoutID, container, true);
         mTopView.setVisibility(View.VISIBLE);
-        mSeekBar = (SeekBar) mTopView.findViewById(R.id.controlValueSeekBar);
-        mControlName = (TextView) mTopView.findViewById(R.id.controlName);
-        mControlValue = (TextView) mTopView.findViewById(R.id.controlValue);
+        mSeekBar = mTopView.findViewById(R.id.controlValueSeekBar);
+        mControlName = mTopView.findViewById(R.id.controlName);
+        mControlValue = mTopView.findViewById(R.id.controlValue);
         updateUI();
         mSeekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 

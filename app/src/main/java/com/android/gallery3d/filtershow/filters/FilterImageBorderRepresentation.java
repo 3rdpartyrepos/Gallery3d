@@ -65,9 +65,7 @@ public class FilterImageBorderRepresentation extends FilterRepresentation {
         }
         if (representation instanceof FilterImageBorderRepresentation) {
             FilterImageBorderRepresentation border = (FilterImageBorderRepresentation) representation;
-            if (border.mDrawableResource == mDrawableResource) {
-                return true;
-            }
+            return border.mDrawableResource == mDrawableResource;
         }
         return false;
     }

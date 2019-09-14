@@ -122,11 +122,11 @@ public class FilterUtils {
     private static void getAppliedFilters(Path path, int[] result, boolean underCluster) {
         String[] segments = path.split();
         // Recurse into sub media sets.
-        for (int i = 0; i < segments.length; i++) {
-            if (segments[i].startsWith("{")) {
-                String[] sets = Path.splitSequence(segments[i]);
-                for (int j = 0; j < sets.length; j++) {
-                    Path sub = Path.fromString(sets[j]);
+        for (String segment : segments) {
+            if (segment.startsWith("{")) {
+                String[] sets = Path.splitSequence(segment);
+                for (String set : sets) {
+                    Path sub = Path.fromString(set);
                     getAppliedFilters(sub, result, underCluster);
                 }
             }
@@ -149,16 +149,17 @@ public class FilterUtils {
     }
 
     private static int toClusterType(String s) {
-        if (s.equals("time")) {
-            return CLUSTER_BY_TIME;
-        } else if (s.equals("location")) {
-            return CLUSTER_BY_LOCATION;
-        } else if (s.equals("tag")) {
-            return CLUSTER_BY_TAG;
-        } else if (s.equals("size")) {
-            return CLUSTER_BY_SIZE;
-        } else if (s.equals("face")) {
-            return CLUSTER_BY_FACE;
+        switch (s) {
+            case "time":
+                return CLUSTER_BY_TIME;
+            case "location":
+                return CLUSTER_BY_LOCATION;
+            case "tag":
+                return CLUSTER_BY_TAG;
+            case "size":
+                return CLUSTER_BY_SIZE;
+            case "face":
+                return CLUSTER_BY_FACE;
         }
         return 0;
     }
@@ -236,11 +237,11 @@ public class FilterUtils {
         }
 
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < segments.length; i++) {
+        for (String segment : segments) {
             sb.append("/");
-            if (segments[i].startsWith("{")) {
+            if (segment.startsWith("{")) {
                 sb.append("{");
-                String[] sets = Path.splitSequence(segments[i]);
+                String[] sets = Path.splitSequence(segment);
                 for (int j = 0; j < sets.length; j++) {
                     if (j > 0) {
                         sb.append(",");
@@ -249,7 +250,7 @@ public class FilterUtils {
                 }
                 sb.append("}");
             } else {
-                sb.append(segments[i]);
+                sb.append(segment);
             }
         }
         return sb.toString();

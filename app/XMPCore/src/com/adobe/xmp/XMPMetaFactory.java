@@ -312,7 +312,7 @@ public final class XMPMetaFactory
 			catch (Throwable e)
 			{
 				// EMTPY, severe error would be detected during the tests
-				System.out.println(e);
+				e.printStackTrace();
 			}
 		}
 		return versionInfo;

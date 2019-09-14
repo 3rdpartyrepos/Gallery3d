@@ -26,15 +26,15 @@ public class FilterStackDBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "filterstacks.db";
     private static final String SQL_CREATE_TABLE = "CREATE TABLE ";
 
-    public static interface FilterStack {
+    public interface FilterStack {
         /** The row uid */
-        public static final String _ID = "_id";
+        String _ID = "_id";
         /** The table name */
-        public static final String TABLE = "filterstack";
+        String TABLE = "filterstack";
         /** The stack name */
-        public static final String STACK_ID = "stack_id";
+        String STACK_ID = "stack_id";
         /** A serialized stack of filters. */
-        public static final String FILTER_STACK= "stack";
+        String FILTER_STACK= "stack";
     }
 
     private static final String[][] CREATE_FILTER_STACK = {

@@ -31,6 +31,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
@@ -42,7 +43,7 @@ import java.util.List;
 public class TextTrackImpl extends AbstractTrack {
     TrackMetaData trackMetaData = new TrackMetaData();
     SampleDescriptionBox sampleDescriptionBox;
-    List<Line> subs = new LinkedList<Line>();
+    List<Line> subs = new LinkedList<>();
 
     public List<Line> getSubs() {
         return subs;
@@ -71,7 +72,7 @@ public class TextTrackImpl extends AbstractTrack {
 
 
     public List<ByteBuffer> getSamples() {
-        List<ByteBuffer> samples = new LinkedList<ByteBuffer>();
+        List<ByteBuffer> samples = new LinkedList<>();
         long lastEnd = 0;
         for (Line sub : subs) {
             long silentTime = sub.from - lastEnd;
@@ -83,8 +84,8 @@ public class TextTrackImpl extends AbstractTrack {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             DataOutputStream dos = new DataOutputStream(baos);
             try {
-                dos.writeShort(sub.text.getBytes("UTF-8").length);
-                dos.write(sub.text.getBytes("UTF-8"));
+                dos.writeShort(sub.text.getBytes(StandardCharsets.UTF_8).length);
+                dos.write(sub.text.getBytes(StandardCharsets.UTF_8));
                 dos.close();
             } catch (IOException e) {
                 throw new Error("VM is broken. Does not support UTF-8");
@@ -100,7 +101,7 @@ public class TextTrackImpl extends AbstractTrack {
     }
 
     public List<TimeToSampleBox.Entry> getDecodingTimeEntries() {
-        List<TimeToSampleBox.Entry> stts = new LinkedList<TimeToSampleBox.Entry>();
+        List<TimeToSampleBox.Entry> stts = new LinkedList<>();
         long lastEnd = 0;
         for (Line sub : subs) {
             long silentTime = sub.from - lastEnd;

@@ -662,11 +662,10 @@ class XMPNode implements Comparable
 
 			Arrays.sort(quals, sortFrom, quals.length);
 			ListIterator it = qualifier.listIterator();
-			for (int j = 0; j < quals.length; j++)
-			{
+			for (XMPNode qual : quals) {
 				it.next();
-				it.set(quals[j]);
-				quals[j].sort();
+				it.set(qual);
+				qual.sort();
 			}
 		}
 		
@@ -875,12 +874,10 @@ class XMPNode implements Comparable
 	{
 		
 		if (list != null)
-		{	
-			for (Iterator it = list.iterator(); it.hasNext();)
-			{
-				XMPNode child = (XMPNode) it.next();
-				if (child.getName().equals(expr))
-				{
+		{
+			for (Object o : list) {
+				XMPNode child = (XMPNode) o;
+				if (child.getName().equals(expr)) {
 					return child;
 				}
 			}

@@ -43,14 +43,14 @@ public class FileCache implements Closeable {
     private static final String ID_WHERE = FileEntry.Columns.ID + "=?";
     private static final String[] PROJECTION_SIZE_SUM =
             {String.format("sum(%s)", FileEntry.Columns.SIZE)};
-    private static final String FREESPACE_PROJECTION[] = {
+    private static final String[] FREESPACE_PROJECTION = {
             FileEntry.Columns.ID, FileEntry.Columns.FILENAME,
             FileEntry.Columns.CONTENT_URL, FileEntry.Columns.SIZE};
     private static final String FREESPACE_ORDER_BY =
             String.format("%s ASC", FileEntry.Columns.LAST_ACCESS);
 
     private final LruCache<String, CacheEntry> mEntryMap =
-            new LruCache<String, CacheEntry>(LRU_CAPACITY);
+            new LruCache<>(LRU_CAPACITY);
 
     private File mRootDir;
     private long mCapacity;
@@ -164,7 +164,7 @@ public class FileCache implements Closeable {
 
     private FileEntry queryDatabase(String downloadUrl) {
         long hash = Utils.crc64Long(downloadUrl);
-        String whereArgs[] = new String[] {String.valueOf(hash), downloadUrl};
+        String[] whereArgs = new String[]{String.valueOf(hash), downloadUrl};
         Cursor cursor = mDbHelper.getReadableDatabase().query(TABLE_NAME,
                 FileEntry.SCHEMA.getProjection(),
                 QUERY_WHERE, whereArgs, null, null, null);
@@ -251,11 +251,11 @@ public class FileCache implements Closeable {
         public static final EntrySchema SCHEMA = new EntrySchema(FileEntry.class);
 
         public interface Columns extends Entry.Columns {
-            public static final String HASH_CODE = "hash_code";
-            public static final String CONTENT_URL = "content_url";
-            public static final String FILENAME = "filename";
-            public static final String SIZE = "size";
-            public static final String LAST_ACCESS = "last_access";
+            String HASH_CODE = "hash_code";
+            String CONTENT_URL = "content_url";
+            String FILENAME = "filename";
+            String SIZE = "size";
+            String LAST_ACCESS = "last_access";
         }
 
         @Column(value = Columns.HASH_CODE, indexed = true)

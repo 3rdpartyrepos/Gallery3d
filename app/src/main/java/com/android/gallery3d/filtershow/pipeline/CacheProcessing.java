@@ -30,14 +30,14 @@ public class CacheProcessing {
     private static final String LOGTAG = "CacheProcessing";
     private static final boolean DEBUG = false;
     private static final boolean NO_CACHING = false;
-    private Vector<CacheStep> mSteps = new Vector<CacheStep>();
+    private Vector<CacheStep> mSteps = new Vector<>();
 
     static class CacheStep {
         ArrayList<FilterRepresentation> representations;
         Bitmap cache;
 
         public CacheStep() {
-            representations = new ArrayList<FilterRepresentation>();
+            representations = new ArrayList<>();
         }
 
         public void add(FilterRepresentation representation) {
@@ -68,7 +68,7 @@ public class CacheProcessing {
         }
 
         public static Vector<CacheStep> buildSteps(Vector<FilterRepresentation> filters) {
-            Vector<CacheStep> steps = new Vector<CacheStep>();
+            Vector<CacheStep> steps = new Vector<>();
             CacheStep step = new CacheStep();
             for (int i = 0; i < filters.size(); i++) {
                 FilterRepresentation representation = filters.elementAt(i);
@@ -101,10 +101,8 @@ public class CacheProcessing {
                 }
             }
             if (onlyGeometry) {
-                ArrayList<FilterRepresentation> geometry = new ArrayList<FilterRepresentation>();
-                for (FilterRepresentation representation : representations) {
-                    geometry.add(representation);
-                }
+                ArrayList<FilterRepresentation> geometry = new ArrayList<>();
+                geometry.addAll(representations);
                 if (DEBUG) {
                     Log.v(LOGTAG, "Apply geometry to bitmap " + cacheBitmap);
                 }

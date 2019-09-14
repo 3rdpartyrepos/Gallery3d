@@ -16,8 +16,6 @@
 
 package com.android.gallery3d.filtershow.controller;
 
-import android.util.Log;
-
 public class BasicParameterInt implements ParameterInteger {
     protected String mParameterName;
     protected Control mControl;

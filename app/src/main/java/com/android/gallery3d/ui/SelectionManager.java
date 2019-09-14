@@ -45,13 +45,13 @@ public class SelectionManager {
     private int mTotal;
 
     public interface SelectionListener {
-        public void onSelectionModeChange(int mode);
-        public void onSelectionChange(Path path, boolean selected);
+        void onSelectionModeChange(int mode);
+        void onSelectionChange(Path path, boolean selected);
     }
 
     public SelectionManager(AbstractGalleryActivity activity, boolean isAlbumSet) {
         mDataManager = activity.getDataManager();
-        mClickedSet = new HashSet<Path>();
+        mClickedSet = new HashSet<>();
         mIsAlbumSet = isAlbumSet;
         mTotal = -1;
     }
@@ -180,7 +180,7 @@ public class SelectionManager {
     }
 
     public ArrayList<Path> getSelected(boolean expandSet, int maxSelection) {
-        ArrayList<Path> selected = new ArrayList<Path>();
+        ArrayList<Path> selected = new ArrayList<>();
         if (mIsAlbumSet) {
             if (mInverseSelection) {
                 int total = getTotalCount();

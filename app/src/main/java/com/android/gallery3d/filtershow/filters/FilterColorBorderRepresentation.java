@@ -106,12 +106,9 @@ public class FilterColorBorderRepresentation extends FilterRepresentation {
         }
         if (representation instanceof FilterColorBorderRepresentation) {
             FilterColorBorderRepresentation border = (FilterColorBorderRepresentation) representation;
-            if (border.mParamColor.getValue() == mParamColor.getValue()
+            return border.mParamColor.getValue() == mParamColor.getValue()
                     && border.mParamRadius.getValue() == mParamRadius.getValue()
-                    && border.mParamSize.getValue() == mParamSize.getValue()) {
-
-                return true;
-            }
+                    && border.mParamSize.getValue() == mParamSize.getValue();
         }
         return false;
     }

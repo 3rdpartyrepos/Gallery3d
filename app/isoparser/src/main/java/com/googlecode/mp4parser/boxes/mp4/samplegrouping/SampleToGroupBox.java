@@ -46,7 +46,7 @@ public class SampleToGroupBox extends AbstractFullBox {
     private String groupingType;
     private String groupingTypeParameter;
 
-    List<Entry> entries = new LinkedList<Entry>();
+    List<Entry> entries = new LinkedList<>();
 
     public SampleToGroupBox() {
         super(TYPE);
@@ -133,11 +133,7 @@ public class SampleToGroupBox extends AbstractFullBox {
             if (groupDescriptionIndex != entry.groupDescriptionIndex) {
                 return false;
             }
-            if (sampleCount != entry.sampleCount) {
-                return false;
-            }
-
-            return true;
+            return sampleCount == entry.sampleCount;
         }
 
         @Override

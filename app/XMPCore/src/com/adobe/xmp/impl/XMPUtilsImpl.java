@@ -469,15 +469,12 @@ public class XMPUtilsImpl implements XMPConst
 				// from the alias, to make sure the actual exists.
 
 				XMPAliasInfo[] aliases = XMPMetaFactory.getSchemaRegistry().findAliases(schemaNS);
-				for (int i = 0; i < aliases.length; i++)
-				{
-					XMPAliasInfo info = aliases[i];
+				for (XMPAliasInfo info : aliases) {
 					XMPPath path = XMPPathParser.expandXPath(info.getNamespace(), info
 							.getPropName());
 					XMPNode actualProp = XMPNodeUtils
 							.findNode(xmpImpl.getRoot(), path, false, null);
-					if (actualProp != null)
-					{
+					if (actualProp != null) {
 						XMPNode parent = actualProp.getParent();
 						parent.removeChild(actualProp);
 					}
@@ -762,12 +759,9 @@ public class XMPUtilsImpl implements XMPConst
 			{
 				return false;
 			}
-			if (leftNode.getOptions().getHasLanguage()
-					&& !leftNode.getQualifier(1).getValue().equals(
-							rightNode.getQualifier(1).getValue()))
-			{
-				return false;
-			}
+			return !leftNode.getOptions().getHasLanguage()
+					|| leftNode.getQualifier(1).getValue().equals(
+					rightNode.getQualifier(1).getValue());
 		}
 		else if (leftForm.isStruct())
 		{

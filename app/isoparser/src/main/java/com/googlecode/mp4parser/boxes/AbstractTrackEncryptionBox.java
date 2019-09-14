@@ -78,9 +78,7 @@ public abstract class AbstractTrackEncryptionBox extends AbstractFullBox {
 
         if (defaultAlgorithmId != that.defaultAlgorithmId) return false;
         if (defaultIvSize != that.defaultIvSize) return false;
-        if (!Arrays.equals(default_KID, that.default_KID)) return false;
-
-        return true;
+        return Arrays.equals(default_KID, that.default_KID);
     }
 
     @Override

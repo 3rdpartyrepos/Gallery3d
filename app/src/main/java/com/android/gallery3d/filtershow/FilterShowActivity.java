@@ -30,16 +30,13 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.graphics.RectF;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.CancellationSignal;
 import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.DialogFragment;
@@ -63,7 +60,6 @@ import android.widget.FrameLayout;
 import android.widget.PopupMenu;
 import android.widget.ShareActionProvider;
 import android.widget.ShareActionProvider.OnShareTargetSelectedListener;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.gallery3d.R;
@@ -96,7 +92,6 @@ import com.android.gallery3d.filtershow.filters.FilterDrawRepresentation;
 import com.android.gallery3d.filtershow.filters.FilterMirrorRepresentation;
 import com.android.gallery3d.filtershow.filters.FilterRepresentation;
 import com.android.gallery3d.filtershow.filters.FilterRotateRepresentation;
-import com.android.gallery3d.filtershow.filters.FilterStraightenRepresentation;
 import com.android.gallery3d.filtershow.filters.FilterUserPresetRepresentation;
 import com.android.gallery3d.filtershow.filters.FiltersManager;
 import com.android.gallery3d.filtershow.filters.ImageFilter;
@@ -122,8 +117,6 @@ import com.android.gallery3d.util.GalleryUtils;
 import com.android.photos.data.GalleryBitmapPool;
 
 import java.io.File;
-import java.io.FileDescriptor;
-import java.io.FileOutputStream;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -154,7 +147,7 @@ public class FilterShowActivity extends FragmentActivity implements OnItemClickL
     private boolean mShowingImageStatePanel = false;
     private boolean mShowingVersionsPanel = false;
 
-    private final Vector<ImageShow> mImageViews = new Vector<ImageShow>();
+    private final Vector<ImageShow> mImageViews = new Vector<>();
 
     private ShareActionProvider mShareActionProvider;
     private File mSharedOutputFile = null;
@@ -170,7 +163,7 @@ public class FilterShowActivity extends FragmentActivity implements OnItemClickL
 
     private Uri mSelectedImageUri = null;
 
-    private ArrayList<Action> mActions = new ArrayList<Action>();
+    private ArrayList<Action> mActions = new ArrayList<>();
     private UserPresetsManager mUserPresetsManager = null;
     private UserPresetsAdapter mUserPresetsAdapter = null;
     private CategoryAdapter mCategoryLooksAdapter = null;
@@ -180,7 +173,7 @@ public class FilterShowActivity extends FragmentActivity implements OnItemClickL
     private CategoryAdapter mCategoryVersionsAdapter = null;
     private int mCurrentPanel = MainPanel.LOOKS;
     private Vector<FilterUserPresetRepresentation> mVersions =
-            new Vector<FilterUserPresetRepresentation>();
+            new Vector<>();
     private int mVersionsCounter = 0;
 
     private boolean mHandlingSwipeButton = false;
@@ -306,16 +299,13 @@ public class FilterShowActivity extends FragmentActivity implements OnItemClickL
             return;
         }
         final int currentId = currentEditor.getID();
-        Runnable showEditor = new Runnable() {
-            @Override
-            public void run() {
-                EditorPanel panel = new EditorPanel();
-                panel.setEditor(currentId);
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.remove(getSupportFragmentManager().findFragmentByTag(MainPanel.FRAGMENT_TAG));
-                transaction.replace(R.id.main_panel_container, panel, MainPanel.FRAGMENT_TAG);
-                transaction.commit();
-            }
+        Runnable showEditor = () -> {
+            EditorPanel panel = new EditorPanel();
+            panel.setEditor(currentId);
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.remove(getSupportFragmentManager().findFragmentByTag(MainPanel.FRAGMENT_TAG));
+            transaction.replace(R.id.main_panel_container, panel, MainPanel.FRAGMENT_TAG);
+            transaction.commit();
         };
         Fragment main = getSupportFragmentManager().findFragmentByTag(MainPanel.FRAGMENT_TAG);
         boolean doAnimation = false;
@@ -355,14 +345,9 @@ public class FilterShowActivity extends FragmentActivity implements OnItemClickL
                 getResources().getColor(R.color.background_screen)));
 
         mSaveButton = actionBar.getCustomView();
-        mSaveButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveImage();
-            }
-        });
+        mSaveButton.setOnClickListener(view -> saveImage());
 
-        mImageShow = (ImageShow) findViewById(R.id.imageShow);
+        mImageShow = findViewById(R.id.imageShow);
         mImageViews.add(mImageShow);
 
         setupEditors();
@@ -510,7 +495,7 @@ public class FilterShowActivity extends FragmentActivity implements OnItemClickL
     }
 
     private void setupEditors() {
-        mEditorPlaceHolder.setContainer((FrameLayout) findViewById(R.id.editorContainer));
+        mEditorPlaceHolder.setContainer(findViewById(R.id.editorContainer));
         EditorManager.addEditors(mEditorPlaceHolder);
         mEditorPlaceHolder.setOldViews(mImageViews);
     }
@@ -930,7 +915,7 @@ public class FilterShowActivity extends FragmentActivity implements OnItemClickL
             progressText = getString(R.string.filtershow_saving_image, albumName);
         }
         progress = ProgressDialog.show(this, "", progressText, true, false);
-        mSavingProgressDialog = new WeakReference<ProgressDialog>(progress);
+        mSavingProgressDialog = new WeakReference<>(progress);
     }
 
     private void hideSavingProgress() {
@@ -1333,18 +1318,8 @@ public class FilterShowActivity extends FragmentActivity implements OnItemClickL
             } else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage(R.string.unsaved).setTitle(R.string.save_before_exit);
-                builder.setPositiveButton(R.string.save_and_exit, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        saveImage();
-                    }
-                });
-                builder.setNegativeButton(R.string.exit, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        done();
-                    }
-                });
+                builder.setPositiveButton(R.string.save_and_exit, (dialog, id) -> saveImage());
+                builder.setNegativeButton(R.string.exit, (dialog, id) -> done());
                 builder.show();
             }
         } else {
@@ -1428,11 +1403,7 @@ public class FilterShowActivity extends FragmentActivity implements OnItemClickL
     }
 
     public void setHandlesSwipeForView(View view, float startX, float startY) {
-        if (view != null) {
-            mHandlingSwipeButton = true;
-        } else {
-            mHandlingSwipeButton = false;
-        }
+        mHandlingSwipeButton = view != null;
         mHandledSwipeView = view;
         int[] location = new int[2];
         view.getLocationInWindow(location);
@@ -1483,7 +1454,7 @@ public class FilterShowActivity extends FragmentActivity implements OnItemClickL
     public Point mHintTouchPoint = new Point();
 
     public Point hintTouchPoint(View view) {
-        int location[] = new int[2];
+        int[] location = new int[2];
         view.getLocationOnScreen(location);
         int x = mHintTouchPoint.x - location[0];
         int y = mHintTouchPoint.y - location[1];
@@ -1492,26 +1463,23 @@ public class FilterShowActivity extends FragmentActivity implements OnItemClickL
 
     public void startTouchAnimation(View target, float x, float y) {
         final CategorySelected hint =
-                (CategorySelected) findViewById(R.id.categorySelectedIndicator);
-        int location[] = new int[2];
+                findViewById(R.id.categorySelectedIndicator);
+        int[] location = new int[2];
         target.getLocationOnScreen(location);
         mHintTouchPoint.x = (int) (location[0] + x);
         mHintTouchPoint.y = (int) (location[1] + y);
-        int locationHint[] = new int[2];
+        int[] locationHint = new int[2];
         ((View)hint.getParent()).getLocationOnScreen(locationHint);
         int dx = (int) (x - (hint.getWidth())/2);
         int dy = (int) (y - (hint.getHeight())/2);
         hint.setTranslationX(location[0] - locationHint[0] + dx);
         hint.setTranslationY(location[1] - locationHint[1] + dy);
         hint.setVisibility(View.VISIBLE);
-        hint.animate().scaleX(2).scaleY(2).alpha(0).withEndAction(new Runnable() {
-            @Override
-            public void run() {
-                hint.setVisibility(View.INVISIBLE);
-                hint.setScaleX(1);
-                hint.setScaleY(1);
-                hint.setAlpha(1);
-            }
+        hint.animate().scaleX(2).scaleY(2).alpha(0).withEndAction(() -> {
+            hint.setVisibility(View.INVISIBLE);
+            hint.setScaleX(1);
+            hint.setScaleY(1);
+            hint.setAlpha(1);
         });
     }
 }

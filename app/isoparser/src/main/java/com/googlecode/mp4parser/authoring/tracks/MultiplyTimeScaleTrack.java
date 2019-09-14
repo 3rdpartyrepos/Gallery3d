@@ -94,7 +94,7 @@ public class MultiplyTimeScaleTrack implements Track {
 
     static List<CompositionTimeToSample.Entry> adjustCtts(List<CompositionTimeToSample.Entry> source, int timeScaleFactor) {
         if (source != null) {
-            List<CompositionTimeToSample.Entry> entries2 = new ArrayList<CompositionTimeToSample.Entry>(source.size());
+            List<CompositionTimeToSample.Entry> entries2 = new ArrayList<>(source.size());
             for (CompositionTimeToSample.Entry entry : source) {
                 entries2.add(new CompositionTimeToSample.Entry(entry.getCount(), timeScaleFactor * entry.getOffset()));
             }
@@ -105,7 +105,7 @@ public class MultiplyTimeScaleTrack implements Track {
     }
 
     static List<TimeToSampleBox.Entry> adjustTts(List<TimeToSampleBox.Entry> source, int timeScaleFactor) {
-        LinkedList<TimeToSampleBox.Entry> entries2 = new LinkedList<TimeToSampleBox.Entry>();
+        LinkedList<TimeToSampleBox.Entry> entries2 = new LinkedList<>();
         for (TimeToSampleBox.Entry e : source) {
             entries2.add(new TimeToSampleBox.Entry(e.getCount(), timeScaleFactor * e.getDelta()));
         }

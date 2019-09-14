@@ -296,13 +296,10 @@ public abstract class AutoThumbnailDrawable<T> extends Drawable {
         }
     };
 
-    private final Runnable mUpdateBitmap = new Runnable() {
-        @Override
-        public void run() {
-            synchronized (AutoThumbnailDrawable.this) {
-                updateDrawMatrixLocked();
-                invalidateSelf();
-            }
+    private final Runnable mUpdateBitmap = () -> {
+        synchronized (AutoThumbnailDrawable.this) {
+            updateDrawMatrixLocked();
+            invalidateSelf();
         }
     };
 

@@ -42,11 +42,11 @@ public class Spline {
     private ControlPoint mCurrentControlPoint = null;
 
     public Spline() {
-        mPoints = new Vector<ControlPoint>();
+        mPoints = new Vector<>();
     }
 
     public Spline(Spline spline) {
-        mPoints = new Vector<ControlPoint>();
+        mPoints = new Vector<>();
         for (int i = 0; i < spline.mPoints.size(); i++) {
             ControlPoint p = spline.mPoints.elementAt(i);
             ControlPoint newPoint = new ControlPoint(p);
@@ -126,10 +126,7 @@ public class Spline {
         if (mPoints.elementAt(0).x != 0 || mPoints.elementAt(0).y != 1) {
             return false;
         }
-        if (mPoints.elementAt(1).x != 1 || mPoints.elementAt(1).y != 0) {
-            return false;
-        }
-        return true;
+        return mPoints.elementAt(1).x == 1 && mPoints.elementAt(1).y == 0;
     }
 
     public void reset() {
@@ -336,9 +333,9 @@ public class Spline {
         paint.setColor(color);
         canvas.drawPath(path, paint);
         if (showHandles) {
-            for (int i = 0; i < points.length; i++) {
-                float x = points[i].x;
-                float y = points[i].y;
+            for (ControlPoint point : points) {
+                float x = point.x;
+                float y = point.y;
                 drawHandles(canvas, mCurveHandle, x, y);
             }
         }

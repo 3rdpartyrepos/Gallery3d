@@ -37,8 +37,8 @@ import java.util.ArrayList;
 
 public class PopupList {
 
-    public static interface OnPopupItemClickListener {
-        public boolean onPopupItemClick(int itemId);
+    public interface OnPopupItemClickListener {
+        boolean onPopupItemClick(int itemId);
     }
 
     public static class Item {
@@ -57,7 +57,7 @@ public class PopupList {
 
     private final Context mContext;
     private final View mAnchorView;
-    private final ArrayList<Item> mItems = new ArrayList<Item>();
+    private final ArrayList<Item> mItems = new ArrayList<>();
     private PopupWindow mPopupWindow;
     private ListView mContentList;
     private OnPopupItemClickListener mOnPopupItemClickListener;
@@ -198,7 +198,7 @@ public class PopupList {
                 convertView = LayoutInflater.from(mContext)
                         .inflate(R.layout.popup_list_item, null);
             }
-            TextView text = (TextView) convertView.findViewById(android.R.id.text1);
+            TextView text = convertView.findViewById(android.R.id.text1);
             text.setText(mItems.get(position).title);
             return convertView;
         }

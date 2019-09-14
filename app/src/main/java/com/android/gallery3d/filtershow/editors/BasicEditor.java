@@ -16,8 +16,6 @@
 
 package com.android.gallery3d.filtershow.editors;
 
-import android.content.Context;
-
 import com.android.gallery3d.R;
 import com.android.gallery3d.filtershow.controller.Control;
 import com.android.gallery3d.filtershow.controller.FilterView;

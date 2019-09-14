@@ -62,9 +62,9 @@ public class Mp4TrackImpl extends AbstractTrack {
         handler = trackBox.getMediaBox().getHandlerBox().getHandlerType();
 
         mihd = trackBox.getMediaBox().getMediaInformationBox().getMediaHeaderBox();
-        decodingTimeEntries = new LinkedList<TimeToSampleBox.Entry>();
-        compositionTimeEntries = new LinkedList<CompositionTimeToSample.Entry>();
-        sampleDependencies = new LinkedList<SampleDependencyTypeBox.Entry>();
+        decodingTimeEntries = new LinkedList<>();
+        compositionTimeEntries = new LinkedList<>();
+        sampleDependencies = new LinkedList<>();
 
         decodingTimeEntries.addAll(stbl.getTimeToSampleBox().getEntries());
         if (stbl.getCompositionTimeToSample() != null) {
@@ -85,7 +85,7 @@ public class Mp4TrackImpl extends AbstractTrack {
                 final List<TrackExtendsBox> trackExtendsBoxes = mvex.getBoxes(TrackExtendsBox.class);
                 for (TrackExtendsBox trex : trackExtendsBoxes) {
                     if (trex.getTrackId() == trackId) {
-                        List<Long> syncSampleList = new LinkedList<Long>();
+                        List<Long> syncSampleList = new LinkedList<>();
 
                         long sampleNumber = 1;
                         for (MovieFragmentBox movieFragmentBox : trackBox.getIsoFile().getBoxes(MovieFragmentBox.class)) {

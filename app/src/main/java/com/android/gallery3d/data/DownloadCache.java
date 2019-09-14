@@ -45,13 +45,13 @@ public class DownloadCache {
 
     private static final String TABLE_NAME = DownloadEntry.SCHEMA.getTableName();
 
-    private static final String QUERY_PROJECTION[] = {Columns.ID, Columns.DATA};
+    private static final String[] QUERY_PROJECTION = {Columns.ID, Columns.DATA};
     private static final String WHERE_HASH_AND_URL = String.format(
             "%s = ? AND %s = ?", Columns.HASH_CODE, Columns.CONTENT_URL);
     private static final int QUERY_INDEX_ID = 0;
     private static final int QUERY_INDEX_DATA = 1;
 
-    private static final String FREESPACE_PROJECTION[] = {
+    private static final String[] FREESPACE_PROJECTION = {
             Columns.ID, Columns.DATA, Columns.CONTENT_URL, Columns.CONTENT_SIZE};
     private static final String FREESPACE_ORDER_BY =
             String.format("%s ASC", Columns.LAST_ACCESS);
@@ -62,14 +62,14 @@ public class DownloadCache {
 
     private static final String ID_WHERE = Columns.ID + " = ?";
 
-    private static final String SUM_PROJECTION[] =
+    private static final String[] SUM_PROJECTION =
             {String.format("sum(%s)", Columns.CONTENT_SIZE)};
     private static final int SUM_INDEX_SUM = 0;
 
     private final LruCache<String, Entry> mEntryMap =
-            new LruCache<String, Entry>(LRU_CAPACITY);
+            new LruCache<>(LRU_CAPACITY);
     private final HashMap<String, DownloadTask> mTaskMap =
-            new HashMap<String, DownloadTask>();
+            new HashMap<>();
     private final File mRoot;
     private final GalleryApp mApplication;
     private final SQLiteDatabase mDatabase;
@@ -88,7 +88,7 @@ public class DownloadCache {
 
     private Entry findEntryInDatabase(String stringUrl) {
         long hash = Utils.crc64Long(stringUrl);
-        String whereArgs[] = {String.valueOf(hash), stringUrl};
+        String[] whereArgs = {String.valueOf(hash), stringUrl};
         Cursor cursor = mDatabase.query(TABLE_NAME, QUERY_PROJECTION,
                 WHERE_HASH_AND_URL, whereArgs, null, null, null);
         try {
@@ -258,7 +258,7 @@ public class DownloadCache {
     }
 
     private class DownloadTask implements Job<File>, FutureListener<File> {
-        private HashSet<TaskProxy> mProxySet = new HashSet<TaskProxy>();
+        private HashSet<TaskProxy> mProxySet = new HashSet<>();
         private Future<File> mFuture;
         private final String mUrl;
 
@@ -346,14 +346,11 @@ public class DownloadCache {
         }
 
         public synchronized Entry get(JobContext jc) {
-            jc.setCancelListener(new CancelListener() {
-                @Override
-                public void onCancel() {
-                    mTask.removeProxy(TaskProxy.this);
-                    synchronized (TaskProxy.this) {
-                        mIsCancelled = true;
-                        TaskProxy.this.notifyAll();
-                    }
+            jc.setCancelListener(() -> {
+                mTask.removeProxy(TaskProxy.this);
+                synchronized (TaskProxy.this) {
+                    mIsCancelled = true;
+                    TaskProxy.this.notifyAll();
                 }
             });
             while (!mIsCancelled && mEntry == null) {

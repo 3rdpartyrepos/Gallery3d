@@ -25,7 +25,7 @@ public class ColorChooser implements Control {
     protected LinearLayout mLinearLayout;
     protected Editor mEditor;
     private View mTopView;
-    private Vector<Button> mIconButton = new Vector<Button>();
+    private Vector<Button> mIconButton = new Vector<>();
     protected int mLayoutID = R.layout.filtershow_control_color_chooser;
     Context mContext;
     private int mTransparent;
@@ -55,14 +55,14 @@ public class ColorChooser implements Control {
         LayoutInflater inflater =
                 (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mTopView = inflater.inflate(mLayoutID, container, true);
-        mLinearLayout = (LinearLayout) mTopView.findViewById(R.id.listStyles);
+        mLinearLayout = mTopView.findViewById(R.id.listStyles);
         mTopView.setVisibility(View.VISIBLE);
 
         mIconButton.clear();
         LayoutParams lp = new LayoutParams(iconDim, iconDim);
         int [] palette = mParameter.getColorPalette();
         for (int i = 0; i < mButtonsID.length; i++) {
-            final Button button = (Button) mTopView.findViewById(mButtonsID[i]);
+            final Button button = mTopView.findViewById(mButtonsID[i]);
             mButton[i] = button;
             float[] hsvo = new float[4];
             Color.colorToHSV(palette[i], hsvo);
@@ -73,21 +73,11 @@ public class ColorChooser implements Control {
             sd.setStroke(3, (mSelectedButton == i) ? mSelected : mTransparent);
 
             final int buttonNo = i;
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View arg0) {
-                    selectColor(arg0, buttonNo);
-                }
-            });
+            button.setOnClickListener(v -> selectColor(v, buttonNo));
         }
-        Button button = (Button) mTopView.findViewById(R.id.draw_color_popupbutton);
+        Button button = mTopView.findViewById(R.id.draw_color_popupbutton);
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                showColorPicker();
-            }
-        });
+        button.setOnClickListener(v -> showColorPicker());
 
     }
 

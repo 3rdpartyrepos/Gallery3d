@@ -43,7 +43,7 @@ public abstract class SQLiteContentProvider extends ContentProvider {
     private SQLiteOpenHelper mOpenHelper;
     private Set<Uri> mChangedUris;
 
-    private final ThreadLocal<Boolean> mApplyingBatch = new ThreadLocal<Boolean>();
+    private final ThreadLocal<Boolean> mApplyingBatch = new ThreadLocal<>();
     private static final int SLEEP_AFTER_YIELD_DELAY = 4000;
 
     /**
@@ -55,7 +55,7 @@ public abstract class SQLiteContentProvider extends ContentProvider {
     public boolean onCreate() {
         Context context = getContext();
         mOpenHelper = getDatabaseHelper(context);
-        mChangedUris = new HashSet<Uri>();
+        mChangedUris = new HashSet<>();
         return true;
     }
 
@@ -141,9 +141,9 @@ public abstract class SQLiteContentProvider extends ContentProvider {
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         db.beginTransaction();
         try {
-            for (int i = 0; i < numValues; i++) {
+            for (ContentValues value : values) {
                 @SuppressWarnings("unused")
-                Uri result = insertInTransaction(uri, values[i], callerIsSyncAdapter);
+                Uri result = insertInTransaction(uri, value, callerIsSyncAdapter);
                 db.yieldIfContendedSafely();
             }
             db.setTransactionSuccessful();
@@ -244,7 +244,7 @@ public abstract class SQLiteContentProvider extends ContentProvider {
     protected Set<Uri> onEndTransaction(boolean callerIsSyncAdapter) {
         Set<Uri> changed;
         synchronized (mChangedUris) {
-            changed = new HashSet<Uri>(mChangedUris);
+            changed = new HashSet<>(mChangedUris);
             mChangedUris.clear();
         }
         ContentResolver resolver = getContext().getContentResolver();

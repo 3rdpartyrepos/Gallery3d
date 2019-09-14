@@ -35,7 +35,6 @@ import com.android.gallery3d.filtershow.controller.BasicParameterStyle;
 import com.android.gallery3d.filtershow.controller.BitmapCaller;
 import com.android.gallery3d.filtershow.controller.FilterView;
 import com.android.gallery3d.filtershow.controller.Parameter;
-import com.android.gallery3d.filtershow.filters.FilterBasicRepresentation;
 import com.android.gallery3d.filtershow.filters.FilterChanSatRepresentation;
 import com.android.gallery3d.filtershow.filters.FilterRepresentation;
 import com.android.gallery3d.filtershow.imageshow.MasterImage;
@@ -96,7 +95,7 @@ public class EditorChanSat extends ParametricEditor implements OnSeekBarChangeLi
 
     @Override
     public void openUtilityPanel(final LinearLayout accessoryViewList) {
-        mButton = (SwapButton) accessoryViewList.findViewById(R.id.applyEffect);
+        mButton = accessoryViewList.findViewById(R.id.applyEffect);
         mButton.setText(mContext.getString(R.string.editor_chan_sat_main));
 
         if (useCompact(mContext)) {
@@ -105,19 +104,13 @@ public class EditorChanSat extends ParametricEditor implements OnSeekBarChangeLi
             popupMenu.getMenuInflater().inflate(R.menu.filtershow_menu_chan_sat,
                     popupMenu.getMenu());
 
-            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    selectMenuItem(item);
-                    return true;
-                }
+            popupMenu.setOnMenuItemClickListener(item -> {
+                selectMenuItem(item);
+                return true;
             });
-            mButton.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View arg0) {
-                    popupMenu.show();
-                    ((FilterShowActivity)mContext).onShowMenu(popupMenu);
-                }
+            mButton.setOnClickListener(v -> {
+                popupMenu.show();
+                ((FilterShowActivity)mContext).onShowMenu(popupMenu);
             });
             mButton.setListener(this);
 
@@ -187,34 +180,34 @@ public class EditorChanSat extends ParametricEditor implements OnSeekBarChangeLi
         controls.setLayoutParams(lp);
         group.removeAllViews();
         group.addView(controls);
-        mMainBar = (SeekBar) controls.findViewById(R.id.mainSeekbar);
+        mMainBar = controls.findViewById(R.id.mainSeekbar);
         mMainBar.setMax(200);
         mMainBar.setOnSeekBarChangeListener(this);
-        mMainValue = (TextView) controls.findViewById(R.id.mainValue);
-        mRedBar = (SeekBar) controls.findViewById(R.id.redSeekBar);
+        mMainValue = controls.findViewById(R.id.mainValue);
+        mRedBar = controls.findViewById(R.id.redSeekBar);
         mRedBar.setMax(200);
         mRedBar.setOnSeekBarChangeListener(this);
-        mRedValue = (TextView) controls.findViewById(R.id.redValue);
-        mYellowBar = (SeekBar) controls.findViewById(R.id.yellowSeekBar);
+        mRedValue = controls.findViewById(R.id.redValue);
+        mYellowBar = controls.findViewById(R.id.yellowSeekBar);
         mYellowBar.setMax(200);
         mYellowBar.setOnSeekBarChangeListener(this);
-        mYellowValue = (TextView) controls.findViewById(R.id.yellowValue);
-        mGreenBar = (SeekBar) controls.findViewById(R.id.greenSeekBar);
+        mYellowValue = controls.findViewById(R.id.yellowValue);
+        mGreenBar = controls.findViewById(R.id.greenSeekBar);
         mGreenBar.setMax(200);
         mGreenBar.setOnSeekBarChangeListener(this);
-        mGreenValue = (TextView) controls.findViewById(R.id.greenValue);
-        mCyanBar = (SeekBar) controls.findViewById(R.id.cyanSeekBar);
+        mGreenValue = controls.findViewById(R.id.greenValue);
+        mCyanBar = controls.findViewById(R.id.cyanSeekBar);
         mCyanBar.setMax(200);
         mCyanBar.setOnSeekBarChangeListener(this);
-        mCyanValue = (TextView) controls.findViewById(R.id.cyanValue);
-        mBlueBar = (SeekBar) controls.findViewById(R.id.blueSeekBar);
+        mCyanValue = controls.findViewById(R.id.cyanValue);
+        mBlueBar = controls.findViewById(R.id.blueSeekBar);
         mBlueBar.setMax(200);
         mBlueBar.setOnSeekBarChangeListener(this);
-        mBlueValue = (TextView) controls.findViewById(R.id.blueValue);
-        mMagentaBar = (SeekBar) controls.findViewById(R.id.magentaSeekBar);
+        mBlueValue = controls.findViewById(R.id.blueValue);
+        mMagentaBar = controls.findViewById(R.id.magentaSeekBar);
         mMagentaBar.setMax(200);
         mMagentaBar.setOnSeekBarChangeListener(this);
-        mMagentaValue = (TextView) controls.findViewById(R.id.magentaValue);
+        mMagentaValue = controls.findViewById(R.id.magentaValue);
     }
 
     public int getParameterIndex(int id) {
@@ -354,12 +347,9 @@ public class EditorChanSat extends ParametricEditor implements OnSeekBarChangeLi
         super.swapLeft(item);
         mButton.setTranslationX(0);
         mButton.animate().translationX(mButton.getWidth()).setDuration(SwapButton.ANIM_DURATION);
-        Runnable updateButton = new Runnable() {
-            @Override
-            public void run() {
-                mButton.animate().cancel();
-                mButton.setTranslationX(0);
-            }
+        Runnable updateButton = () -> {
+            mButton.animate().cancel();
+            mButton.setTranslationX(0);
         };
         mHandler.postDelayed(updateButton, SwapButton.ANIM_DURATION);
         selectMenuItem(item);
@@ -370,12 +360,9 @@ public class EditorChanSat extends ParametricEditor implements OnSeekBarChangeLi
         super.swapRight(item);
         mButton.setTranslationX(0);
         mButton.animate().translationX(-mButton.getWidth()).setDuration(SwapButton.ANIM_DURATION);
-        Runnable updateButton = new Runnable() {
-            @Override
-            public void run() {
-                mButton.animate().cancel();
-                mButton.setTranslationX(0);
-            }
+        Runnable updateButton = () -> {
+            mButton.animate().cancel();
+            mButton.setTranslationX(0);
         };
         mHandler.postDelayed(updateButton, SwapButton.ANIM_DURATION);
         selectMenuItem(item);

@@ -6,6 +6,7 @@ import com.coremedia.iso.boxes.ContainerBox;
 
 import java.nio.ByteBuffer;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class MpegSampleEntry extends SampleEntry implements ContainerBox {
 
@@ -32,7 +33,7 @@ public class MpegSampleEntry extends SampleEntry implements ContainerBox {
     }
 
     public String toString() {
-        return "MpegSampleEntry" + Arrays.asList(getBoxes());
+        return "MpegSampleEntry" + Collections.singletonList(getBoxes());
     }
 
     @Override

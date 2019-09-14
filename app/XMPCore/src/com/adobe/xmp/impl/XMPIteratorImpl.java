@@ -407,7 +407,7 @@ public class XMPIteratorImpl implements XMPIterator
 			else if (currNode.getParent().getOptions().isArray())
 			{
 				separator = "";
-				segmentName = "[" + String.valueOf(currentIndex) + "]";
+				segmentName = "[" + currentIndex + "]";
 			}
 			else
 			{	

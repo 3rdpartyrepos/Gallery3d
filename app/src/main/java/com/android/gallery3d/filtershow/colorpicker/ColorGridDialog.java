@@ -37,7 +37,7 @@ public class ColorGridDialog extends Dialog {
         mCallback = cl;
         setTitle(R.string.color_pick_title);
         setContentView(R.layout.filtershow_color_gird);
-        Button sel = (Button) findViewById(R.id.filtershow_cp_custom);
+        Button sel = findViewById(R.id.filtershow_cp_custom);
         ArrayList<Button> b = getButtons((ViewGroup) getWindow().getDecorView());
         int k = 0;
         float[] hsv = new float[3];
@@ -49,29 +49,23 @@ public class ColorGridDialog extends Dialog {
                 hsv[2] = (k < 5) ? (k / 4f) : 1;
                 final int c = (Color.HSVToColor(hsv) & 0x00FFFFFF) | 0xAA000000;
                 GradientDrawable sd = ((GradientDrawable) button.getBackground());
-                button.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                    public void onClick(View v) {
-                        mCallback.setColor(c);
-                        dismiss();
-                    }
+                button.setOnClickListener(v -> {
+                    mCallback.setColor(c);
+                    dismiss();
                 });
                 sd.setColor(c);
                 k++;
             }
 
         }
-        sel.setOnClickListener(new View.OnClickListener() {
-                @Override
-            public void onClick(View v) {
-                showColorPicker();
-                ColorGridDialog.this.dismiss();
-            }
+        sel.setOnClickListener(v -> {
+            showColorPicker();
+            ColorGridDialog.this.dismiss();
         });
     }
 
     private ArrayList<Button> getButtons(ViewGroup vg) {
-        ArrayList<Button> list = new ArrayList<Button>();
+        ArrayList<Button> list = new ArrayList<>();
         for (int i = 0; i < vg.getChildCount(); i++) {
             View v = vg.getChildAt(i);
             if (v instanceof Button) {

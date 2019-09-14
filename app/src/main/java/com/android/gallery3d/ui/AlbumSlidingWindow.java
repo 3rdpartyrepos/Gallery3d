@@ -39,9 +39,9 @@ public class AlbumSlidingWindow implements AlbumDataLoader.DataListener {
     private static final int MSG_UPDATE_ENTRY = 0;
     private static final int JOB_LIMIT = 2;
 
-    public static interface Listener {
-        public void onSizeChanged(int size);
-        public void onContentChanged();
+    public interface Listener {
+        void onSizeChanged(int size);
+        void onContentChanged();
     }
 
     public static class AlbumEntry {
@@ -58,7 +58,7 @@ public class AlbumSlidingWindow implements AlbumDataLoader.DataListener {
     }
 
     private final AlbumDataLoader mSource;
-    private final AlbumEntry mData[];
+    private final AlbumEntry[] mData;
     private final SynchronizedHandler mHandler;
     private final JobLimiter mThreadPool;
     private final TiledTexture.Uploader mTileUploader;
@@ -165,7 +165,7 @@ public class AlbumSlidingWindow implements AlbumDataLoader.DataListener {
         if (!(start <= end && end - start <= mData.length && end <= mSize)) {
             Utils.fail("%s, %s, %s, %s", start, end, mData.length, mSize);
         }
-        AlbumEntry data[] = mData;
+        AlbumEntry[] data = mData;
 
         mActiveStart = start;
         mActiveEnd = end;
@@ -252,7 +252,7 @@ public class AlbumSlidingWindow implements AlbumDataLoader.DataListener {
     }
 
     private void freeSlotContent(int slotIndex) {
-        AlbumEntry data[] = mData;
+        AlbumEntry[] data = mData;
         int index = slotIndex % data.length;
         AlbumEntry entry = data[index];
         if (entry.contentLoader != null) entry.contentLoader.recycle();

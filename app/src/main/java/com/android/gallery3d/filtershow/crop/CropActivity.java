@@ -103,7 +103,7 @@ public class CropActivity extends Activity {
         }
 
         setContentView(R.layout.crop_activity);
-        mCropView = (CropView) findViewById(R.id.cropView);
+        mCropView = findViewById(R.id.cropView);
 
         ActionBar actionBar = getActionBar();
         if (actionBar != null) {
@@ -111,12 +111,7 @@ public class CropActivity extends Activity {
             actionBar.setCustomView(R.layout.filtershow_actionbar);
 
             View mSaveButton = actionBar.getCustomView();
-            mSaveButton.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startFinishOutput();
-                }
-            });
+            mSaveButton.setOnClickListener(v -> startFinishOutput());
         }
         if (intent.getData() != null) {
             mSourceUri = intent.getData();
@@ -175,7 +170,7 @@ public class CropActivity extends Activity {
     private int getScreenImageSize() {
         DisplayMetrics outMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(outMetrics);
-        return (int) Math.max(outMetrics.heightPixels, outMetrics.widthPixels);
+        return Math.max(outMetrics.heightPixels, outMetrics.widthPixels);
     }
 
     /**
@@ -396,7 +391,7 @@ public class CropActivity extends Activity {
             mResultIntent = new Intent();
             mRotation = (rotation < 0) ? -rotation : rotation;
             mRotation %= 360;
-            mRotation = 90 * (int) (mRotation / 90);  // now mRotation is a multiple of 90
+            mRotation = 90 * (mRotation / 90);  // now mRotation is a multiple of 90
             mOutputX = outputX;
             mOutputY = outputY;
 
@@ -605,7 +600,7 @@ public class CropActivity extends Activity {
         protected void onPostExecute(Boolean result) {
             Utils.closeSilently(mOutStream);
             Utils.closeSilently(mInStream);
-            doneBitmapIO(result.booleanValue(), mResultIntent);
+            doneBitmapIO(result, mResultIntent);
         }
 
     }
@@ -662,7 +657,7 @@ public class CropActivity extends Activity {
                     extras.getInt(CropExtras.KEY_ASPECT_Y, 0),
                     extras.getBoolean(CropExtras.KEY_SET_AS_WALLPAPER, false),
                     extras.getBoolean(CropExtras.KEY_RETURN_DATA, false),
-                    (Uri) extras.getParcelable(MediaStore.EXTRA_OUTPUT),
+                    extras.getParcelable(MediaStore.EXTRA_OUTPUT),
                     extras.getString(CropExtras.KEY_OUTPUT_FORMAT),
                     extras.getBoolean(CropExtras.KEY_SHOW_WHEN_LOCKED, false),
                     extras.getFloat(CropExtras.KEY_SPOTLIGHT_X),

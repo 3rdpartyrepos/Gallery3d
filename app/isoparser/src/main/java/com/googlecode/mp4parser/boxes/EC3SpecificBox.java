@@ -12,7 +12,7 @@ import java.util.List;
  *
  */
 public class EC3SpecificBox extends AbstractBox {
-    List<Entry> entries = new LinkedList<Entry>();
+    List<Entry> entries = new LinkedList<>();
     int dataRate;
     int numIndSub;
 

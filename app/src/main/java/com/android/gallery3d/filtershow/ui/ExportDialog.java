@@ -61,12 +61,9 @@ public class ExportDialog extends DialogFragment implements View.OnClickListener
     boolean mEditing = false;
     Handler mHandler;
     int mUpdateDelay = 1000;
-    Runnable mUpdateRunnable = new Runnable() {
-        @Override
-        public void run() {
-            updateCompressionFactor();
-            updateSize();
-        }
+    Runnable mUpdateRunnable = () -> {
+        updateCompressionFactor();
+        updateSize();
     };
 
     private class Watcher implements TextWatcher {
@@ -95,15 +92,15 @@ public class ExportDialog extends DialogFragment implements View.OnClickListener
         mHandler = new Handler(getActivity().getMainLooper());
 
         View view = inflater.inflate(R.layout.filtershow_export_dialog, container);
-        mSeekBar = (SeekBar) view.findViewById(R.id.qualitySeekBar);
-        mSeekVal = (TextView) view.findViewById(R.id.qualityTextView);
+        mSeekBar = view.findViewById(R.id.qualitySeekBar);
+        mSeekVal = view.findViewById(R.id.qualityTextView);
         mSliderLabel = getString(R.string.quality) + ": ";
         mSeekBar.setProgress(mQuality);
         mSeekVal.setText(mSliderLabel + mSeekBar.getProgress());
         mSeekBar.setOnSeekBarChangeListener(this);
-        mWidthText = (EditText) view.findViewById(R.id.editableWidth);
-        mHeightText = (EditText) view.findViewById(R.id.editableHeight);
-        mEstimatedSize = (TextView) view.findViewById(R.id.estimadedSize);
+        mWidthText = view.findViewById(R.id.editableWidth);
+        mHeightText = view.findViewById(R.id.editableHeight);
+        mEstimatedSize = view.findViewById(R.id.estimadedSize);
 
         mOriginalBounds = MasterImage.getImage().getOriginalBounds();
         ImagePreset preset = MasterImage.getImage().getPreset();

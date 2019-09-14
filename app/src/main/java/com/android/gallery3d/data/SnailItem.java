@@ -38,23 +38,13 @@ public class SnailItem extends MediaItem {
     @Override
     public Job<Bitmap> requestImage(int type) {
         // nothing to return
-        return new Job<Bitmap>() {
-            @Override
-            public Bitmap run(JobContext jc) {
-                return null;
-            }
-        };
+        return jc -> null;
     }
 
     @Override
     public Job<BitmapRegionDecoder> requestLargeImage() {
         // nothing to return
-        return new Job<BitmapRegionDecoder>() {
-            @Override
-            public BitmapRegionDecoder run(JobContext jc) {
-                return null;
-            }
-        };
+        return jc -> null;
     }
 
     // We do not provide requestImage or requestLargeImage, instead we

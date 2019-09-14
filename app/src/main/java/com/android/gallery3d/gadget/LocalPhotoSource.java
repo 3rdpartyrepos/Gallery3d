@@ -57,7 +57,7 @@ public class LocalPhotoSource implements WidgetSource {
     private static final String ORDER = String.format("%s DESC", DATE_TAKEN);
 
     private Context mContext;
-    private ArrayList<Long> mPhotos = new ArrayList<Long>();
+    private ArrayList<Long> mPhotos = new ArrayList<>();
     private ContentListener mContentListener;
     private ContentObserver mContentObserver;
     private boolean mContentDirty = true;
@@ -107,12 +107,12 @@ public class LocalPhotoSource implements WidgetSource {
     private int[] getExponentialIndice(int total, int count) {
         Random random = new Random();
         if (count > total) count = total;
-        HashSet<Integer> selected = new HashSet<Integer>(count);
+        HashSet<Integer> selected = new HashSet<>(count);
         while (selected.size() < count) {
             int row = (int)(-Math.log(random.nextDouble()) * total / 2);
             if (row < total) selected.add(row);
         }
-        int values[] = new int[count];
+        int[] values = new int[count];
         int index = 0;
         for (int value : selected) {
             values[index++] = value;
@@ -163,7 +163,7 @@ public class LocalPhotoSource implements WidgetSource {
         int photoCount = getPhotoCount(resolver);
         if (isContentSound(photoCount)) return;
 
-        int choosedIds[] = getExponentialIndice(photoCount, MAX_PHOTO_COUNT);
+        int[] choosedIds = getExponentialIndice(photoCount, MAX_PHOTO_COUNT);
         Arrays.sort(choosedIds);
 
         mPhotos.clear();

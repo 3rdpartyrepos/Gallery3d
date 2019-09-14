@@ -47,13 +47,8 @@ class DateBucket implements Comparable<DateBucket> {
     }
     DateBucket other = (DateBucket) obj;
     if (date == null) {
-      if (other.date != null) {
-        return false;
-      }
-    } else if (!date.equals(other.date)) {
-      return false;
-    }
-    return true;
+        return other.date == null;
+    } else return date.equals(other.date);
   }
 
   @Override

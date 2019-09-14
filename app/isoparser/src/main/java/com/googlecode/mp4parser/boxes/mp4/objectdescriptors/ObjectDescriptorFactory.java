@@ -122,10 +122,10 @@ import java.util.logging.Logger;
 public class ObjectDescriptorFactory {
     protected static Logger log = Logger.getLogger(ObjectDescriptorFactory.class.getName());
 
-    protected static Map<Integer, Map<Integer, Class<? extends BaseDescriptor>>> descriptorRegistry = new HashMap<Integer, Map<Integer, Class<? extends BaseDescriptor>>>();
+    protected static Map<Integer, Map<Integer, Class<? extends BaseDescriptor>>> descriptorRegistry = new HashMap<>();
 
     static {
-        Set<Class<? extends BaseDescriptor>> annotated = new HashSet<Class<? extends BaseDescriptor>>();
+        Set<Class<? extends BaseDescriptor>> annotated = new HashSet<>();
 
         annotated.add(DecoderSpecificInfo.class);
         annotated.add(SLConfigDescriptor.class);
@@ -146,7 +146,7 @@ public class ObjectDescriptorFactory {
 
             Map<Integer, Class<? extends BaseDescriptor>> tagMap = descriptorRegistry.get(objectTypeInd);
             if (tagMap == null) {
-                tagMap = new HashMap<Integer, Class<? extends BaseDescriptor>>();
+                tagMap = new HashMap<>();
             }
             for (int tag : tags) {
                 tagMap.put(tag, clazz);

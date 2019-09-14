@@ -102,11 +102,11 @@ public class DataManager implements StitchingChangeListener {
     private int mActiveCount = 0;
 
     private HashMap<Uri, NotifyBroker> mNotifierMap =
-            new HashMap<Uri, NotifyBroker>();
+            new HashMap<>();
 
 
     private HashMap<String, MediaSource> mSourceMap =
-            new LinkedHashMap<String, MediaSource>();
+            new LinkedHashMap<>();
 
     public DataManager(GalleryApp application) {
         mApplication = application;
@@ -217,7 +217,7 @@ public class DataManager implements StitchingChangeListener {
     public void mapMediaItems(ArrayList<Path> list, ItemConsumer consumer,
             int startIndex) {
         HashMap<String, ArrayList<PathId>> map =
-                new HashMap<String, ArrayList<PathId>>();
+                new HashMap<>();
 
         // Group the path by the prefix.
         int n = list.size();
@@ -226,7 +226,7 @@ public class DataManager implements StitchingChangeListener {
             String prefix = path.getPrefix();
             ArrayList<PathId> group = map.get(prefix);
             if (group == null) {
-                group = new ArrayList<PathId>();
+                group = new ArrayList<>();
                 map.put(prefix, group);
             }
             group.add(new PathId(path, i + startIndex));
@@ -330,7 +330,7 @@ public class DataManager implements StitchingChangeListener {
 
     private static class NotifyBroker extends ContentObserver {
         private WeakHashMap<ChangeNotifier, Object> mNotifiers =
-                new WeakHashMap<ChangeNotifier, Object>();
+                new WeakHashMap<>();
 
         public NotifyBroker(Handler handler) {
             super(handler);

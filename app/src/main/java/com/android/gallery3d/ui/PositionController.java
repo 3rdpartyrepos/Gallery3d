@@ -21,7 +21,6 @@ import android.graphics.Rect;
 import android.util.Log;
 import android.widget.Scroller;
 
-import com.android.gallery3d.app.PhotoPage;
 import com.android.gallery3d.common.Utils;
 import com.android.gallery3d.ui.PhotoView.Size;
 import com.android.gallery3d.util.GalleryUtils;
@@ -61,17 +60,17 @@ class PositionController {
     // mFilmScroller.isFinished() to decide when to stop. We set it to 0 so it's
     // faster for Animatable.advanceAnimation() to calculate the progress
     // (always 1).
-    private static final int ANIM_TIME[] = {
-        0,    // ANIM_KIND_SCROLL
-        0,    // ANIM_KIND_SCALE
-        SNAPBACK_ANIMATION_TIME,  // ANIM_KIND_SNAPBACK
-        400,  // ANIM_KIND_SLIDE
-        300,  // ANIM_KIND_ZOOM
-        300,  // ANIM_KIND_OPENING
-        0,    // ANIM_KIND_FLING (the duration is calculated dynamically)
-        0,    // ANIM_KIND_FLING_X (see the comment above)
-        0,    // ANIM_KIND_DELETE (the duration is calculated dynamically)
-        CAPTURE_ANIMATION_TIME,  // ANIM_KIND_CAPTURE
+    private static final int[] ANIM_TIME = {
+            0,    // ANIM_KIND_SCROLL
+            0,    // ANIM_KIND_SCALE
+            SNAPBACK_ANIMATION_TIME,  // ANIM_KIND_SNAPBACK
+            400,  // ANIM_KIND_SLIDE
+            300,  // ANIM_KIND_ZOOM
+            300,  // ANIM_KIND_OPENING
+            0,    // ANIM_KIND_FLING (the duration is calculated dynamically)
+            0,    // ANIM_KIND_FLING_X (see the comment above)
+            0,    // ANIM_KIND_DELETE (the duration is calculated dynamically)
+            CAPTURE_ANIMATION_TIME,  // ANIM_KIND_CAPTURE
     };
 
     // We try to scale up the image to fill the screen. But in order not to
@@ -168,19 +167,19 @@ class PositionController {
     // The focused box (Box*) centers at mPlatform's (mCurrentX, mCurrentY)
 
     private Platform mPlatform = new Platform();
-    private RangeArray<Box> mBoxes = new RangeArray<Box>(-BOX_MAX, BOX_MAX);
+    private RangeArray<Box> mBoxes = new RangeArray<>(-BOX_MAX, BOX_MAX);
     // The gap at the right of a Box i is at index i. The gap at the left of a
     // Box i is at index i - 1.
-    private RangeArray<Gap> mGaps = new RangeArray<Gap>(-BOX_MAX, BOX_MAX - 1);
+    private RangeArray<Gap> mGaps = new RangeArray<>(-BOX_MAX, BOX_MAX - 1);
     private FilmRatio mFilmRatio = new FilmRatio();
 
     // These are only used during moveBox().
-    private RangeArray<Box> mTempBoxes = new RangeArray<Box>(-BOX_MAX, BOX_MAX);
+    private RangeArray<Box> mTempBoxes = new RangeArray<>(-BOX_MAX, BOX_MAX);
     private RangeArray<Gap> mTempGaps =
-        new RangeArray<Gap>(-BOX_MAX, BOX_MAX - 1);
+            new RangeArray<>(-BOX_MAX, BOX_MAX - 1);
 
     // The output of the PositionController. Available through getPosition().
-    private RangeArray<Rect> mRects = new RangeArray<Rect>(-BOX_MAX, BOX_MAX);
+    private RangeArray<Rect> mRects = new RangeArray<>(-BOX_MAX, BOX_MAX);
 
     // The direction of a new picture should appear. New pictures pop from top
     // if this value is true, or from bottom if this value is false.
@@ -982,15 +981,14 @@ class PositionController {
     }
 
     @SuppressWarnings("unused")
-    private void debugMoveBox(int fromIndex[]) {
+    private void debugMoveBox(int[] fromIndex) {
         StringBuilder s = new StringBuilder("moveBox:");
-        for (int i = 0; i < fromIndex.length; i++) {
-            int j = fromIndex[i];
+        for (int j : fromIndex) {
             if (j == Integer.MAX_VALUE) {
                 s.append(" N");
             } else {
                 s.append(" ");
-                s.append(fromIndex[i]);
+                s.append(j);
             }
         }
         Log.d(TAG, s.toString());
@@ -1013,8 +1011,8 @@ class PositionController {
     // hasPrev/hasNext indicates if there are previous/next boxes for the
     // focused box. constrained indicates whether the focused box should be put
     // into the constrained frame.
-    public void moveBox(int fromIndex[], boolean hasPrev, boolean hasNext,
-            boolean constrained, Size[] sizes) {
+    public void moveBox(int[] fromIndex, boolean hasPrev, boolean hasNext,
+                        boolean constrained, Size[] sizes) {
         //debugMoveBox(fromIndex);
         mHasPrev = hasPrev;
         mHasNext = hasNext;

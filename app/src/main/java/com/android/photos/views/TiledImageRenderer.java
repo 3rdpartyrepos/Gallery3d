@@ -67,7 +67,7 @@ public class TiledImageRenderer {
     private static final int STATE_RECYCLING = 0x20;
     private static final int STATE_RECYCLED = 0x40;
 
-    private static Pool<Bitmap> sTilePool = new SynchronizedPool<Bitmap>(64);
+    private static Pool<Bitmap> sTilePool = new SynchronizedPool<>(64);
 
     // TILE_SIZE must be 2^N
     private int mTileSize;
@@ -93,7 +93,7 @@ public class TiledImageRenderer {
     private final RectF mSourceRect = new RectF();
     private final RectF mTargetRect = new RectF();
 
-    private final LongSparseArray<Tile> mActiveTiles = new LongSparseArray<Tile>();
+    private final LongSparseArray<Tile> mActiveTiles = new LongSparseArray<>();
 
     // The following three queue are guarded by mQueueLock
     private final Object mQueueLock = new Object();
@@ -114,7 +114,7 @@ public class TiledImageRenderer {
 
     // Temp variables to avoid memory allocation
     private final Rect mTileRange = new Rect();
-    private final Rect mActiveRange[] = {new Rect(), new Rect()};
+    private final Rect[] mActiveRange = {new Rect(), new Rect()};
 
     private TileDecoder mTileDecoder;
     private boolean mBackgroundTileUploaded;
@@ -125,22 +125,22 @@ public class TiledImageRenderer {
     /**
      * Interface for providing tiles to a {@link TiledImageRenderer}
      */
-    public static interface TileSource {
+    public interface TileSource {
 
         /**
          * If the source does not care about the tile size, it should use
          * {@link TiledImageRenderer#suggestedTileSize(Context)}
          */
-        public int getTileSize();
-        public int getImageWidth();
-        public int getImageHeight();
-        public int getRotation();
+        int getTileSize();
+        int getImageWidth();
+        int getImageHeight();
+        int getRotation();
 
         /**
          * Return a Preview image if available. This will be used as the base layer
          * if higher res tiles are not yet available
          */
-        public BasicTexture getPreview();
+        BasicTexture getPreview();
 
         /**
          * The tile returned by this method can be specified this way: Assuming
@@ -155,7 +155,7 @@ public class TiledImageRenderer {
          *
          * The method would be called by the decoder thread.
          */
-        public Bitmap getTile(int level, int x, int y, Bitmap reuse);
+        Bitmap getTile(int level, int x, int y, Bitmap reuse);
     }
 
     public static int suggestedTileSize(Context context) {
@@ -288,7 +288,7 @@ public class TiledImageRenderer {
         fromLevel = Math.max(0, Math.min(fromLevel, mLevelCount - 2));
         endLevel = Math.min(fromLevel + 2, mLevelCount);
 
-        Rect range[] = mActiveRange;
+        Rect[] range = mActiveRange;
         for (int i = fromLevel; i < endLevel; ++i) {
             getRange(range[i - fromLevel], mCenterX, mCenterY, i, mRotation);
         }

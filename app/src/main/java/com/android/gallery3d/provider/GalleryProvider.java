@@ -47,9 +47,9 @@ public class GalleryProvider extends ContentProvider {
     public static final String AUTHORITY = "com.android.gallery3d.provider";
     public static final Uri BASE_URI = Uri.parse("content://" + AUTHORITY);
 
-    public static interface PicasaColumns {
-        public static final String USER_ACCOUNT = "user_account";
-        public static final String PICASA_ID = "picasa_id";
+    public interface PicasaColumns {
+        String USER_ACCOUNT = "user_account";
+        String PICASA_ID = "picasa_id";
     }
 
     private static final String[] SUPPORTED_PICASA_COLUMNS = {
@@ -197,7 +197,7 @@ public class GalleryProvider extends ContentProvider {
         throw new UnsupportedOperationException();
     }
 
-    private static interface PipeDataWriter<T> {
+    private interface PipeDataWriter<T> {
         void writeDataToPipe(ParcelFileDescriptor output, T args);
     }
 

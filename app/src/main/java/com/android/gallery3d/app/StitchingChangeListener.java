@@ -19,9 +19,9 @@ package com.android.gallery3d.app;
 import android.net.Uri;
 
 public interface StitchingChangeListener {
-    public void onStitchingQueued(Uri uri);
+    void onStitchingQueued(Uri uri);
 
-    public void onStitchingResult(Uri uri);
+    void onStitchingResult(Uri uri);
 
-    public void onStitchingProgress(Uri uri, int progress);
+    void onStitchingProgress(Uri uri, int progress);
 }

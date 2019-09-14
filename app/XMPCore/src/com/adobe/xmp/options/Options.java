@@ -257,7 +257,7 @@ public abstract class Options
 	{
 		Map optionsNames = procureOptionNames();
 		
-		Integer key = new Integer(option);
+		Integer key = option;
 		String result = (String) optionsNames.get(key);
 		if (result == null)
 		{

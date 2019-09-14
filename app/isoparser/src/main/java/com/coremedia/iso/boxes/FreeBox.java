@@ -37,7 +37,7 @@ import static com.googlecode.mp4parser.util.CastUtils.l2i;
 public class FreeBox implements Box {
     public static final String TYPE = "free";
     ByteBuffer data;
-    List<Box> replacers = new LinkedList<Box>();
+    List<Box> replacers = new LinkedList<>();
     private ContainerBox parent;
 
     public FreeBox() {

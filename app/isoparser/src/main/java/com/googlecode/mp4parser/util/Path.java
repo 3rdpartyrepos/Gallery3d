@@ -88,7 +88,7 @@ public class Path {
                         String indexString = m.group(3);
                         index = Integer.parseInt(indexString);
                     }
-                    List<Box> children = new LinkedList<Box>();
+                    List<Box> children = new LinkedList<>();
                     int currentIndex = 0;
                     for (Box box1 : ((ContainerBox) box).getBoxes()) {
                         if (box1.getType().matches(type)) {

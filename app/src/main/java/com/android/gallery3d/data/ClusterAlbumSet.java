@@ -30,7 +30,7 @@ public class ClusterAlbumSet extends MediaSet implements ContentListener {
     private GalleryApp mApplication;
     private MediaSet mBaseSet;
     private int mKind;
-    private ArrayList<ClusterAlbum> mAlbums = new ArrayList<ClusterAlbum>();
+    private ArrayList<ClusterAlbum> mAlbums = new ArrayList<>();
     private boolean mFirstReloadDone;
 
     public ClusterAlbumSet(Path path, GalleryApp application,
@@ -128,13 +128,8 @@ public class ClusterAlbumSet extends MediaSet implements ContentListener {
     }
 
     private void updateClustersContents() {
-        final HashSet<Path> existing = new HashSet<Path>();
-        mBaseSet.enumerateTotalMediaItems(new ItemConsumer() {
-            @Override
-            public void consume(int index, MediaItem item) {
-                existing.add(item.getPath());
-            }
-        });
+        final HashSet<Path> existing = new HashSet<>();
+        mBaseSet.enumerateTotalMediaItems((index, item) -> existing.add(item.getPath()));
 
         int n = mAlbums.size();
 
@@ -142,7 +137,7 @@ public class ClusterAlbumSet extends MediaSet implements ContentListener {
         // mAlbums.
         for (int i = n - 1; i >= 0; i--) {
             ArrayList<Path> oldPaths = mAlbums.get(i).getMediaItems();
-            ArrayList<Path> newPaths = new ArrayList<Path>();
+            ArrayList<Path> newPaths = new ArrayList<>();
             int m = oldPaths.size();
             for (int j = 0; j < m; j++) {
                 Path p = oldPaths.get(j);

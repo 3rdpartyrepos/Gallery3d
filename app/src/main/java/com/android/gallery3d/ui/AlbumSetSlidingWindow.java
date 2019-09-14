@@ -40,9 +40,9 @@ public class AlbumSetSlidingWindow implements AlbumSetDataLoader.DataListener {
     private static final String TAG = "AlbumSetSlidingWindow";
     private static final int MSG_UPDATE_ALBUM_ENTRY = 1;
 
-    public static interface Listener {
-        public void onSizeChanged(int size);
-        public void onContentChanged();
+    public interface Listener {
+        void onSizeChanged(int size);
+        void onContentChanged();
     }
 
     private final AlbumSetDataLoader mSource;
@@ -56,7 +56,7 @@ public class AlbumSetSlidingWindow implements AlbumSetDataLoader.DataListener {
 
     private Listener mListener;
 
-    private final AlbumSetEntry mData[];
+    private final AlbumSetEntry[] mData;
     private final SynchronizedHandler mHandler;
     private final ThreadPool mThreadPool;
     private final AlbumLabelMaker mLabelMaker;
@@ -170,7 +170,7 @@ public class AlbumSetSlidingWindow implements AlbumSetDataLoader.DataListener {
                     start, end, mData.length, mSize);
         }
 
-        AlbumSetEntry data[] = mData;
+        AlbumSetEntry[] data = mData;
         mActiveStart = start;
         mActiveEnd = end;
         int contentStart = Utils.clamp((start + end) / 2 - data.length / 2,
@@ -413,8 +413,8 @@ public class AlbumSetSlidingWindow implements AlbumSetDataLoader.DataListener {
         updateAllImageRequests();
     }
 
-    private static interface EntryUpdater {
-        public void updateEntry();
+    private interface EntryUpdater {
+        void updateEntry();
     }
 
     private class AlbumCoverLoader extends BitmapLoader implements EntryUpdater {

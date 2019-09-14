@@ -48,7 +48,7 @@ public class FilterRedEyeRepresentation extends FilterPointRepresentation {
     }
 
     public void addRect(RectF rect, RectF bounds) {
-        Vector<RedEyeCandidate> intersects = new Vector<RedEyeCandidate>();
+        Vector<RedEyeCandidate> intersects = new Vector<>();
         for (int i = 0; i < getCandidates().size(); i++) {
             RedEyeCandidate r = (RedEyeCandidate) getCandidate(i);
             if (r.intersect(rect)) {

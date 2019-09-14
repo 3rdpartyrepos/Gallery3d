@@ -72,7 +72,7 @@ public class ImportTask implements Runnable {
   public void run() {
     mWakeLock.acquire();
     try {
-      List<IngestObjectInfo> objectsNotImported = new LinkedList<IngestObjectInfo>();
+      List<IngestObjectInfo> objectsNotImported = new LinkedList<>();
       int visited = 0;
       int total = mObjectsToImport.size();
       mListener.onImportProgress(visited, total, null);

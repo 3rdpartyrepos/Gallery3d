@@ -18,7 +18,6 @@ package com.android.gallery3d.filtershow.pipeline;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Rect;
 import android.net.Uri;
 import com.android.gallery3d.filtershow.cache.ImageLoader;
 import com.android.gallery3d.filtershow.filters.FiltersManager;

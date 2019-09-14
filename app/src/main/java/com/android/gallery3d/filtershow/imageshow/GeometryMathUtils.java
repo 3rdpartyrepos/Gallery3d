@@ -22,7 +22,6 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.util.Log;
 
 import com.android.gallery3d.filtershow.cache.BitmapCache;
 import com.android.gallery3d.filtershow.cache.ImageLoader;
@@ -42,7 +41,7 @@ public final class GeometryMathUtils {
     private static final String TAG = "GeometryMathUtils";
     public static final float SHOW_SCALE = .9f;
 
-    private GeometryMathUtils() {};
+    private GeometryMathUtils() {}
 
     // Holder class for Geometry data.
     public static final class GeometryHolder {

@@ -48,12 +48,12 @@ public class EditorCrop extends Editor implements EditorInfo {
             mAspectX = x;
             mAspectY = y;
         }
-    };
+    }
 
     // Mapping from menu id to aspect ratio
     protected static final SparseArray<AspectInfo> sAspects;
     static {
-        sAspects = new SparseArray<AspectInfo>();
+        sAspects = new SparseArray<>();
         sAspects.put(R.id.crop_menu_1to1, new AspectInfo(R.string.aspect1to1_effect, 1, 1));
         sAspects.put(R.id.crop_menu_4to3, new AspectInfo(R.string.aspect4to3_effect, 4, 3));
         sAspects.put(R.id.crop_menu_3to4, new AspectInfo(R.string.aspect3to4_effect, 3, 4));
@@ -104,14 +104,9 @@ public class EditorCrop extends Editor implements EditorInfo {
 
     @Override
     public void openUtilityPanel(final LinearLayout accessoryViewList) {
-        Button view = (Button) accessoryViewList.findViewById(R.id.applyEffect);
+        Button view = accessoryViewList.findViewById(R.id.applyEffect);
         view.setText(mContext.getString(R.string.crop));
-        view.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                showPopupMenu(accessoryViewList);
-            }
-        });
+        view.setOnClickListener(v -> showPopupMenu(accessoryViewList));
     }
 
     private void changeCropAspect(int itemId) {
@@ -130,15 +125,12 @@ public class EditorCrop extends Editor implements EditorInfo {
     }
 
     private void showPopupMenu(LinearLayout accessoryViewList) {
-        final Button button = (Button) accessoryViewList.findViewById(R.id.applyEffect);
+        final Button button = accessoryViewList.findViewById(R.id.applyEffect);
         final PopupMenu popupMenu = new PopupMenu(mImageShow.getActivity(), button);
         popupMenu.getMenuInflater().inflate(R.menu.filtershow_menu_crop, popupMenu.getMenu());
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                changeCropAspect(item.getItemId());
-                return true;
-            }
+        popupMenu.setOnMenuItemClickListener(item -> {
+            changeCropAspect(item.getItemId());
+            return true;
         });
         popupMenu.show();
         ((FilterShowActivity)mContext).onShowMenu(popupMenu);

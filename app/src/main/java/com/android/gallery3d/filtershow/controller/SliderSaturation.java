@@ -21,12 +21,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.SeekBar;
-import android.widget.SeekBar.OnSeekBarChangeListener;
 
 import com.android.gallery3d.R;
 import com.android.gallery3d.filtershow.colorpicker.ColorListener;
-import com.android.gallery3d.filtershow.colorpicker.ColorOpacityView;
 import com.android.gallery3d.filtershow.colorpicker.ColorSaturationView;
 import com.android.gallery3d.filtershow.editors.Editor;
 
@@ -46,7 +43,7 @@ public class SliderSaturation implements Control {
         LinearLayout lp = (LinearLayout) inflater.inflate(
                 R.layout.filtershow_saturation, container, true);
 
-        mColorOpacityView = (ColorSaturationView) lp.findViewById(R.id.saturationView);
+        mColorOpacityView = lp.findViewById(R.id.saturationView);
         updateUI();
         mColorOpacityView.addColorListener(new ColorListener() {
             @Override

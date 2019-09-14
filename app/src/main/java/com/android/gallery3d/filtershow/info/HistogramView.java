@@ -80,9 +80,9 @@ public class HistogramView extends View {
 
     private void drawHistogram(Canvas canvas, int[] histogram, int color, PorterDuff.Mode mode) {
         int max = 0;
-        for (int i = 0; i < histogram.length; i++) {
-            if (histogram[i] > max) {
-                max = histogram[i];
+        for (int value : histogram) {
+            if (value > max) {
+                max = value;
             }
         }
         float w = getWidth(); // - Spline.curveHandleSize();

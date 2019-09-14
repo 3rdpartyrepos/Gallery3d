@@ -65,13 +65,10 @@ public class FilterCropRepresentation extends FilterRepresentation {
             return false;
         }
         FilterCropRepresentation crop = (FilterCropRepresentation) rep;
-        if (mCrop.bottom != crop.mCrop.bottom
-            || mCrop.left != crop.mCrop.left
-            || mCrop.right != crop.mCrop.right
-            || mCrop.top != crop.mCrop.top) {
-            return false;
-        }
-        return true;
+        return mCrop.bottom == crop.mCrop.bottom
+                && mCrop.left == crop.mCrop.left
+                && mCrop.right == crop.mCrop.right
+                && mCrop.top == crop.mCrop.top;
     }
 
     public RectF getCrop() {

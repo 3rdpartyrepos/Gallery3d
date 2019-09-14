@@ -10,7 +10,7 @@ import java.util.UUID;
 
 
 public class ProtectionSpecificHeader {
-    protected static Map<UUID, Class<? extends ProtectionSpecificHeader>> uuidRegistry = new HashMap<UUID, Class<? extends ProtectionSpecificHeader>>();
+    protected static Map<UUID, Class<? extends ProtectionSpecificHeader>> uuidRegistry = new HashMap<>();
     ByteBuffer data;
 
     static {

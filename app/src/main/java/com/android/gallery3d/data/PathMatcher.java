@@ -22,7 +22,7 @@ import java.util.HashMap;
 public class PathMatcher {
     public static final int NOT_FOUND = -1;
 
-    private ArrayList<String> mVariables = new ArrayList<String>();
+    private ArrayList<String> mVariables = new ArrayList<>();
     private Node mRoot = new Node();
 
     public PathMatcher() {
@@ -32,8 +32,8 @@ public class PathMatcher {
     public void add(String pattern, int kind) {
         String[] segments = Path.split(pattern);
         Node current = mRoot;
-        for (int i = 0; i < segments.length; i++) {
-            current = current.addChild(segments[i]);
+        for (String segment : segments) {
+            current = current.addChild(segment);
         }
         current.setKind(kind);
     }
@@ -42,12 +42,12 @@ public class PathMatcher {
         String[] segments = path.split();
         mVariables.clear();
         Node current = mRoot;
-        for (int i = 0; i < segments.length; i++) {
-            Node next = current.getChild(segments[i]);
+        for (String segment : segments) {
+            Node next = current.getChild(segment);
             if (next == null) {
                 next = current.getChild("*");
                 if (next != null) {
-                    mVariables.add(segments[i]);
+                    mVariables.add(segment);
                 } else {
                     return NOT_FOUND;
                 }
@@ -75,7 +75,7 @@ public class PathMatcher {
 
         Node addChild(String segment) {
             if (mMap == null) {
-                mMap = new HashMap<String, Node>();
+                mMap = new HashMap<>();
             } else {
                 Node node = mMap.get(segment);
                 if (node != null) return node;

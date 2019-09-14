@@ -60,7 +60,7 @@ public class SampleToChunkBox extends AbstractFullBox {
         parseVersionAndFlags(content);
 
         int entryCount = l2i(IsoTypeReader.readUInt32(content));
-        entries = new ArrayList<Entry>(entryCount);
+        entries = new ArrayList<>(entryCount);
         for (int i = 0; i < entryCount; i++) {
             entries.add(new Entry(
                     IsoTypeReader.readUInt32(content),
@@ -94,7 +94,7 @@ public class SampleToChunkBox extends AbstractFullBox {
     public long[] blowup(int chunkCount) {
         long[] numberOfSamples = new long[chunkCount];
         int j = 0;
-        List<SampleToChunkBox.Entry> sampleToChunkEntries = new LinkedList<Entry>(entries);
+        List<SampleToChunkBox.Entry> sampleToChunkEntries = new LinkedList<>(entries);
         Collections.reverse(sampleToChunkEntries);
         Iterator<Entry> iterator = sampleToChunkEntries.iterator();
         SampleToChunkBox.Entry currentEntry = iterator.next();

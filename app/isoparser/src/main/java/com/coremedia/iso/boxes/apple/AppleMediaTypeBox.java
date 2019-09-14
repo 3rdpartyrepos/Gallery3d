@@ -7,7 +7,7 @@ import java.util.Map;
  * itunes MetaData comment box.
  */
 public class AppleMediaTypeBox extends AbstractAppleMetaDataBox {
-    private static Map<String, String> mediaTypes = new HashMap<String, String>();
+    private static Map<String, String> mediaTypes = new HashMap<>();
 
     static {
         mediaTypes.put("0", "Movie (is now 9)");

@@ -24,7 +24,7 @@ import java.util.Vector;
 public class HistoryManager {
     private static final String LOGTAG = "HistoryManager";
 
-    private Vector<HistoryItem> mHistoryItems = new Vector<HistoryItem>();
+    private Vector<HistoryItem> mHistoryItems = new Vector<>();
     private int mCurrentPresetPosition = 0;
     private MenuItem mUndoMenuItem = null;
     private MenuItem mRedoMenuItem = null;
@@ -61,24 +61,15 @@ public class HistoryManager {
     }
 
     public boolean canReset() {
-        if (getCount() <= 0) {
-            return false;
-        }
-        return true;
+        return getCount() > 0;
     }
 
     public boolean canUndo() {
-        if (mCurrentPresetPosition == getCount() - 1) {
-            return false;
-        }
-        return true;
+        return mCurrentPresetPosition != getCount() - 1;
     }
 
     public boolean canRedo() {
-        if (mCurrentPresetPosition == 0) {
-            return false;
-        }
-        return true;
+        return mCurrentPresetPosition != 0;
     }
 
     public void updateMenuItems() {
@@ -134,7 +125,7 @@ public class HistoryManager {
     private void insert(HistoryItem preset, int position) {
         if (mCurrentPresetPosition != 0) {
             // in this case, let's discount the presets before the current one
-            Vector<HistoryItem> oldItems = new Vector<HistoryItem>();
+            Vector<HistoryItem> oldItems = new Vector<>();
             for (int i = mCurrentPresetPosition; i < getCount(); i++) {
                 oldItems.add(getItem(i));
             }

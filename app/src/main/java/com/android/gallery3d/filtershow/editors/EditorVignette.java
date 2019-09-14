@@ -120,7 +120,7 @@ public class EditorVignette extends ParametricEditor {
                     mFalloffValue
             };
             for (int i = 0; i < mode.length; i++) {
-                BasicParameterInt p = (BasicParameterInt) rep.getFilterParameter(mode[i]);
+                BasicParameterInt p = rep.getFilterParameter(mode[i]);
                 int value = p.getValue();
                 sliders[i].setMax(p.getMaximum() - p.getMinimum());
                 sliders[i].setProgress(value - p.getMinimum());
@@ -154,7 +154,7 @@ public class EditorVignette extends ParametricEditor {
 
     @Override
     public void openUtilityPanel(final LinearLayout accessoryViewList) {
-        mButton = (SwapButton) accessoryViewList.findViewById(R.id.applyEffect);
+        mButton = accessoryViewList.findViewById(R.id.applyEffect);
         mButton.setText(mContext.getString(R.string.vignette_main));
 
         if (useCompact(mContext)) {
@@ -163,19 +163,13 @@ public class EditorVignette extends ParametricEditor {
             popupMenu.getMenuInflater().inflate(R.menu.filtershow_menu_vignette,
                     popupMenu.getMenu());
 
-            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    selectMenuItem(item);
-                    return true;
-                }
+            popupMenu.setOnMenuItemClickListener(item -> {
+                selectMenuItem(item);
+                return true;
             });
-            mButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View arg0) {
-                    popupMenu.show();
-                    ((FilterShowActivity)mContext).onShowMenu(popupMenu);
-                }
+            mButton.setOnClickListener(arg0 -> {
+                popupMenu.show();
+                ((FilterShowActivity)mContext).onShowMenu(popupMenu);
             });
             mButton.setListener(this);
 
@@ -207,26 +201,26 @@ public class EditorVignette extends ParametricEditor {
         group.removeAllViews();
         group.addView(controls);
 
-        mVignetteBar = (SeekBar) controls.findViewById(R.id.mainVignetteSeekbar);
+        mVignetteBar = controls.findViewById(R.id.mainVignetteSeekbar);
         mVignetteBar.setMax(200);
         mVignetteBar.setOnSeekBarChangeListener(this);
-        mVignetteValue = (TextView) controls.findViewById(R.id.mainVignetteValue);
-        mExposureBar = (SeekBar) controls.findViewById(R.id.exposureSeekBar);
+        mVignetteValue = controls.findViewById(R.id.mainVignetteValue);
+        mExposureBar = controls.findViewById(R.id.exposureSeekBar);
         mExposureBar.setMax(200);
         mExposureBar.setOnSeekBarChangeListener(this);
-        mExposureValue = (TextView) controls.findViewById(R.id.exposureValue);
-        mSaturationBar = (SeekBar) controls.findViewById(R.id.saturationSeekBar);
+        mExposureValue = controls.findViewById(R.id.exposureValue);
+        mSaturationBar = controls.findViewById(R.id.saturationSeekBar);
         mSaturationBar.setMax(200);
         mSaturationBar.setOnSeekBarChangeListener(this);
-        mSaturationValue = (TextView) controls.findViewById(R.id.saturationValue);
-        mContrastBar = (SeekBar) controls.findViewById(R.id.contrastSeekBar);
+        mSaturationValue = controls.findViewById(R.id.saturationValue);
+        mContrastBar = controls.findViewById(R.id.contrastSeekBar);
         mContrastBar.setMax(200);
         mContrastBar.setOnSeekBarChangeListener(this);
-        mContrastValue = (TextView) controls.findViewById(R.id.contrastValue);
-        mFalloffBar = (SeekBar) controls.findViewById(R.id.falloffSeekBar);
+        mContrastValue = controls.findViewById(R.id.contrastValue);
+        mFalloffBar = controls.findViewById(R.id.falloffSeekBar);
         mFalloffBar.setMax(200);
         mFalloffBar.setOnSeekBarChangeListener(this);
-        mFalloffValue = (TextView) controls.findViewById(R.id.falloffValue);
+        mFalloffValue = controls.findViewById(R.id.falloffValue);
     }
 
     public int getParameterIndex(int id) {
@@ -351,12 +345,9 @@ public class EditorVignette extends ParametricEditor {
         super.swapLeft(item);
         mButton.setTranslationX(0);
         mButton.animate().translationX(mButton.getWidth()).setDuration(SwapButton.ANIM_DURATION);
-        Runnable updateButton = new Runnable() {
-            @Override
-            public void run() {
-                mButton.animate().cancel();
-                mButton.setTranslationX(0);
-            }
+        Runnable updateButton = () -> {
+            mButton.animate().cancel();
+            mButton.setTranslationX(0);
         };
         mHandler.postDelayed(updateButton, SwapButton.ANIM_DURATION);
         selectMenuItem(item);
@@ -367,12 +358,9 @@ public class EditorVignette extends ParametricEditor {
         super.swapRight(item);
         mButton.setTranslationX(0);
         mButton.animate().translationX(-mButton.getWidth()).setDuration(SwapButton.ANIM_DURATION);
-        Runnable updateButton = new Runnable() {
-            @Override
-            public void run() {
-                mButton.animate().cancel();
-                mButton.setTranslationX(0);
-            }
+        Runnable updateButton = () -> {
+            mButton.animate().cancel();
+            mButton.setTranslationX(0);
         };
         mHandler.postDelayed(updateButton, SwapButton.ANIM_DURATION);
         selectMenuItem(item);

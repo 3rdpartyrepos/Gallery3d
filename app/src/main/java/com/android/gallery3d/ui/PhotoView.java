@@ -253,13 +253,10 @@ public class PhotoView extends GLView {
         mUndoBar = new UndoBarView(mContext);
         addComponent(mUndoBar);
         mUndoBar.setVisibility(GLView.INVISIBLE);
-        mUndoBar.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(GLView v) {
-                    mListener.onUndoDeleteImage();
-                    hideUndoBar();
-                }
-            });
+        mUndoBar.setOnClickListener(v->{
+            mListener.onUndoDeleteImage();
+            hideUndoBar();
+        });
         mNoThumbnailText = StringTexture.newInstance(
                 mContext.getString(R.string.no_thumbnail),
                 DEFAULT_TEXT_SIZE, Color.WHITE);
@@ -976,11 +973,6 @@ public class PhotoView extends GLView {
             // no onSingleTapUp(). Base on these observations, the following condition is added to
             // filter out the false alarm where onSingleTapUp() is called within a pinch out
             // gesture. The framework fix went into ICS. Refer to b/4588114.
-            if (Build.VERSION.SDK_INT < ApiHelper.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                if ((mHolding & HOLD_TOUCH_DOWN) == 0) {
-                    return true;
-                }
-            }
 
             // We do this in addition to onUp() because we want the snapback of
             // setFilmMode to happen.

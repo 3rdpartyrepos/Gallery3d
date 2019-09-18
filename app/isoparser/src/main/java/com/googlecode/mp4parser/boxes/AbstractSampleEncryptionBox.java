@@ -23,7 +23,7 @@ import java.util.Objects;
 public abstract class AbstractSampleEncryptionBox extends AbstractFullBox {
     int algorithmId = -1;
     int ivSize = -1;
-    byte[] kid = new byte[]{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+    byte[] kid = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
     List<Entry> entries = new LinkedList<>();
 
     protected AbstractSampleEncryptionBox(String type) {

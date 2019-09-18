@@ -203,7 +203,7 @@ public class H264TrackImpl extends AbstractTrack {
     }
 
     private boolean findNextStartcode() throws IOException {
-        byte[] test = new byte[]{-1, -1, -1, -1};
+        byte[] test = {-1, -1, -1, -1};
 
         int c;
         while ((c = reader.read()) != -1) {

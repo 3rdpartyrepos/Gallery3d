@@ -113,8 +113,7 @@ public class ColorValueView extends View implements ColorListener {
         float pos = mHSVO[2] * (mHeight - mBorder * 2);
         mDotY = pos + mBorder;
 
-        int[] colors3 = new int[] {
-                mSliderColor, mSliderColor, 0x66000000, 0 };
+        int[] colors3 = { mSliderColor, mSliderColor, 0x66000000, 0 };
         RadialGradient g = new RadialGradient(mDotX, mDotY, dotRadus, colors3, new float[] {
         0, .3f, .31f, 1 }, Shader.TileMode.CLAMP);
         mDotPaint.setShader(g);

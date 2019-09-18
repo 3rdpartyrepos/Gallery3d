@@ -39,7 +39,7 @@ public class MovieHeaderBox extends AbstractFullBox {
     private long duration;
     private double rate = 1.0;
     private float volume = 1.0f;
-    private long[] matrix = new long[]{0x00010000, 0, 0, 0, 0x00010000, 0, 0, 0, 0x40000000};
+    private long[] matrix = {0x00010000, 0, 0, 0, 0x00010000, 0, 0, 0, 0x40000000};
     private long nextTrackId;
 
     private int previewTime;

@@ -21,8 +21,8 @@ import static com.googlecode.mp4parser.util.CastUtils.l2i;
  * }
  */
 public class UuidBasedProtectionSystemSpecificHeaderBox extends AbstractFullBox {
-    public static byte[] USER_TYPE = new byte[]{(byte) 0xd0, (byte) 0x8a, 0x4f, 0x18, 0x10, (byte) 0xf3, 0x4a, (byte) 0x82,
-                (byte) 0xb6, (byte) 0xc8, 0x32, (byte) 0xd8, (byte) 0xab, (byte) 0xa1, (byte) 0x83, (byte) 0xd3};
+    public static byte[] USER_TYPE = {(byte) 0xd0, (byte) 0x8a, 0x4f, 0x18, 0x10, (byte) 0xf3, 0x4a, (byte) 0x82,
+            (byte) 0xb6, (byte) 0xc8, 0x32, (byte) 0xd8, (byte) 0xab, (byte) 0xa1, (byte) 0x83, (byte) 0xd3};
 
     UUID systemId;
 

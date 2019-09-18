@@ -131,8 +131,7 @@ public class ColorSaturationView extends View implements ColorListener {
         float pos = mHSVO[3] * (mWidth - mBorder * 2);
         mDotX = pos + mBorder;
 
-        int[] colors3 = new int[] {
-        mSliderColor, mSliderColor, 0x66000000, 0 };
+        int[] colors3 = { mSliderColor, mSliderColor, 0x66000000, 0 };
         RadialGradient g = new RadialGradient(mDotX, mDotY, mDotRadius, colors3, new float[] {
         0, .3f, .31f, 1 }, Shader.TileMode.CLAMP);
         mDotPaint.setShader(g);

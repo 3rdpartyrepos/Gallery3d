@@ -192,8 +192,7 @@ public class EclipseControl {
 
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.BLUE);
-        int[] colors3 = new int[]{
-                Color.GRAY, Color.LTGRAY, 0x66000000, 0};
+        int[] colors3 = {Color.GRAY, Color.LTGRAY, 0x66000000, 0};
         RadialGradient g = new RadialGradient(x, y, mCenterDotSize, colors3, new float[]{
                 0, .3f, .31f, 1}, Shader.TileMode.CLAMP);
         paint.setShader(g);
@@ -209,8 +208,7 @@ public class EclipseControl {
 
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.BLUE);
-        int[] colors3 = new int[]{
-                mSliderColor, mSliderColor, 0x66000000, 0};
+        int[] colors3 = {mSliderColor, mSliderColor, 0x66000000, 0};
         RadialGradient g = new RadialGradient(x, y, mCenterDotSize, colors3, new float[]{
                 0, .3f, .31f, 1}, Shader.TileMode.CLAMP);
         paint.setShader(g);

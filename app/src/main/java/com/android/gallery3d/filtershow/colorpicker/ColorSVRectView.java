@@ -187,8 +187,7 @@ public class ColorSVRectView extends View implements ColorListener {
     }
 
     private void updateDotPaint() {
-        int[] colors3 = new int[]{
-                mSliderColor, mSliderColor, 0x66000000, 0};
+        int[] colors3 = {mSliderColor, mSliderColor, 0x66000000, 0};
         RadialGradient g = new RadialGradient(mDotX, mDotY, mDotRadus, colors3, new float[]{
                 0, .3f, .31f, 1}, Shader.TileMode.CLAMP);
         mDotPaint.setShader(g);

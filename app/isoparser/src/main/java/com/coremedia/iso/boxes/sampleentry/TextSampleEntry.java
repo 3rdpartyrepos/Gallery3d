@@ -267,7 +267,7 @@ public class TextSampleEntry extends SampleEntry {
         int fontId;
         int faceStyleFlags;
         int fontSize;
-        int[] textColor = new int[]{0xff, 0xff, 0xff, 0xff};
+        int[] textColor = {0xff, 0xff, 0xff, 0xff};
 
         public void parse(ByteBuffer in) {
             startChar = IsoTypeReader.readUInt16(in);

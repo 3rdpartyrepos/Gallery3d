@@ -131,7 +131,7 @@ public class IsoFile extends AbstractContainerBox implements Closeable {
 
     @DoNotParseDetail
     public static String bytesToFourCC(byte[] type) {
-        byte[] result = new byte[]{0, 0, 0, 0};
+        byte[] result = {0, 0, 0, 0};
         if (type != null) {
             System.arraycopy(type, 0, result, 0, Math.min(type.length, 4));
         }

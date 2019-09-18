@@ -695,9 +695,7 @@ public class GalleryThumbnailView extends ViewGroup {
     }
 
     public static class LayoutParams extends ViewGroup.LayoutParams {
-        private static final int[] LAYOUT_ATTRS = new int[] {
-                android.R.attr.layout_span
-        };
+        private static final int[] LAYOUT_ATTRS = {android.R.attr.layout_span};
 
         private static final int SPAN_INDEX = 0;
 

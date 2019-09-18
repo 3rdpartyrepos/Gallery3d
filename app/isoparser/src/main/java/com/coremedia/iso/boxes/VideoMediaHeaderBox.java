@@ -27,7 +27,7 @@ import java.nio.ByteBuffer;
  */
 public class VideoMediaHeaderBox extends AbstractMediaHeaderBox {
     private int graphicsmode = 0;
-    private int[] opcolor = new int[]{0, 0, 0};
+    private int[] opcolor = {0, 0, 0};
     public static final String TYPE = "vmhd";
 
     public VideoMediaHeaderBox() {

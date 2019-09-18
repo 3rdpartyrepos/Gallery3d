@@ -57,7 +57,7 @@ public class GradControl {
     public final static int HAN_SOUTH = 1;
     private int[] mPointColorPatern;
     private int[] mGrayPointColorPatern;
-    private float[] mPointRadialPos = new float[]{0, .3f, .31f, 1};
+    private float[] mPointRadialPos = {0, .3f, .31f, 1};
     private int mLineColor;
     private int mlineShadowColor;
 
@@ -126,8 +126,7 @@ public class GradControl {
     }
 
     public void actionDown(float x, float y, Line line) {
-        float[] point = new float[]{
-                x, y};
+        float[] point = {x, y};
         mScrToImg.mapPoints(point);
         mDownX = point[0];
         mDownY = point[1];
@@ -138,8 +137,7 @@ public class GradControl {
     }
 
     public void actionMove(int handle, float x, float y, Line line) {
-        float[] point = new float[]{
-                x, y};
+        float[] point = {x, y};
         mScrToImg.mapPoints(point);
         x = point[0];
         y = point[1];

@@ -106,8 +106,7 @@ public class EclipseControl {
     }
 
     public void actionDown(float x, float y, Oval oval)  {
-        float[] point = new float[]{
-                x, y};
+        float[] point = {x, y};
         mScrToImg.mapPoints(point);
         mDownX = point[0];
         mDownY = point[1];
@@ -119,8 +118,7 @@ public class EclipseControl {
 
 
     public void actionMove(int handle, float x, float y, Oval oval) {
-        float[] point = new float[]{
-                x, y};
+        float[] point = {x, y};
         mScrToImg.mapPoints(point);
         x = point[0];
         y = point[1];

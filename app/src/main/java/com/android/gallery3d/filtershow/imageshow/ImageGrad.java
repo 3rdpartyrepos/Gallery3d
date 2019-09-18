@@ -136,8 +136,8 @@ public class ImageGrad extends ImageShow {
 
         toImg.invert(mToScr);
 
-        float[] c1 = new float[] { mGradRep.getPoint1X(), mGradRep.getPoint1Y() };
-        float[] c2 = new float[] { mGradRep.getPoint2X(), mGradRep.getPoint2Y() };
+        float[] c1 = { mGradRep.getPoint1X(), mGradRep.getPoint1Y() };
+        float[] c2 = { mGradRep.getPoint2X(), mGradRep.getPoint2Y() };
 
         if (c1[0] == -1) {
             float cx = MasterImage.getImage().getOriginalBounds().width() / 2;

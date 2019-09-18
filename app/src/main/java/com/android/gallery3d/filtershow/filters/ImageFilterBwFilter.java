@@ -51,9 +51,7 @@ public class ImageFilterBwFilter extends SimpleImageFilter {
         }
         int w = bitmap.getWidth();
         int h = bitmap.getHeight();
-        float[] hsv = new float[] {
-                180 + getParameters().getValue(), 1, 1
-        };
+        float[] hsv = {180 + getParameters().getValue(), 1, 1};
         int rgb = Color.HSVToColor(hsv);
         int r = 0xFF & (rgb >> 16);
         int g = 0xFF & (rgb >> 8);

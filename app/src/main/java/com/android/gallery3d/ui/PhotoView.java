@@ -997,7 +997,7 @@ public class PhotoView extends GLView {
                 Matrix m = getGLRoot().getCompensationMatrix();
                 Matrix inv = new Matrix();
                 m.invert(inv);
-                float[] pts = new float[] {x, y};
+                float[] pts = {x, y};
                 inv.mapPoints(pts);
                 mListener.onSingleTapUp((int) (pts[0] + 0.5f), (int) (pts[1] + 0.5f));
             }

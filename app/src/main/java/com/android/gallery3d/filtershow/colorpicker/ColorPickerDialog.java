@@ -53,8 +53,7 @@ public class ColorPickerDialog extends Dialog   {
         mColorOpacityView = findViewById(R.id.colorOpacityView);
         mColorCompareView = findViewById(R.id.btnSelect);
 
-        float[] hsvo = new float[] {
-                123, .9f, 1, 1 };
+        float[] hsvo = {123, .9f, 1, 1 };
 
         ImageButton apply = findViewById(R.id.applyColorPick);
         ImageButton cancel = findViewById(R.id.cancelColorPick);
@@ -136,10 +135,10 @@ public class ColorPickerDialog extends Dialog   {
         }
         int color = Color.HSVToColor(hsv);
         button.setBackgroundColor(color);
-        float[] fg = new float[] {
+        float[] fg = {
                 (hsv[0] + 180) % 360,
                 hsv[1],
-                        (hsv[2] > .5f) ? .1f : .9f
+                (hsv[2] > .5f) ? .1f : .9f
         };
         button.setTextColor(Color.HSVToColor(fg));
         button.setTag(hsv);

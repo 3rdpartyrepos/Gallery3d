@@ -130,8 +130,7 @@ public class ColorValueView extends View implements ColorListener {
     }
 
     private void updatePaint() {
-        float[] hsv = new float[] {
-                mHSVO[0], mHSVO[1], 0f };
+        float[] hsv = { mHSVO[0], mHSVO[1], 0f };
         int color1 = Color.HSVToColor(hsv);
         hsv[2] = 1;
         int color2 = Color.HSVToColor(hsv);

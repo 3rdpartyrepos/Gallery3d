@@ -12,6 +12,13 @@ android {
         renderscriptTargetApi 19
 //        renderscriptSupportModeEnabled true
     }
+
+    externalNativeBuild {
+        ndkBuild {
+            path 'src/main/jni/Android.mk'
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false

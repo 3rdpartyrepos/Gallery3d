@@ -83,7 +83,7 @@ public class PhotoSetLoader extends CursorLoader implements LoaderCompatShim<Cur
     @Override
     public Drawable drawableForItem(Cursor item, Drawable recycle) {
         DataUriThumbnailDrawable drawable = null;
-        if (recycle == null || !(recycle instanceof DataUriThumbnailDrawable)) {
+        if (!(recycle instanceof DataUriThumbnailDrawable)) {
             drawable = new DataUriThumbnailDrawable();
         } else {
             drawable = (DataUriThumbnailDrawable) recycle;

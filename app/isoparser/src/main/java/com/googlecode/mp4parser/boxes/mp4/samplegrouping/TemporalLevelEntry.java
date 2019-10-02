@@ -71,10 +71,7 @@ public class TemporalLevelEntry extends GroupEntry {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("TemporalLevelEntry");
-        sb.append("{levelIndependentlyDecodable=").append(levelIndependentlyDecodable);
-        sb.append('}');
-        return sb.toString();
+        return "TemporalLevelEntry" +
+                "{levelIndependentlyDecodable=" + levelIndependentlyDecodable + '}';
     }
 }

@@ -53,11 +53,8 @@ public class DecoderSpecificInfo extends BaseDescriptor {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("DecoderSpecificInfo");
-        sb.append("{bytes=").append(bytes == null ? "null" : Hex.encodeHex(bytes));
-        sb.append('}');
-        return sb.toString();
+        return "DecoderSpecificInfo" +
+                "{bytes=" + (bytes == null ? "null" : Hex.encodeHex(bytes)) + '}';
     }
 
     @Override

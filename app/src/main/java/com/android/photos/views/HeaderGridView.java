@@ -79,7 +79,7 @@ public class HeaderGridView extends GridView {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         ListAdapter adapter = getAdapter();
-        if (adapter != null && adapter instanceof HeaderViewGridAdapter) {
+        if (adapter instanceof HeaderViewGridAdapter) {
             ((HeaderViewGridAdapter) adapter).setNumColumns(getNumColumns());
         }
     }

@@ -89,12 +89,10 @@ public class UuidBasedProtectionSystemSpecificHeaderBox extends AbstractFullBox 
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("UuidBasedProtectionSystemSpecificHeaderBox");
-        sb.append("{systemId=").append(systemId.toString());
-        sb.append(", dataSize=").append(protectionSpecificHeader.getData().limit());
-        sb.append('}');
-        return sb.toString();
+        return "UuidBasedProtectionSystemSpecificHeaderBox" +
+                "{systemId=" + systemId.toString() +
+                ", dataSize=" + protectionSpecificHeader.getData().limit() +
+                '}';
     }
 
 

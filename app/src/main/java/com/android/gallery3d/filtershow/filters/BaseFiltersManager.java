@@ -110,7 +110,7 @@ public abstract class BaseFiltersManager implements FiltersManagerInterface {
     public void freeRSFilterScripts() {
         for (Class c : mFilters.keySet()) {
             ImageFilter filter = mFilters.get(c);
-            if (filter != null && filter instanceof ImageFilterRS) {
+            if (filter instanceof ImageFilterRS) {
                 ((ImageFilterRS) filter).resetScripts();
             }
         }

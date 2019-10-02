@@ -67,12 +67,10 @@ public class TrickPlayBox extends AbstractFullBox {
 
         @Override
         public String toString() {
-            final StringBuilder sb = new StringBuilder();
-            sb.append("Entry");
-            sb.append("{picType=").append(getPicType());
-            sb.append(",dependencyLevel=").append(getDependencyLevel());
-            sb.append('}');
-            return sb.toString();
+            return "Entry" +
+                    "{picType=" + getPicType() +
+                    ",dependencyLevel=" + getDependencyLevel() +
+                    '}';
         }
     }
 
@@ -99,10 +97,6 @@ public class TrickPlayBox extends AbstractFullBox {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("TrickPlayBox");
-        sb.append("{entries=").append(entries);
-        sb.append('}');
-        return sb.toString();
+        return "TrickPlayBox" + "{entries=" + entries + '}';
     }
 }

@@ -38,9 +38,8 @@ public class BytesBufferPool {
 
         // an helper function to read content from FileDescriptor
         public void readFrom(JobContext jc, FileDescriptor fd) throws IOException {
-            FileInputStream fis = new FileInputStream(fd);
             length = 0;
-            try {
+            try(FileInputStream fis = new FileInputStream(fd)) {
                 int capacity = data.length;
                 while (true) {
                     int step = Math.min(READ_STEP, capacity - length);
@@ -55,8 +54,6 @@ public class BytesBufferPool {
                         capacity = data.length;
                     }
                 }
-            } finally {
-                fis.close();
             }
         }
     }

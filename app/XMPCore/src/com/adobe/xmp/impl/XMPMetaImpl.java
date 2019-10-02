@@ -1389,7 +1389,7 @@ public class XMPMetaImpl implements XMPMeta, XMPConst
 		switch (valueType)
 		{
 		case VALUE_BOOLEAN:
-			value = Boolean.valueOf(XMPUtils.convertToBoolean(rawValue));
+			value = XMPUtils.convertToBoolean(rawValue);
 			break;
 		case VALUE_INTEGER:
 			value = XMPUtils.convertToInteger(rawValue);

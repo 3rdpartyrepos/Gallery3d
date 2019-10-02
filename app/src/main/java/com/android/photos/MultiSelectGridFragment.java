@@ -281,7 +281,7 @@ public abstract class MultiSelectGridFragment extends Fragment
             mGrid = (GridView) root;
         } else {
             View empty = root.findViewById(android.R.id.empty);
-            if (empty != null && empty instanceof TextView) {
+            if (empty instanceof TextView) {
                 mEmptyView = (TextView) empty;
             }
             mProgressContainer = root.findViewById(R.id.progressContainer);

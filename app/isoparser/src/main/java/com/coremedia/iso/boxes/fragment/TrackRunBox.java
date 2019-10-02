@@ -335,18 +335,16 @@ public class TrackRunBox extends AbstractFullBox {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("TrackRunBox");
-        sb.append("{sampleCount=").append(entries.size());
-        sb.append(", dataOffset=").append(dataOffset);
-        sb.append(", dataOffsetPresent=").append(isDataOffsetPresent());
-        sb.append(", sampleSizePresent=").append(isSampleSizePresent());
-        sb.append(", sampleDurationPresent=").append(isSampleDurationPresent());
-        sb.append(", sampleFlagsPresentPresent=").append(isSampleFlagsPresent());
-        sb.append(", sampleCompositionTimeOffsetPresent=").append(isSampleCompositionTimeOffsetPresent());
-        sb.append(", firstSampleFlags=").append(firstSampleFlags);
-        sb.append('}');
-        return sb.toString();
+        return "TrackRunBox" +
+                "{sampleCount=" + entries.size() +
+                ", dataOffset=" + dataOffset +
+                ", dataOffsetPresent=" + isDataOffsetPresent() +
+                ", sampleSizePresent=" + isSampleSizePresent() +
+                ", sampleDurationPresent=" + isSampleDurationPresent() +
+                ", sampleFlagsPresentPresent=" + isSampleFlagsPresent() +
+                ", sampleCompositionTimeOffsetPresent=" + isSampleCompositionTimeOffsetPresent() +
+                ", firstSampleFlags=" + firstSampleFlags +
+                '}';
     }
 
     public void setEntries(List<Entry> entries) {

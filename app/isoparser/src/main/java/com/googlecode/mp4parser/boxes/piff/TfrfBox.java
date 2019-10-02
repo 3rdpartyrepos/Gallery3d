@@ -97,11 +97,8 @@ public class TfrfBox extends AbstractFullBox {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("TfrfBox");
-        sb.append("{entries=").append(entries);
-        sb.append('}');
-        return sb.toString();
+        return "TfrfBox" +
+                "{entries=" + entries + '}';
     }
 
     public class Entry {
@@ -118,12 +115,10 @@ public class TfrfBox extends AbstractFullBox {
 
         @Override
         public String toString() {
-            final StringBuilder sb = new StringBuilder();
-            sb.append("Entry");
-            sb.append("{fragmentAbsoluteTime=").append(fragmentAbsoluteTime);
-            sb.append(", fragmentAbsoluteDuration=").append(fragmentAbsoluteDuration);
-            sb.append('}');
-            return sb.toString();
+            return "Entry" +
+                    "{fragmentAbsoluteTime=" + fragmentAbsoluteTime +
+                    ", fragmentAbsoluteDuration=" + fragmentAbsoluteDuration +
+                    '}';
         }
     }
 }

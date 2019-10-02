@@ -139,7 +139,7 @@ public class EditorVignette extends ParametricEditor {
     @Override
     public String calculateUserMessage(Context context, String effectName, Object parameterValue) {
         FilterRepresentation rep = getLocalRepresentation();
-        if (rep == null || !(rep instanceof FilterVignetteRepresentation)) {
+        if (!(rep instanceof FilterVignetteRepresentation)) {
             return "";
         }
         FilterVignetteRepresentation csrep = (FilterVignetteRepresentation) rep;
@@ -265,8 +265,7 @@ public class EditorVignette extends ParametricEditor {
 
     private FilterVignetteRepresentation getVignetteRep() {
         FilterRepresentation rep = getLocalRepresentation();
-        if (rep != null
-                && rep instanceof FilterVignetteRepresentation) {
+        if (rep instanceof FilterVignetteRepresentation) {
             FilterVignetteRepresentation csrep = (FilterVignetteRepresentation) rep;
             return csrep;
         }

@@ -47,7 +47,7 @@ public class EditorPlaceHolder {
         View eview = editor.getTopLevelView();
         ViewParent parent = eview.getParent();
 
-        if (parent != null && parent instanceof FrameLayout) {
+        if (parent instanceof FrameLayout) {
             ((FrameLayout) parent).removeAllViews();
         }
 

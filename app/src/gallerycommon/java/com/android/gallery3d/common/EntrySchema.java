@@ -439,10 +439,7 @@ public final class EntrySchema {
     }
 
     public void deleteAll(SQLiteDatabase db) {
-        StringBuilder sql = new StringBuilder("DELETE FROM ");
-        sql.append(mTableName);
-        sql.append(";");
-        logExecSql(db, sql.toString());
+        logExecSql(db, "DELETE FROM " + mTableName + ";");
     }
 
     private String parseTableName(Class<?> clazz) {

@@ -87,11 +87,8 @@ public class SLConfigDescriptor extends BaseDescriptor {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("SLConfigDescriptor");
-        sb.append("{predefined=").append(predefined);
-        sb.append('}');
-        return sb.toString();
+        return "SLConfigDescriptor" +
+                "{predefined=" + predefined + '}';
     }
 
     @Override

@@ -98,13 +98,11 @@ public class ClassificationBox extends AbstractFullBox {
 
 
     public String toString() {
-        StringBuilder buffer = new StringBuilder();
-        buffer.append("ClassificationBox[language=").append(getLanguage());
-        buffer.append("classificationEntity=").append(getClassificationEntity());
-        buffer.append(";classificationTableIndex=").append(getClassificationTableIndex());
-        buffer.append(";language=").append(getLanguage());
-        buffer.append(";classificationInfo=").append(getClassificationInfo());
-        buffer.append("]");
-        return buffer.toString();
+        return "ClassificationBox[language=" + getLanguage() +
+                "classificationEntity=" + getClassificationEntity() +
+                ";classificationTableIndex=" + getClassificationTableIndex() +
+                ";language=" + getLanguage() +
+                ";classificationInfo=" + getClassificationInfo() +
+                "]";
     }
 }

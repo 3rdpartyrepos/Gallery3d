@@ -312,22 +312,20 @@ public class ESDescriptor extends BaseDescriptor {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("ESDescriptor");
-        sb.append("{esId=").append(esId);
-        sb.append(", streamDependenceFlag=").append(streamDependenceFlag);
-        sb.append(", URLFlag=").append(URLFlag);
-        sb.append(", oCRstreamFlag=").append(oCRstreamFlag);
-        sb.append(", streamPriority=").append(streamPriority);
-        sb.append(", URLLength=").append(URLLength);
-        sb.append(", URLString='").append(URLString).append('\'');
-        sb.append(", remoteODFlag=").append(remoteODFlag);
-        sb.append(", dependsOnEsId=").append(dependsOnEsId);
-        sb.append(", oCREsId=").append(oCREsId);
-        sb.append(", decoderConfigDescriptor=").append(decoderConfigDescriptor);
-        sb.append(", slConfigDescriptor=").append(slConfigDescriptor);
-        sb.append('}');
-        return sb.toString();
+        return "ESDescriptor" +
+                "{esId=" + esId +
+                ", streamDependenceFlag=" + streamDependenceFlag +
+                ", URLFlag=" + URLFlag +
+                ", oCRstreamFlag=" + oCRstreamFlag +
+                ", streamPriority=" + streamPriority +
+                ", URLLength=" + URLLength +
+                ", URLString='" + URLString + '\'' +
+                ", remoteODFlag=" + remoteODFlag +
+                ", dependsOnEsId=" + dependsOnEsId +
+                ", oCREsId=" + oCREsId +
+                ", decoderConfigDescriptor=" + decoderConfigDescriptor +
+                ", slConfigDescriptor=" + slConfigDescriptor +
+                '}';
     }
 
     @Override

@@ -56,18 +56,12 @@ public class SaveVideoFileUtils {
 
     private static void querySource(ContentResolver contentResolver, Uri uri,
             String[] projection, ContentResolverQueryCallback callback) {
-        Cursor cursor = null;
-        try {
-            cursor = contentResolver.query(uri, projection, null, null, null);
-            if ((cursor != null) && cursor.moveToNext()) {
+        try(Cursor cursor = contentResolver.query(uri, projection, null, null, null)) {
+            if ((cursor != null) && cursor.moveToNext())
                 callback.onCursorResult(cursor);
-            }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             // Ignore error for lacking the data column from the source.
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
         }
     }
 

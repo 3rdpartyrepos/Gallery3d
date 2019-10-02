@@ -342,13 +342,11 @@ public class ItemLocationBox extends AbstractFullBox {
 
         @Override
         public String toString() {
-            final StringBuilder sb = new StringBuilder();
-            sb.append("Extent");
-            sb.append("{extentOffset=").append(extentOffset);
-            sb.append(", extentLength=").append(extentLength);
-            sb.append(", extentIndex=").append(extentIndex);
-            sb.append('}');
-            return sb.toString();
+            return "Extent" +
+                    "{extentOffset=" + extentOffset +
+                    ", extentLength=" + extentLength +
+                    ", extentIndex=" + extentIndex +
+                    '}';
         }
     }
 

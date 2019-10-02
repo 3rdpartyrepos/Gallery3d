@@ -89,13 +89,11 @@ public class AmrSpecificBox extends AbstractBox {
     }
 
     public String toString() {
-        StringBuilder buffer = new StringBuilder();
-        buffer.append("AmrSpecificBox[vendor=").append(getVendor());
-        buffer.append(";decoderVersion=").append(getDecoderVersion());
-        buffer.append(";modeSet=").append(getModeSet());
-        buffer.append(";modeChangePeriod=").append(getModeChangePeriod());
-        buffer.append(";framesPerSample=").append(getFramesPerSample());
-        buffer.append("]");
-        return buffer.toString();
+        return "AmrSpecificBox[vendor=" + getVendor() +
+                ";decoderVersion=" + getDecoderVersion() +
+                ";modeSet=" + getModeSet() +
+                ";modeChangePeriod=" + getModeChangePeriod() +
+                ";framesPerSample=" + getFramesPerSample() +
+                "]";
     }
 }

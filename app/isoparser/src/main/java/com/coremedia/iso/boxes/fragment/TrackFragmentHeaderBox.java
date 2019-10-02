@@ -208,17 +208,15 @@ public class TrackFragmentHeaderBox extends AbstractFullBox {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("TrackFragmentHeaderBox");
-        sb.append("{trackId=").append(trackId);
-        sb.append(", baseDataOffset=").append(baseDataOffset);
-        sb.append(", sampleDescriptionIndex=").append(sampleDescriptionIndex);
-        sb.append(", defaultSampleDuration=").append(defaultSampleDuration);
-        sb.append(", defaultSampleSize=").append(defaultSampleSize);
-        sb.append(", defaultSampleFlags=").append(defaultSampleFlags);
-        sb.append(", durationIsEmpty=").append(durationIsEmpty);
-        sb.append('}');
-        return sb.toString();
+        return "TrackFragmentHeaderBox" +
+                "{trackId=" + trackId +
+                ", baseDataOffset=" + baseDataOffset +
+                ", sampleDescriptionIndex=" + sampleDescriptionIndex +
+                ", defaultSampleDuration=" + defaultSampleDuration +
+                ", defaultSampleSize=" + defaultSampleSize +
+                ", defaultSampleFlags=" + defaultSampleFlags +
+                ", durationIsEmpty=" + durationIsEmpty +
+                '}';
     }
 
 }

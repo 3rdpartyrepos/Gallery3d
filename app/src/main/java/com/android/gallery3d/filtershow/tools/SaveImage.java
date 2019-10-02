@@ -549,19 +549,12 @@ public class SaveImage {
     private static void querySourceFromContentResolver(
             ContentResolver contentResolver, Uri sourceUri, String[] projection,
             ContentResolverQueryCallback callback) {
-        Cursor cursor = null;
-        try {
-            cursor = contentResolver.query(sourceUri, projection, null, null,
-                    null);
-            if ((cursor != null) && cursor.moveToNext()) {
+        try(Cursor cursor = contentResolver.query(sourceUri, projection, null, null, null)) {
+            if ((cursor != null) && cursor.moveToNext())
                 callback.onCursorResult(cursor);
-            }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             // Ignore error for lacking the data column from the source.
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
         }
     }
 

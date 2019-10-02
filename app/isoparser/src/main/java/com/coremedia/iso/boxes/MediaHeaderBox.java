@@ -113,19 +113,17 @@ public class MediaHeaderBox extends AbstractFullBox {
 
 
     public String toString() {
-        StringBuilder result = new StringBuilder();
-        result.append("MediaHeaderBox[");
-        result.append("creationTime=").append(getCreationTime());
-        result.append(";");
-        result.append("modificationTime=").append(getModificationTime());
-        result.append(";");
-        result.append("timescale=").append(getTimescale());
-        result.append(";");
-        result.append("duration=").append(getDuration());
-        result.append(";");
-        result.append("language=").append(getLanguage());
-        result.append("]");
-        return result.toString();
+        return "MediaHeaderBox[" +
+                "creationTime=" + getCreationTime() +
+                ";" +
+                "modificationTime=" + getModificationTime() +
+                ";" +
+                "timescale=" + getTimescale() +
+                ";" +
+                "duration=" + getDuration() +
+                ";" +
+                "language=" + getLanguage() +
+                "]";
     }
 
     protected void getContent(ByteBuffer byteBuffer) {

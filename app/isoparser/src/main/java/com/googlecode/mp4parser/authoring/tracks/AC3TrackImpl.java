@@ -205,6 +205,7 @@ public class AC3TrackImpl extends AbstractTrack {
 
         switch (acmod) {
             case 0:
+            case 2:
                 channelCount = 2;
                 break;
 
@@ -212,22 +213,12 @@ public class AC3TrackImpl extends AbstractTrack {
                 channelCount = 1;
                 break;
 
-            case 2:
-                channelCount = 2;
-                break;
-
             case 3:
-                channelCount = 3;
-                break;
-
             case 4:
                 channelCount = 3;
                 break;
 
             case 5:
-                channelCount = 4;
-                break;
-
             case 6:
                 channelCount = 4;
                 break;

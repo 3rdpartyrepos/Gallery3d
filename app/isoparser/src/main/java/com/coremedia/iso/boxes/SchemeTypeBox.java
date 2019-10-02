@@ -90,12 +90,10 @@ public class SchemeTypeBox extends AbstractFullBox {
     }
 
     public String toString() {
-        StringBuilder buffer = new StringBuilder();
-        buffer.append("Schema Type Box[");
-        buffer.append("schemeUri=").append(schemeUri).append("; ");
-        buffer.append("schemeType=").append(schemeType).append("; ");
-        buffer.append("schemeVersion=").append(schemeUri).append("; ");
-        buffer.append("]");
-        return buffer.toString();
+        return "Schema Type Box[" +
+                "schemeUri=" + schemeUri + "; " +
+                "schemeType=" + schemeType + "; " +
+                "schemeVersion=" + schemeUri + "; " +
+                "]";
     }
 }

@@ -88,13 +88,11 @@ public class PlayReadyHeader extends ProtectionSpecificHeader {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("PlayReadyHeader");
-        sb.append("{length=").append(length);
-        sb.append(", recordCount=").append(records.size());
-        sb.append(", records=").append(records);
-        sb.append('}');
-        return sb.toString();
+        return "PlayReadyHeader" +
+                "{length=" + length +
+                ", recordCount=" + records.size() +
+                ", records=" + records +
+                '}';
     }
 
     public static abstract class PlayReadyRecord {
@@ -137,13 +135,11 @@ public class PlayReadyHeader extends ProtectionSpecificHeader {
 
         @Override
         public String toString() {
-            final StringBuilder sb = new StringBuilder();
-            sb.append("PlayReadyRecord");
-            sb.append("{type=").append(type);
-            sb.append(", length=").append(getValue().limit());
+            return "PlayReadyRecord" +
+                    "{type=" + type +
+                    ", length=" + getValue().limit() +
 //            sb.append(", value=").append(Hex.encodeHex(getValue())).append('\'');
-            sb.append('}');
-            return sb.toString();
+                    '}';
         }
 
         public abstract ByteBuffer getValue();
@@ -179,12 +175,10 @@ public class PlayReadyHeader extends ProtectionSpecificHeader {
 
             @Override
             public String toString() {
-                final StringBuilder sb = new StringBuilder();
-                sb.append("RMHeader");
-                sb.append("{length=").append(getValue().limit());
-                sb.append(", header='").append(header).append('\'');
-                sb.append('}');
-                return sb.toString();
+                return "RMHeader" +
+                        "{length=" + getValue().limit() +
+                        ", header='" + header + '\'' +
+                        '}';
             }
         }
 
@@ -207,12 +201,10 @@ public class PlayReadyHeader extends ProtectionSpecificHeader {
 
             @Override
             public String toString() {
-                final StringBuilder sb = new StringBuilder();
-                sb.append("EmeddedLicenseStore");
-                sb.append("{length=").append(getValue().limit());
-                //sb.append(", value='").append(Hex.encodeHex(getValue())).append('\'');
-                sb.append('}');
-                return sb.toString();
+                return "EmeddedLicenseStore" +
+                        "{length=" + getValue().limit() +
+                        //sb.append(", value='").append(Hex.encodeHex(getValue())).append('\'');
+                        '}';
             }
         }
 

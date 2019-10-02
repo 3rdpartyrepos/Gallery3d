@@ -44,7 +44,7 @@ public class EditorTinyPlanet extends BasicEditor {
     public void reflectCurrentFilter() {
         super.reflectCurrentFilter();
         FilterRepresentation rep = getLocalRepresentation();
-        if (rep != null && rep instanceof FilterTinyPlanetRepresentation) {
+        if (rep instanceof FilterTinyPlanetRepresentation) {
             FilterTinyPlanetRepresentation drawRep = (FilterTinyPlanetRepresentation) rep;
             mImageTinyPlanet.setRepresentation(drawRep);
         }

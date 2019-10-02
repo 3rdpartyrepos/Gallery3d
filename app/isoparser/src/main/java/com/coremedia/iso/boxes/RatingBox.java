@@ -112,13 +112,11 @@ public class RatingBox extends AbstractFullBox {
     }
 
     public String toString() {
-        StringBuilder buffer = new StringBuilder();
-        buffer.append("RatingBox[language=").append(getLanguage());
-        buffer.append("ratingEntity=").append(getRatingEntity());
-        buffer.append(";ratingCriteria=").append(getRatingCriteria());
-        buffer.append(";language=").append(getLanguage());
-        buffer.append(";ratingInfo=").append(getRatingInfo());
-        buffer.append("]");
-        return buffer.toString();
+        return "RatingBox[language=" + getLanguage() +
+                "ratingEntity=" + getRatingEntity() +
+                ";ratingCriteria=" + getRatingCriteria() +
+                ";language=" + getLanguage() +
+                ";ratingInfo=" + getRatingInfo() +
+                "]";
     }
 }

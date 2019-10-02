@@ -311,7 +311,7 @@ public class FilterShowActivity extends FragmentActivity implements OnItemClickL
                 && getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             doAnimation = true;
         }
-        if (doAnimation && main != null && main instanceof MainPanel) {
+        if (doAnimation && main instanceof MainPanel) {
             MainPanel mainPanel = (MainPanel) main;
             View container = mainPanel.getView().findViewById(R.id.category_panel_container);
             View bottom = mainPanel.getView().findViewById(R.id.bottom_panel);
@@ -1221,7 +1221,7 @@ public class FilterShowActivity extends FragmentActivity implements OnItemClickL
     public void toggleVersionsPanel() {
         mShowingVersionsPanel = !mShowingVersionsPanel;
         Fragment panel = getSupportFragmentManager().findFragmentByTag(MainPanel.FRAGMENT_TAG);
-        if (panel != null && panel instanceof MainPanel) {
+        if (panel instanceof MainPanel) {
             MainPanel mainPanel = (MainPanel) panel;
             mainPanel.loadCategoryVersionsPanel();
         }

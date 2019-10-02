@@ -79,7 +79,7 @@ public class EditorChanSat extends ParametricEditor implements OnSeekBarChangeLi
     @Override
     public String calculateUserMessage(Context context, String effectName, Object parameterValue) {
         FilterRepresentation rep = getLocalRepresentation();
-        if (rep == null || !(rep instanceof FilterChanSatRepresentation)) {
+        if (!(rep instanceof FilterChanSatRepresentation)) {
             return "";
         }
         FilterChanSatRepresentation csrep = (FilterChanSatRepresentation) rep;
@@ -257,8 +257,7 @@ public class EditorChanSat extends ParametricEditor implements OnSeekBarChangeLi
 
     private FilterChanSatRepresentation getChanSatRep() {
         FilterRepresentation rep = getLocalRepresentation();
-        if (rep != null
-                && rep instanceof FilterChanSatRepresentation) {
+        if (rep instanceof FilterChanSatRepresentation) {
             FilterChanSatRepresentation csrep = (FilterChanSatRepresentation) rep;
             return csrep;
         }

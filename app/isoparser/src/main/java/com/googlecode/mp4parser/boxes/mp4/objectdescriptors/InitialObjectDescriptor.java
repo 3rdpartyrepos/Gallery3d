@@ -115,22 +115,20 @@ public class InitialObjectDescriptor extends ObjectDescriptorBase {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("InitialObjectDescriptor");
-        sb.append("{objectDescriptorId=").append(objectDescriptorId);
-        sb.append(", urlFlag=").append(urlFlag);
-        sb.append(", includeInlineProfileLevelFlag=").append(includeInlineProfileLevelFlag);
-        sb.append(", urlLength=").append(urlLength);
-        sb.append(", urlString='").append(urlString).append('\'');
-        sb.append(", oDProfileLevelIndication=").append(oDProfileLevelIndication);
-        sb.append(", sceneProfileLevelIndication=").append(sceneProfileLevelIndication);
-        sb.append(", audioProfileLevelIndication=").append(audioProfileLevelIndication);
-        sb.append(", visualProfileLevelIndication=").append(visualProfileLevelIndication);
-        sb.append(", graphicsProfileLevelIndication=").append(graphicsProfileLevelIndication);
-        sb.append(", esDescriptors=").append(esDescriptors);
-        sb.append(", extensionDescriptors=").append(extensionDescriptors);
-        sb.append(", unknownDescriptors=").append(unknownDescriptors);
-        sb.append('}');
-        return sb.toString();
+        return "InitialObjectDescriptor" +
+                "{objectDescriptorId=" + objectDescriptorId +
+                ", urlFlag=" + urlFlag +
+                ", includeInlineProfileLevelFlag=" + includeInlineProfileLevelFlag +
+                ", urlLength=" + urlLength +
+                ", urlString='" + urlString + '\'' +
+                ", oDProfileLevelIndication=" + oDProfileLevelIndication +
+                ", sceneProfileLevelIndication=" + sceneProfileLevelIndication +
+                ", audioProfileLevelIndication=" + audioProfileLevelIndication +
+                ", visualProfileLevelIndication=" + visualProfileLevelIndication +
+                ", graphicsProfileLevelIndication=" + graphicsProfileLevelIndication +
+                ", esDescriptors=" + esDescriptors +
+                ", extensionDescriptors=" + extensionDescriptors +
+                ", unknownDescriptors=" + unknownDescriptors +
+                '}';
     }
 }

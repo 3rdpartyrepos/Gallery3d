@@ -101,8 +101,7 @@ public class CacheProcessing {
                 }
             }
             if (onlyGeometry) {
-                ArrayList<FilterRepresentation> geometry = new ArrayList<>();
-                geometry.addAll(representations);
+                ArrayList<FilterRepresentation> geometry = new ArrayList<>(representations);
                 if (DEBUG) {
                     Log.v(LOGTAG, "Apply geometry to bitmap " + cacheBitmap);
                 }

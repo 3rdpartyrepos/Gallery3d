@@ -42,10 +42,7 @@ public class ExtensionProfileLevelDescriptor extends BaseDescriptor {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("ExtensionDescriptor");
-        sb.append("{bytes=").append(bytes == null ? "null" : Hex.encodeHex(bytes));
-        sb.append('}');
-        return sb.toString();
+        return "ExtensionDescriptor" +
+                "{bytes=" + (bytes == null ? "null" : Hex.encodeHex(bytes)) + '}';
     }
 }

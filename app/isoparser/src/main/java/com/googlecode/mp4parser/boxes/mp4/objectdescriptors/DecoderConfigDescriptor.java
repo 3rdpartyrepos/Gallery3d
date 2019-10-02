@@ -189,20 +189,18 @@ public class DecoderConfigDescriptor extends BaseDescriptor {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("DecoderConfigDescriptor");
-        sb.append("{objectTypeIndication=").append(objectTypeIndication);
-        sb.append(", streamType=").append(streamType);
-        sb.append(", upStream=").append(upStream);
-        sb.append(", bufferSizeDB=").append(bufferSizeDB);
-        sb.append(", maxBitRate=").append(maxBitRate);
-        sb.append(", avgBitRate=").append(avgBitRate);
-        sb.append(", decoderSpecificInfo=").append(decoderSpecificInfo);
-        sb.append(", audioSpecificInfo=").append(audioSpecificInfo);
-        sb.append(", configDescriptorDeadBytes=").append(Hex.encodeHex(configDescriptorDeadBytes != null ? configDescriptorDeadBytes : new byte[]{}));
-        sb.append(", profileLevelIndicationDescriptors=").append(profileLevelIndicationDescriptors == null ? "null" : Collections.singletonList(profileLevelIndicationDescriptors).toString());
-        sb.append('}');
-        return sb.toString();
+        return "DecoderConfigDescriptor" +
+                "{objectTypeIndication=" + objectTypeIndication +
+                ", streamType=" + streamType +
+                ", upStream=" + upStream +
+                ", bufferSizeDB=" + bufferSizeDB +
+                ", maxBitRate=" + maxBitRate +
+                ", avgBitRate=" + avgBitRate +
+                ", decoderSpecificInfo=" + decoderSpecificInfo +
+                ", audioSpecificInfo=" + audioSpecificInfo +
+                ", configDescriptorDeadBytes=" + Hex.encodeHex(configDescriptorDeadBytes != null ? configDescriptorDeadBytes : new byte[]{}) +
+                ", profileLevelIndicationDescriptors=" + (profileLevelIndicationDescriptors == null ? "null" : Collections.singletonList(profileLevelIndicationDescriptors).toString()) +
+                '}';
     }
     /*objectTypeIndication values
       0x00 Forbidden

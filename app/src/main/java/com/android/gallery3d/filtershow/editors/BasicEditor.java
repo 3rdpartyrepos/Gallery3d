@@ -55,7 +55,7 @@ public class BasicEditor extends ParametricEditor implements ParameterInteger {
 
     private FilterBasicRepresentation getBasicRepresentation() {
         FilterRepresentation tmpRep = getLocalRepresentation();
-        if (tmpRep != null && tmpRep instanceof FilterBasicRepresentation) {
+        if (tmpRep instanceof FilterBasicRepresentation) {
             return (FilterBasicRepresentation) tmpRep;
 
         }

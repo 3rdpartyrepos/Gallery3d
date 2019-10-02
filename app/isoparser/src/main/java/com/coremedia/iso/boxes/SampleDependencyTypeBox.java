@@ -127,10 +127,6 @@ public class SampleDependencyTypeBox extends AbstractFullBox {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("SampleDependencyTypeBox");
-        sb.append("{entries=").append(entries);
-        sb.append('}');
-        return sb.toString();
+        return "SampleDependencyTypeBox" + "{entries=" + entries + '}';
     }
 }

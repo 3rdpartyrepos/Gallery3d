@@ -80,11 +80,9 @@ public class VisualRandomAccessEntry extends GroupEntry {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("VisualRandomAccessEntry");
-        sb.append("{numLeadingSamplesKnown=").append(numLeadingSamplesKnown);
-        sb.append(", numLeadingSamples=").append(numLeadingSamples);
-        sb.append('}');
-        return sb.toString();
+        return "VisualRandomAccessEntry" +
+                "{numLeadingSamplesKnown=" + numLeadingSamplesKnown +
+                ", numLeadingSamples=" + numLeadingSamples +
+                '}';
     }
 }

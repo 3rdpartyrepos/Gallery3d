@@ -89,11 +89,9 @@ public abstract class BaseDescriptor {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("BaseDescriptor");
-        sb.append("{tag=").append(tag);
-        sb.append(", sizeOfInstance=").append(sizeOfInstance);
-        sb.append('}');
-        return sb.toString();
+        return "BaseDescriptor" +
+                "{tag=" + tag +
+                ", sizeOfInstance=" + sizeOfInstance +
+                '}';
     }
 }

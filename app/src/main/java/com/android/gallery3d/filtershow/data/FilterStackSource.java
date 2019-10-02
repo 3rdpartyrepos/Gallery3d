@@ -106,21 +106,17 @@ public class FilterStackSource {
 
     public byte[] getStack(String stackName) {
         byte[] ret = null;
-        Cursor c = null;
         database.beginTransaction();
-        try {
-            c = database.query(FilterStack.TABLE,
-                    new String[] { FilterStack.FILTER_STACK },
-                    FilterStack.STACK_ID + " = ?",
-                    new String[] { stackName }, null, null, null, null);
+        try(Cursor c = database.query(FilterStack.TABLE,
+                new String[] { FilterStack.FILTER_STACK },
+                FilterStack.STACK_ID + " = ?",
+                new String[] { stackName }, null, null, null, null)) {
             if (c != null && c.moveToFirst() && !c.isNull(0)) {
                 ret = c.getBlob(0);
             }
             database.setTransactionSuccessful();
-        } finally {
-            if (c != null) {
-                c.close();
-            }
+        }
+        finally {
             database.endTransaction();
         }
         return ret;
@@ -130,14 +126,12 @@ public class FilterStackSource {
         ArrayList<FilterUserPresetRepresentation> ret =
                 new ArrayList<>();
 
-        Cursor c = null;
         database.beginTransaction();
-        try {
-            c = database.query(FilterStack.TABLE,
-                    new String[] { FilterStack._ID,
-                            FilterStack.STACK_ID,
-                            FilterStack.FILTER_STACK },
-                    null, null, null, null, null, null);
+        try(Cursor c = database.query(FilterStack.TABLE,
+                new String[] { FilterStack._ID,
+                        FilterStack.STACK_ID,
+                        FilterStack.FILTER_STACK },
+                null, null, null, null, null, null)) {
             if (c != null) {
                 boolean loopCheck = c.moveToFirst();
                 while (loopCheck) {
@@ -156,9 +150,6 @@ public class FilterStackSource {
             }
             database.setTransactionSuccessful();
         } finally {
-            if (c != null) {
-                c.close();
-            }
             database.endTransaction();
         }
 
@@ -167,12 +158,10 @@ public class FilterStackSource {
 
     public List<Pair<String, byte[]>> getAllStacks() {
         List<Pair<String, byte[]>> ret = new ArrayList<>();
-        Cursor c = null;
         database.beginTransaction();
-        try {
-            c = database.query(FilterStack.TABLE,
-                    new String[] { FilterStack.STACK_ID, FilterStack.FILTER_STACK },
-                    null, null, null, null, null, null);
+        try(Cursor c = database.query(FilterStack.TABLE,
+                new String[] { FilterStack.STACK_ID, FilterStack.FILTER_STACK },
+                null, null, null, null, null, null)) {
             if (c != null) {
                 boolean loopCheck = c.moveToFirst();
                 while (loopCheck) {
@@ -184,9 +173,6 @@ public class FilterStackSource {
             }
             database.setTransactionSuccessful();
         } finally {
-            if (c != null) {
-                c.close();
-            }
             database.endTransaction();
         }
         if (ret.size() <= 0) {

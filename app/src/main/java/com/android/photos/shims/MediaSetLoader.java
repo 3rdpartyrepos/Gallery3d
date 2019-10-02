@@ -125,7 +125,7 @@ public class MediaSetLoader extends AsyncTaskLoader<Cursor> implements LoaderCom
     @Override
     public Drawable drawableForItem(Cursor item, Drawable recycle) {
         BitmapJobDrawable drawable = null;
-        if (recycle == null || !(recycle instanceof BitmapJobDrawable)) {
+        if (!(recycle instanceof BitmapJobDrawable)) {
             drawable = new BitmapJobDrawable();
         } else {
             drawable = (BitmapJobDrawable) recycle;

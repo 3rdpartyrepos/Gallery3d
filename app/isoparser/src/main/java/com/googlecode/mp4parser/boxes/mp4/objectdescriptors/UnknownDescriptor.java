@@ -31,12 +31,10 @@ public class UnknownDescriptor extends BaseDescriptor {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("UnknownDescriptor");
-        sb.append("{tag=").append(tag);
-        sb.append(", sizeOfInstance=").append(sizeOfInstance);
-        sb.append(", data=").append(data);
-        sb.append('}');
-        return sb.toString();
+        return "UnknownDescriptor" +
+                "{tag=" + tag +
+                ", sizeOfInstance=" + sizeOfInstance +
+                ", data=" + data +
+                '}';
     }
 }

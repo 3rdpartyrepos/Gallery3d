@@ -45,11 +45,8 @@ public class PropertyBoxParserImpl extends AbstractBoxParser {
 
                 while (enumeration.hasMoreElements()) {
                     URL url = enumeration.nextElement();
-                    InputStream customIS = new BufferedInputStream(url.openStream());
-                    try {
+                    try(InputStream customIS = new BufferedInputStream(url.openStream())) {
                         mapping.load(customIS);
-                    } finally {
-                        customIS.close();
                     }
                 }
                 for (String customProperty : customProperties) {

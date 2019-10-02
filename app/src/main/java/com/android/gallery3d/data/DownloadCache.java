@@ -88,13 +88,12 @@ public class DownloadCache {
     private Entry findEntryInDatabase(String stringUrl) {
         long hash = Utils.crc64Long(stringUrl);
         String[] whereArgs = {String.valueOf(hash), stringUrl};
-        Cursor cursor = mDatabase.query(TABLE_NAME, QUERY_PROJECTION,
-                WHERE_HASH_AND_URL, whereArgs, null, null, null);
-        try {
+        try(Cursor cursor = mDatabase.query(TABLE_NAME, QUERY_PROJECTION,
+                WHERE_HASH_AND_URL, whereArgs, null, null, null)) {
             if (cursor.moveToNext()) {
                 File file = new File(cursor.getString(QUERY_INDEX_DATA));
                 long id = cursor.getInt(QUERY_INDEX_ID);
-                Entry entry = null;
+                Entry entry;
                 synchronized (mEntryMap) {
                     entry = mEntryMap.get(stringUrl);
                     if (entry == null) {
@@ -104,8 +103,6 @@ public class DownloadCache {
                 }
                 return entry;
             }
-        } finally {
-            cursor.close();
         }
         return null;
     }
@@ -156,9 +153,9 @@ public class DownloadCache {
 
     private synchronized void freeSomeSpaceIfNeed(int maxDeleteFileCount) {
         if (mTotalBytes <= mCapacity) return;
-        Cursor cursor = mDatabase.query(TABLE_NAME,
-                FREESPACE_PROJECTION, null, null, null, null, FREESPACE_ORDER_BY);
-        try {
+
+        try(Cursor cursor = mDatabase.query(TABLE_NAME,
+                FREESPACE_PROJECTION, null, null, null, null, FREESPACE_ORDER_BY)) {
             while (maxDeleteFileCount > 0
                     && mTotalBytes > mCapacity && cursor.moveToNext()) {
                 long id = cursor.getLong(FREESPACE_IDNEX_ID);
@@ -179,8 +176,6 @@ public class DownloadCache {
                     // skip delete, since it is being used
                 }
             }
-        } finally {
-            cursor.close();
         }
     }
 
@@ -206,15 +201,11 @@ public class DownloadCache {
             throw new RuntimeException("cannot create " + mRoot.getAbsolutePath());
         }
 
-        Cursor cursor = mDatabase.query(
-                TABLE_NAME, SUM_PROJECTION, null, null, null, null, null);
         mTotalBytes = 0;
-        try {
-            if (cursor.moveToNext()) {
+        try(Cursor cursor = mDatabase.query(
+                TABLE_NAME, SUM_PROJECTION, null, null, null, null, null)) {
+            if (cursor.moveToNext())
                 mTotalBytes = cursor.getLong(SUM_INDEX_SUM);
-            }
-        } finally {
-            cursor.close();
         }
         if (mTotalBytes > mCapacity) freeSomeSpaceIfNeed(MAX_DELETE_COUNT);
     }

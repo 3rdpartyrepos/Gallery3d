@@ -38,11 +38,9 @@ public class ProfileLevelIndicationDescriptor extends BaseDescriptor {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("ProfileLevelIndicationDescriptor");
-        sb.append("{profileLevelIndicationIndex=").append(Integer.toHexString(profileLevelIndicationIndex));
-        sb.append('}');
-        return sb.toString();
+        return "ProfileLevelIndicationDescriptor" +
+                "{profileLevelIndicationIndex=" + Integer.toHexString(profileLevelIndicationIndex) +
+                '}';
     }
 
     @Override

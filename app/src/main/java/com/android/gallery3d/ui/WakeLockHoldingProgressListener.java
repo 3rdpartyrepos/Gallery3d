@@ -16,7 +16,6 @@
 
 package com.android.gallery3d.ui;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.PowerManager;
 

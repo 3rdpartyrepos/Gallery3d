@@ -20,8 +20,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.nfc.NfcAdapter;
-import android.nfc.NfcAdapter.CreateBeamUrisCallback;
-import android.nfc.NfcEvent;
 import android.provider.MediaStore.Files.FileColumns;
 import android.widget.ShareActionProvider;
 

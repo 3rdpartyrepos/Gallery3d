@@ -5,7 +5,6 @@ import com.coremedia.iso.boxes.Box;
 import com.coremedia.iso.boxes.ContainerBox;
 
 import java.nio.ByteBuffer;
-import java.util.Arrays;
 import java.util.Collections;
 
 public class MpegSampleEntry extends SampleEntry implements ContainerBox {

@@ -23,13 +23,11 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
-import android.widget.SeekBar;
 
 import com.android.gallery3d.R;
 import com.android.gallery3d.filtershow.FilterShowActivity;

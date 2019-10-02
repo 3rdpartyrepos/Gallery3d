@@ -24,7 +24,6 @@ import android.os.Looper;
 import com.android.gallery3d.app.AbstractGalleryActivity;
 import com.android.gallery3d.data.MediaDetails;
 import com.android.gallery3d.util.Future;
-import com.android.gallery3d.util.FutureListener;
 import com.android.gallery3d.util.GalleryUtils;
 import com.android.gallery3d.util.ReverseGeocoder;
 import com.android.gallery3d.util.ThreadPool.Job;

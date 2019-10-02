@@ -3,7 +3,6 @@ package com.android.gallery3d.filtershow.controller;
 import android.app.ActionBar.LayoutParams;
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

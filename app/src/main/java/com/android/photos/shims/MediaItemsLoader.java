@@ -30,7 +30,6 @@ import com.android.gallery3d.data.DataManager;
 import com.android.gallery3d.data.MediaItem;
 import com.android.gallery3d.data.MediaObject;
 import com.android.gallery3d.data.MediaSet;
-import com.android.gallery3d.data.MediaSet.ItemConsumer;
 import com.android.gallery3d.data.MediaSet.SyncListener;
 import com.android.gallery3d.data.Path;
 import com.android.gallery3d.util.Future;

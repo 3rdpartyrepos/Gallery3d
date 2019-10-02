@@ -64,7 +64,7 @@ public class H264TrackImpl extends AbstractTrack {
     public H264TrackImpl(InputStream inputStream, String lang, long timescale) throws IOException {
         this.lang = lang;
         if (timescale > 1000) {
-            timescale = timescale; //e.g. 23976
+            this.timescale = (int)timescale; //e.g. 23976
             frametick = 1000;
             determineFrameRate = false;
         } else {

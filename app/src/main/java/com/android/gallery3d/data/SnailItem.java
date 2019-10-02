@@ -21,7 +21,6 @@ import android.graphics.BitmapRegionDecoder;
 
 import com.android.gallery3d.ui.ScreenNail;
 import com.android.gallery3d.util.ThreadPool.Job;
-import com.android.gallery3d.util.ThreadPool.JobContext;
 
 // SnailItem is a MediaItem which can provide a ScreenNail. This is
 // used so we can show an foreign component (like an

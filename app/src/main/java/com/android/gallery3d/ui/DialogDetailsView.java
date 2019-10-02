@@ -19,8 +19,6 @@ package com.android.gallery3d.ui;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnDismissListener;
 import android.text.format.Formatter;
 import android.view.LayoutInflater;
 import android.view.View;

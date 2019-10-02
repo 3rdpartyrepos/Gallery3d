@@ -17,7 +17,6 @@
 package com.android.gallery3d.data;
 
 import com.android.gallery3d.common.Utils;
-import com.android.gallery3d.util.ThreadPool.CancelListener;
 import com.android.gallery3d.util.ThreadPool.JobContext;
 
 import java.io.File;

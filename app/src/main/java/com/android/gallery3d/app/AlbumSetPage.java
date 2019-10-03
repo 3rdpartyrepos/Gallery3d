@@ -20,7 +20,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.view.HapticFeedbackConstants;
@@ -42,7 +44,6 @@ import com.android.gallery3d.data.MediaSet;
 import com.android.gallery3d.data.Path;
 import com.android.gallery3d.glrenderer.FadeTexture;
 import com.android.gallery3d.glrenderer.GLCanvas;
-import com.android.gallery3d.picasasource.PicasaSource;
 import com.android.gallery3d.settings.GallerySettings;
 import com.android.gallery3d.ui.ActionModeHandler;
 import com.android.gallery3d.ui.AlbumSetSlotRenderer;
@@ -56,8 +57,11 @@ import com.android.gallery3d.util.Future;
 import com.android.gallery3d.util.GalleryUtils;
 import com.android.gallery3d.util.HelpUtils;
 
+import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+
+import it.pgp.misc.DirTreeWalker;
 
 public class AlbumSetPage extends ActivityState implements
         SelectionManager.SelectionListener, GalleryActionBar.ClusterRunner,
@@ -597,7 +601,9 @@ public class AlbumSetPage extends ActivityState implements
                 return true;
             }
             case R.id.action_sync_picasa_albums: {
-                PicasaSource.requestSync(activity);
+//                PicasaSource.requestSync(activity);
+                for(File f : DirTreeWalker.traverse(true, DirTreeWalker.filterImages, Environment.getExternalStorageDirectory()))
+                    activity.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + f.getAbsolutePath())));
                 return true;
             }
             case R.id.action_settings: {

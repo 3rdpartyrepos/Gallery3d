@@ -17,6 +17,7 @@
 package com.android.gallery3d.app;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
@@ -602,8 +603,18 @@ public class AlbumSetPage extends ActivityState implements
             }
             case R.id.action_sync_picasa_albums: {
 //                PicasaSource.requestSync(activity);
-                for(File f : DirTreeWalker.traverse(true, DirTreeWalker.filterImages, Environment.getExternalStorageDirectory()))
-                    activity.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + f.getAbsolutePath())));
+                ProgressDialog progDialog = ProgressDialog.show( activity, null, "Refreshing gallery", true, true);
+                Thread t = new Thread(()->{
+                    Thread current = Thread.currentThread();
+                    for(File f : DirTreeWalker.traverse(true, DirTreeWalker.filterImages, Environment.getExternalStorageDirectory())) {
+                        if(current.isInterrupted()) return; // interrupted by dialog's manual dismiss
+                        activity.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + f.getAbsolutePath())));
+                    }
+                    progDialog.dismiss();
+                });
+                progDialog.setOnDismissListener(d->t.interrupt());
+                t.start();
+
                 return true;
             }
             case R.id.action_settings: {
